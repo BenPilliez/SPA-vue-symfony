@@ -1,0 +1,123 @@
+.sidebar {
+  #btn-content {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+
+    a {
+      text-align: center;
+      letter-spacing: .5px;
+      cursor: pointer;
+      border-radius: 25px;
+      color: #FFFFFF;
+    }
+
+  }
+
+  .dropdown-menu li a {
+    color: black;
+  }
+
+  .navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+  }
+
+  /* ---------------------------------------------------
+      SIDEBAR STYLE
+  ----------------------------------------------------- */
+
+  .b-sidebar {
+    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+  }
+
+
+  #dismiss {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background: #7386D5;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+  }
+
+  #dismiss:hover {
+    background: #fff;
+    color: #7386D5;
+  }
+
+  .b-sidebar .sidebar-header {
+    padding: 20px;
+  }
+
+  .b-sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+  }
+
+  .b-sidebar a, span {
+    color: #fff;
+  }
+
+  .b-sidebar a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+  }
+
+  .sidebar .nav-item:hover {
+    color: #5eb5e0;
+  }
+
+  .b-sidebar .nav-item.active > a,
+  a[aria-expanded="true"] {
+    color: #fff;
+    background: #9360C7;
+  }
+
+  a[data-toggle="collapse"] {
+    position: relative;
+  }
+
+  .card-body a {
+    color: black;
+  }
+
+  .collapsed::after {
+    content: ' \2193';
+
+  }
+
+  .not-collapsed::after {
+    content: ' \2191';
+  }
+
+  a:hover {
+    color: #5eb5e0;
+  }
+
+  ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+  }
+}
+

@@ -1,0 +1,16 @@
+footer {
+  background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+
+  color: white;
+
+  border-radius: 10px;
+
+  .list-group-item-action {
+    width: 100%;
+    color: white ;
+    text-align: inherit;
+  }
+}
