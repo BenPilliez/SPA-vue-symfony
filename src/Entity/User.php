@@ -194,10 +194,6 @@ class User implements UserInterface
      */
     private $age;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Registration::class, mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
-     */
-    private $registration;
 
     public function __construct()
     {
@@ -486,22 +482,5 @@ class User implements UserInterface
         $this->age = $age->format('%y');
 
         return $this->age;
-    }
-
-    public function getRegistration(): ?Registration
-    {
-        return $this->registration;
-    }
-
-    public function setRegistration(Registration $registration): self
-    {
-        $this->registration = $registration;
-
-        // set the owning side of the relation if necessary
-        if ($registration->getUser() !== $this) {
-            $registration->setUser($this);
-        }
-
-        return $this;
     }
 }

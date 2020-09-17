@@ -32,7 +32,6 @@ export default class VueClass {
                 // this route requires auth, check if logged in
                 // if not, redirect to login page.
                 if (!localStorage.getItem('auth_user')) {
-
                     next('/login')
                 } else {
 

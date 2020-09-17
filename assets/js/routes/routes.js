@@ -6,6 +6,7 @@ import About from "../pages/Base/About";
 import NotFound from "../pages/Base/NotFound"
 import Register from "../pages/Register/Register";
 import Email from "../pages/ResetPassword/Email-Pass"
+import Confirmation from "../pages/Confirmation/Confirmation";
 
 
 Vue.use(Router)
@@ -17,26 +18,31 @@ const router = new Router({
             path: '/',
             name: 'home',
             component: homePage,
-            meta:{
+            meta: {
                 requiresAuth: true
             }
         },
         {
-            path:'/about',
-            name:'about',
+            path: '/confirmation',
+            name: 'confirmation',
+            component: Confirmation
+        },
+        {
+            path: '/about',
+            name: 'about',
             component: About,
-            meta:{
+            meta: {
                 requiresAuth: true
             }
         },
         {
-          path:'/register',
-          name: 'register',
-          component: Register
+            path: '/register',
+            name: 'register',
+            component: Register
         },
         {
             path: '/reset',
-            name:"reset",
+            name: "reset",
             component: Email
         },
         {
@@ -45,12 +51,12 @@ const router = new Router({
             component: Login
         },
         {
-            path:'/404',
-            name:'NotFound',
+            path: '/404',
+            name: 'NotFound',
             component: NotFound
         },
         {
-            path:'*',
+            path: '*',
             redirect: '/404'
         }
 

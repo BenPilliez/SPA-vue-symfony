@@ -1,13 +1,8 @@
 import axios from "axios";
 
-const state = () => ({
-    auth_user: JSON.parse(localStorage.getItem('auth_user')) || null,
-    isLogged: false,
-})
+const state = () => ({})
 
-const mutations = {
-
-}
+const mutations = {}
 
 const getters = {}
 
@@ -28,10 +23,10 @@ const actions = {
                 })
                 .catch(err => {
                     let violationArray = [];
+                    console.log(err)
                     err.response.data.violations.map((violation) => {
                         violationArray.push(violation.message);
                     })
-
                     rootState.loading = false;
                     rootState.message = {
                         type: "error",
@@ -41,7 +36,7 @@ const actions = {
                     reject(err);
                 })
         })
-    },
+    }
 }
 
 export default {

@@ -65,7 +65,7 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
             $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
         );
         $data->eraseCredentials();
-        $this->registration($data);
+        $registration = $this->registration($data);
         $result = $this->decorated->persist($data, $context);
 
         if (
@@ -74,7 +74,7 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
                 ($context['graphql_operation_name'] ?? null) === 'create'
             )
         ) {
-            $this->sendMail($data);
+            $this->sendMail($data, $registration);
         }
         return $result;
     }
@@ -99,12 +99,12 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
         $this->em->persist($registration);
         $this->em->flush();
 
-        return true;
+        return $registration;
     }
 
-    private function sendMail(User $user)
+    private function sendMail(User $user, Registration $registration)
     {
-        $url = $this->generateUrl('user_verify_register', ['token' => $user->getRegistration()->getToken()]);
+        $url = $this->generateUrl('user_verify_register', ['token' => $registration->getToken()]);
         $email = (new TemplatedEmail())
             ->from(new Address('gamers-seek@benpilliez.fr', 'Gamers-seek Bot'))
             ->to($user->getEmail())

@@ -35,7 +35,7 @@ class Registration
     private $expiresAt;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="registration", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;

@@ -6,6 +6,7 @@ use App\Entity\Registration;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -49,19 +50,13 @@ class RegistrationController extends AbstractController
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
 
-                return $this->render('app.html.twig', [
-                    'success' => 'Account has been activated'
-                ]);
+                return $this->redirect('/confirmation?success=true');
 
             }
-            return $this->render('app.html.twig', [
-                'error' => 'Token expired'
-            ]);
+            return $this->redirect('/confirmation?error=expiration');
         }
 
-        return $this->render('app.html.twig', [
-            'error' => 'User not found'
-        ]);
+        return $this->redirect('/confirmation?error=user');
 
     }
 }
