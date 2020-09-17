@@ -8,6 +8,7 @@ import {ValidationProvider, ValidationObserver, extend} from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules'
 import {messages} from 'vee-validate/dist/locale/fr.json';
 import Notifications from 'vue-notification'
+import loader from "vue-ui-preloader";
 
 
 export default class VueClass {
@@ -51,6 +52,7 @@ export default class VueClass {
         Vue.use(BootstrapVue);
         Vue.use(BootstrapVueIcons);
         Vue.use(Notifications);
+        Vue.use(loader);
 
         Vue.component("ValidationObserver", ValidationObserver);
         Vue.component("ValidationProvider", ValidationProvider);

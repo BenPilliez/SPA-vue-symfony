@@ -7,6 +7,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
+        loading: false,
         message: null,
         users: {},
     },
@@ -16,7 +17,6 @@ export const store = new Vuex.Store({
     },
     mutations: {
         message(state, message) {
-
             state.message = {
                 type: message.type,
                 text: message.text
@@ -29,6 +29,7 @@ export const store = new Vuex.Store({
 
     getters: {
         users: state => state.users,
-        message: state => state.message
+        message: state => state.message,
+        loading: state => state.loading
     }
 })
