@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Auth from "./modules/auth"
 import Register from "./modules/register";
+import ResetPassword from "./modules/reset_password"
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ export const store = new Vuex.Store({
     },
     modules: {
         auth: Auth,
-        register: Register
+        register: Register,
+        reset: ResetPassword,
     },
     mutations: {
         message(state, message) {

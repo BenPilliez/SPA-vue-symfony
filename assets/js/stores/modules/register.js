@@ -23,7 +23,6 @@ const actions = {
                 })
                 .catch(err => {
                     let violationArray = [];
-                    console.log(err)
                     err.response.data.violations.map((violation) => {
                         violationArray.push(violation.message);
                     })

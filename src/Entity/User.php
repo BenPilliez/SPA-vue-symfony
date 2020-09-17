@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}},
  *     collectionOperations={
- *       "post"={"access_control"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"},
+ *       "post"={"security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"},
  *     },
  *      itemOperations={"get","put","delete"},
  * )

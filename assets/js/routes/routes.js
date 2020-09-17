@@ -7,6 +7,7 @@ import NotFound from "../pages/Base/NotFound"
 import Register from "../pages/Register/Register";
 import Email from "../pages/ResetPassword/Email-Pass"
 import Confirmation from "../pages/Confirmation/Confirmation";
+import Reset from "../pages/ResetPassword/Reset";
 
 
 Vue.use(Router)
@@ -43,6 +44,11 @@ const router = new Router({
         {
             path: '/reset',
             name: "reset",
+            component: Reset
+        },
+        {
+            path: '/reset_form',
+            name: "reset_form",
             component: Email
         },
         {

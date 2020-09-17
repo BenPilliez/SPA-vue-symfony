@@ -76,7 +76,13 @@ export default {
     }
   },
   methods: {
-    submit() {
+    async submit() {
+
+      let isValid = await this.$refs.observer.validate();
+
+      if(isValid){
+        this.$store.dispatch('reset_password', this.form);
+      }
 
     },
     getValidationState({dirty, validated, valid = null}) {

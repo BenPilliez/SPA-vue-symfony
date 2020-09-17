@@ -1,11 +1,11 @@
 <?php
 
+
 namespace App\DataPersister;
 
-use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
-use App\Entity\Registration;
-use App\Entity\User;
+use App\Entity\ResetPasswordRequest;
+use App\Repository\UserRepository;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,17 +17,14 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
-class UserDataPersister implements DataPersisterInterface
+class ResetPasswordRequestDataPersister implements DataPersisterInterface
 {
 
     /**
      * @var EntityManagerInterface
      */
     private $em;
-    /**
-     * @var DataPersisterInterface
-     */
-    private $decorated;
+
     /**
      * @var MailerInterface
      */
@@ -41,41 +38,45 @@ class UserDataPersister implements DataPersisterInterface
      */
     private $tokenGenerator;
     private $userPasswordEncoder;
+    /**
+     * @var UserRepository
+     */
+    private $repository;
 
     /**
-     * UserDataPersister constructor.
+     * PasswordDataPersister constructor.
      * @param TokenGeneratorInterface $tokenGenerator
      * @param EntityManagerInterface $entityManager
      * @param MailerInterface $mailer
      * @param RouterInterface $router
      * @param UserPasswordEncoderInterface $passwordEncoder
+     * @param UserRepository $userRepository
      */
-
-    public function __construct(TokenGeneratorInterface $tokenGenerator, EntityManagerInterface $entityManager, MailerInterface $mailer,
-                                RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(TokenGeneratorInterface $tokenGenerator,
+                                EntityManagerInterface $entityManager, MailerInterface $mailer,
+                                RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder, UserRepository $userRepository)
     {
-
         $this->em = $entityManager;
         $this->mailer = $mailer;
         $this->router = $router;
         $this->tokenGenerator = $tokenGenerator;
         $this->userPasswordEncoder = $passwordEncoder;
+        $this->repository = $userRepository;
     }
 
     public function supports($data): bool
     {
-        return $data instanceof User;
+        return $data instanceof ResetPasswordRequest;
     }
 
     public function persist($data)
     {
 
-        $data->setPassword(
-            $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
-        );
-        $data->eraseCredentials();
-        $registration = $this->registration($data);
-        $this->sendMail($data, $registration->getToken());
+        $user = $this->repository->findOneBy(['email' => $data->getEmail()]);
+        $data->setToken($this->tokenGenerator->generateToken());
+        $data->setUser($user);
+        $this->sendMail($data);
+
         $this->em->persist($data);
         $this->em->flush();
 
@@ -88,32 +89,14 @@ class UserDataPersister implements DataPersisterInterface
         $this->em->flush();
     }
 
-    private function registration(User $user)
+    private function sendMail(ResetPasswordRequest $passwordRequest)
     {
-        $registration = new Registration();
-
-        $token = $this->tokenGenerator->generateToken();
-        $registration->setToken($token);
-
-        $date = new DateTime();
-        $date->add(new DateInterval('PT1H'));
-        $registration->setExpiresAt($date);
-        $registration->setUser($user);
-
-        $this->em->persist($registration);
-        $this->em->flush();
-
-        return $registration;
-    }
-
-    private function sendMail(User $user, String $token)
-    {
-        $url = $this->generateUrl('user_verify_register', ['token' => $token]);
+        $url = $this->generateUrl('reset_password', ['token' => $passwordRequest->getToken()]);
         $email = (new TemplatedEmail())
             ->from(new Address('gamers-seek@benpilliez.fr', 'Gamers-seek Bot'))
-            ->to($user->getEmail())
-            ->subject('Please confirm your account')
-            ->htmlTemplate('Registration/confirmation_email.html.twig')
+            ->to($passwordRequest->getUser()->getEmail())
+            ->subject('Reset password')
+            ->htmlTemplate('Password/email.html.twig')
             ->context([
                 'url' => $url,
                 'tokenLifetime' => '3600',

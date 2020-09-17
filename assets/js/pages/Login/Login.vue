@@ -72,7 +72,7 @@
                 <b-col cols="12" class="mt-8">
                   <div class="text-center pt-3">
                     <router-link
-                        :to="{name:'reset'}"
+                        :to="{name:'reset_form'}"
                     >
                       Mot de passe oublié ?
                     </router-link>
@@ -123,12 +123,6 @@ export default {
           this.$router.push('/');
         })
       }
-    }
-  },
-  watch: {
-    $route(to, from ){
-      console.log(to)
-      console.log(from)
     }
   }
 }
