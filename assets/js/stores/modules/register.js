@@ -29,9 +29,14 @@ const actions = {
 
                 })
                 .catch(err => {
+                    let violationArray = [];
+                    err.response.data.violations.map((violation) => {
+                        violationArray.push(violation.message);
+                    })
+
                     rootState.message = {
                         type: "error",
-                        text: err.response.data['hydra:description']
+                        text: violationArray.join('\n')
                     }
                     reject(err);
                 })

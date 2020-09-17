@@ -11,6 +11,7 @@ use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -23,8 +24,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *      itemOperations={"get","put","delete"},
  * )
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"username"})
- * @UniqueEntity(fields={"email"})
+ * @UniqueEntity(fields={"username"},
+ * message="Le pseudonyme ou email est déjà associé à un compte")
+ *
  */
 class User implements UserInterface
 {
@@ -38,6 +40,9 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Groups({"user:read", "user:write"})
+     * @Assert\NotBlank(
+     *     message="Le champ pseudonyme ne peut être vide"
+     * )
      */
     private $username;
 
@@ -78,12 +83,19 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"user:read", "user:write"})
+     * @Assert\Email(
+     *     message= "Oula mais ce n'est pas un email valide ça !"
+     * )
+     * @Assert\NotBlank(
+     *     message="Il nous faut un email !"
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read", "user:write"})
+     *
      */
     private $firstname;
 
@@ -102,11 +114,14 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="date", nullable=true)
      * @Groups({"user:read", "user:write"})
+     * @Assert\Date(
+     *     message="T'es sûr que c'est une date ?"
+     * )
      */
     private $birthday;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      * @Groups({"user:read", "user:write"})
      */
     private $description;
@@ -114,6 +129,10 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read", "user:write"})
+     * @Assert\Length(
+     *     max=255,
+     *     maxMessage="Oula mais ça fait plus que 255 caractères ça !"
+     * )
      */
     private $slogan;
 
