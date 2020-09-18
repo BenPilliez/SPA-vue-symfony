@@ -9,11 +9,14 @@
 <script>
 export default {
   name: "User",
-  data(){
-    return{
-      user: this.loadUser(this,this.$route.params.id)
-    }
-  },
+    data(){
+      return{
+        user: undefined
+      }
+    },
+    beforeMount() {
+      this.loadUser(this, this.$route.params.id)
+    },
   watch: {
     $route() {
      this.user = this.loadUser(this, this.$route.params.id)
@@ -21,17 +24,17 @@ export default {
   },
   methods: {
     loadUser: (vm, id) => {
-
       if (vm.$store.getters.users[id] !== undefined) {
         vm.user = vm.$store.getters.users[id];
+      }else {
+        vm.$store.dispatch('findBy', id)
+            .then((resp) => {
+              vm.user = vm.$store.getters.users[id]
+            })
+            .catch((err) => {
+              console.error(err)
+            })
       }
-      vm.$store.dispatch('findBy', id)
-          .then((resp) => {
-            vm.user = vm.$store.getters.users[id]
-          })
-          .catch((err) => {
-            console.error(err)
-          })
     }
   }
 }

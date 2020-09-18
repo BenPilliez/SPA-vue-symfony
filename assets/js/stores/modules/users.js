@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const state = () => ({
-    users: [],
+    users: {},
 })
 
 const mutations = {
@@ -13,7 +13,6 @@ const mutations = {
 }
 
 const getters = {
-    user: state => state.users[id],
     users: state => state.users
 }
 
