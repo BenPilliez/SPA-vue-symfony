@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     },
  *      itemOperations={"get","put","delete"},
  * )
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"username"},
  * message="Le pseudonyme ou email est déjà associé à un compte")
  *
@@ -160,13 +160,13 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read", "user:write"})
      */
-    private $gamer_type;
+    private $gamerType;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read", "user:write"})
      */
-    private $mother_tongue;
+    private $motherTongue;
 
     /**
      * @ORM\Column(type="json", nullable=true)
@@ -184,7 +184,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read", "user:write"})
      */
-    private $game_region;
+    private $gameRegion;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -401,24 +401,24 @@ class User implements UserInterface
 
     public function getGamerType(): ?string
     {
-        return $this->gamer_type;
+        return $this->gamerType;
     }
 
-    public function setGamerType(?string $gamer_type): self
+    public function setGamerType(?string $gamerType): self
     {
-        $this->gamer_type = $gamer_type;
+        $this->gamerType = $gamerType;
 
         return $this;
     }
 
     public function getMotherTongue(): ?string
     {
-        return $this->mother_tongue;
+        return $this->motherTongue;
     }
 
-    public function setMotherTongue(?string $mother_tongue): self
+    public function setMotherTongue(?string $motherTongue): self
     {
-        $this->mother_tongue = $mother_tongue;
+        $this->motherTongue = $motherTongue;
 
         return $this;
     }
@@ -449,12 +449,12 @@ class User implements UserInterface
 
     public function getGameRegion(): ?string
     {
-        return $this->game_region;
+        return $this->gameRegion;
     }
 
-    public function setGameRegion(?string $game_region): self
+    public function setGameRegion(?string $gameRegion): self
     {
-        $this->game_region = $game_region;
+        $this->gameRegion = $gameRegion;
 
         return $this;
     }

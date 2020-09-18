@@ -1,5 +1,5 @@
 <template>
-  <b-button variant="info" v-b-toggle.sidebar-backdrop>
+  <b-button class="ml-5" variant="info" v-b-toggle.sidebar-backdrop>
     <b-icon-justify></b-icon-justify>
     <span>Menu</span>
   </b-button>

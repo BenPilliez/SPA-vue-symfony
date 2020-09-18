@@ -31,13 +31,10 @@
                     :to="{name: 'user_show', params:{id: authUser.id}}"
                     @click="hide"
                 >
-                  <b-avatar v-if="authUser.image "
-                            :src="`/media/avatars/${authUser.image.filePath}`"
+                  <b-avatar
+                            :src="authUser.image ? `/media/avatars/${authUser.image.filePath}` : '/images/gamer.jpg' "
                             alt="user-avatar" size="6rem"
                   />
-                  <b-avatar v-if="!authUser.image"
-                            :src="'/images/gamer.jpg'" alt="user-avatar"
-                            size="6rem"/>
                 </router-link>
                 <span class="pt-4 pl-3">Bonjour,<br> {{ authUser.username }}</span>
               </div>
