@@ -23,13 +23,22 @@ const actions = {
                 })
                 .catch(err => {
                     let violationArray = [];
-                    err.response.data.violations.map((violation) => {
-                        violationArray.push(violation.message);
-                    })
+                    let text;
+                    if (err.response.data.violations) {
+                        err.response.data.violations.map((violation) => {
+                            violationArray.push(violation.message);
+                        })
+                        text = violationArray.join('\n');
+                    } else if (err.response.data.error) {
+                        text = err.response.data.error;
+                    } else {
+                        text = 'Oops on a eu problème Houston'
+                    }
+
                     rootState.loading = false;
                     rootState.message = {
                         type: "error",
-                        text: violationArray.join('\n')
+                        text: text
                     }
 
                     reject(err);
