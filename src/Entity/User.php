@@ -21,6 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     denormalizationContext={"groups"={"user:write"}},
  *     collectionOperations={
  *       "post"={"security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"},
+ *         "get"
  *     },
  *      itemOperations={"get","put","delete"},
  * )

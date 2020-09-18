@@ -22,7 +22,11 @@ const actions = {
         return new Promise((resolve, reject) => {
             axios({url: '/api/users', method: "GET"})
                 .then((resp) => {
-                    state.users = resp.data
+
+                    resp.data['hydra:member'].map((user) =>{
+                        commit('users', user)
+                    })
+
                     rootState.loading = false;
                     resolve(resp)
                 })
