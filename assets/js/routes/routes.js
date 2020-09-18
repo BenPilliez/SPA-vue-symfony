@@ -10,6 +10,7 @@ import Confirmation from "../pages/Confirmation/Confirmation";
 import Reset from "../pages/ResetPassword/Reset";
 import User from "../pages/User/User";
 import Profile from "../pages/User/Profile";
+import ProfileEdit from "../pages/User/ProfileEdit"
 
 
 Vue.use(Router)
@@ -26,16 +27,11 @@ const router = new Router({
             }
         },
         {
-          path:'/user',
-          name:'user',
-          component: User,
-          children:[
-              {
-                  path: '/:id',
-                  name:'user_show',
-                  component:Profile
-              }
-          ],
+            path: '/user/:id', component: User,
+            children: [
+                {path: '', name: "profile", component: Profile},
+                {path: 'edit', name: "edit", component: ProfileEdit},
+            ],
             meta:{requiresAuth: true}
         },
         {

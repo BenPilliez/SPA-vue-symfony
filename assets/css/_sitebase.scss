@@ -94,11 +94,6 @@ a, a:hover, a:focus {
   background-size: cover;
   min-height: 80vh
 }
-
-
-
-@media (max-width: 768px) {
-  #sidebarCollapse span {
-    display: none;
-  }
+.b-avatar-badge{
+  font-size:0.5rem !important;
 }

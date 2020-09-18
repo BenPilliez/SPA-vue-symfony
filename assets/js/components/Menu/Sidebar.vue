@@ -28,7 +28,7 @@
             <b-nav class="components">
               <div class="d-flex">
                 <router-link
-                    :to="{name: 'user_show', params:{id: authUser.id}}"
+                    :to="{name: 'profile', params:{id: authUser.id}}"
                     @click="hide"
                 >
                   <b-avatar
