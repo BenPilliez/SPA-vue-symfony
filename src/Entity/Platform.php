@@ -48,6 +48,12 @@ class Platform
      */
     private $userPlatforms;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user:read","user_platform:read","platform:read","platform:write"})
+     */
+    private $iconPath;
+
     public function __construct()
     {
         $this->userPlatforms = new ArrayCollection();
@@ -121,6 +127,18 @@ class Platform
                 $userPlatform->setPlatform(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIconPath(): ?string
+    {
+        return $this->iconPath;
+    }
+
+    public function setIconPath(string $iconPath): self
+    {
+        $this->iconPath = $iconPath;
 
         return $this;
     }

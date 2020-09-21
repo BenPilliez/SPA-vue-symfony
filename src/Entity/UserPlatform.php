@@ -33,7 +33,7 @@ class UserPlatform
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user_platform:read", "user_platform:write", "user:read"})
      */
-    private $name;
+    private $username;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userPlatforms")
@@ -67,12 +67,12 @@ class UserPlatform
 
     public function getName(): ?string
     {
-        return $this->name;
+        return $this->username;
     }
 
     public function setName(?string $name): self
     {
-        $this->name = $name;
+        $this->username = $name;
 
         return $this;
     }

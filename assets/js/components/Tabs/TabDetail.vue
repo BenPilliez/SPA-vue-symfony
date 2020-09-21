@@ -1,6 +1,5 @@
 <template>
   <div>
-    <slot></slot>
     <b-tab  active>
         <template v-slot:title>
           <b-icon-exclamation-circle></b-icon-exclamation-circle>

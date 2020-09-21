@@ -4,7 +4,7 @@
       <b-tabs id="tabs-container" active-nav-item-class="font-weight-bold text-uppercase text-danger"
               content-class="mt-3" justified>
       <tab-detail v-if="!user.edit" :user="user"></tab-detail>
-      <tab-edit v-if="user.edit" :user="user"></tab-edit>
+      <tab-form v-if="user.edit" :user="user"></tab-form>
       </b-tabs>
     </b-col>
   </b-row>
