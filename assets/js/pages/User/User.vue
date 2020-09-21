@@ -1,7 +1,6 @@
 <template>
   <section v-if="user !== undefined">
     <b-row no-gutters>
-      {{ user }}
       <b-col cols="12">
         <jumbotron :user="user" class="profile-jumbotron">
           <template v-slot:header :user="user">
@@ -51,7 +50,7 @@
                     <h1>{{ user.username }}</h1>
                     <p v-if="user.gamerType" class=" d-block font-italic">{{ user.gamerType }}</p>
                     <p class="d-block" v-if="user.age && user.country">{{ user.age }} - {{ user.country }}</p>
-                    <b-button variant="warning">Ajouter en ami</b-button>
+                    <b-button variant="warning" v-if="user.isOwner === false">Ajouter en ami</b-button>
                   </div>
                 </div>
               </b-col>

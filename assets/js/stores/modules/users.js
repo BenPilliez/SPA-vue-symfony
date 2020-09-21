@@ -51,7 +51,7 @@ const actions = {
                     .then((resp) => {
                         rootState.loading = false;
                         state.users[data.id] = resp.data
-                        state.users[data.id].isOwner = resp.data.id == rootState.auth.auth_user.id;
+                        state.users[data.id].isOwner = resp.data.id === rootState.auth.auth_user.id;
                         state.users[data.id].edit = data.edit;
                         resolve(resp);
                     })
