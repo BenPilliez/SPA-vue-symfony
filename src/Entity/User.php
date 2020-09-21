@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use App\Repository\UserRepository;
@@ -174,12 +176,18 @@ class User implements UserInterface
      */
     private $age;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserPlatform::class, mappedBy="user", orphanRemoval=true)
+     * @Groups({"user:read", "user_platform:read"})
+     */
+    private $userPlatforms;
 
     public function __construct()
     {
         $this->updatedAt = new DateTime();
         $this->createdAt = new DateTime();
         $this->isVerified = false;
+        $this->userPlatforms = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -414,5 +422,36 @@ class User implements UserInterface
         $this->age = $age->format('%y');
 
         return $this->age;
+    }
+
+    /**
+     * @return Collection|UserPlatform[]
+     */
+    public function getUserPlatforms(): Collection
+    {
+        return $this->userPlatforms;
+    }
+
+    public function addUserPlatform(UserPlatform $userPlatform): self
+    {
+        if (!$this->userPlatforms->contains($userPlatform)) {
+            $this->userPlatforms[] = $userPlatform;
+            $userPlatform->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserPlatform(UserPlatform $userPlatform): self
+    {
+        if ($this->userPlatforms->contains($userPlatform)) {
+            $this->userPlatforms->removeElement($userPlatform);
+            // set the owning side to null (unless already changed)
+            if ($userPlatform->getUser() === $this) {
+                $userPlatform->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
