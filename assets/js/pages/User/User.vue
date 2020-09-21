@@ -30,7 +30,7 @@
             <b-row class="flex-column justify-content-end">
               <b-col cols="12" class="mt-5">
                 <b-row class="justify-content-between ">
-                  <b-col cols="6" class=" d-flex flex-row">
+                  <b-col cols="8" class=" d-flex flex-row">
                     <b-avatar badge badge-variant="success" class="d-none d-lg-block d-md-block d-sm-block"
                               :src="user.image ? `/media/avatars/${user.image}` : '/images/gamer.jpg'" size="12rem"
                               rounded/>
@@ -38,7 +38,10 @@
                     <div class="d-flex flex-column p-3 text-white">
                       <h3>{{ user.username }}</h3>
                       <p v-if="user.gamerType" class=" d-block font-italic">{{ user.gamerType }}</p>
-                      <p class="d-block" v-if="user.age && user.country">{{ user.age }} - {{ user.country }}</p>
+                      <p><span v-if="user.gameRegion">{{ user.gameRegion }} - </span>
+                        <span v-if="user.country">{{ user.country }}</span></p>
+                      <p class="d-block"><span v-if="user.age">{{ user.age }} ans - </span>
+                        <span v-if="user.languages">{{ user.languages.join(', ') }}</span></p>
                       <b-button variant="warning" v-if="user.isOwner === false">Ajouter en ami</b-button>
                       <b-button variant="warning"
                                 :to=" user.edit === false ? {name:'edit', id:user.id} : {name:'profile', id:user.id}"
@@ -48,7 +51,7 @@
                     </div>
                   </b-col>
 
-                  <b-col cols="6">
+                  <b-col cols="4">
                     <blockquote v-if="!user.slogan" class="blockquote text-center font-italic text-white pt-5">
                       <h4> "Allez vient
                         <br>on est bien"</h4>

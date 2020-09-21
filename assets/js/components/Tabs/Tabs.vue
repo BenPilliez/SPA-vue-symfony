@@ -1,37 +1,23 @@
 <template>
   <b-row>
     <b-col cols="12">
-      <b-tabs active-nav-item-class="font-weight-bold text-uppercase text-danger"
+      <b-tabs id="tabs-container" active-nav-item-class="font-weight-bold text-uppercase text-danger"
               content-class="mt-3" justified>
-        <b-tab  active>
-          <template v-slot:title>
-            <b-icon-exclamation-circle></b-icon-exclamation-circle>
-            Détails
-          </template>
-          <u-detail :user="user"></u-detail>
-        </b-tab>
-        <b-tab >
-          <template v-slot:title>
-            <b-icon-joystick></b-icon-joystick>
-            Jeux
-          </template>
-        </b-tab>
-        <b-tab >
-          <template v-slot:title>
-            <b-icon-person></b-icon-person>
-            Amis
-          </template>
-        </b-tab>
+      <tab-detail v-if="!user.edit" :user="user"></tab-detail>
+      <tab-edit v-if="user.edit" :user="user"></tab-edit>
       </b-tabs>
     </b-col>
   </b-row>
 </template>
 
 <script>
-import Detail from "../User/Detail";
+
+import TabDetail from "../../components/Tabs/TabDetail"
+import tabEdit from "../../components/Tabs/TabForm"
+
 export default {
   name: "Tabs",
-  components: {uDetail:Detail},
+  components: {TabDetail, tabEdit},
   props: {
     user: Object
   }
