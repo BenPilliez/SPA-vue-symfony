@@ -40,17 +40,24 @@
                       <p v-if="user.gamerType" class=" d-block font-italic">{{ user.gamerType }}</p>
                       <p class="d-block" v-if="user.age && user.country">{{ user.age }} - {{ user.country }}</p>
                       <b-button variant="warning" v-if="user.isOwner === false">Ajouter en ami</b-button>
+                      <b-button variant="warning"
+                                :to=" user.edit === false ? {name:'edit', id:user.id} : {name:'profile', id:user.id}"
+                                v-if="user.isOwner">
+                        {{ user.edit === false ? 'Editer' : 'Profile' }}
+                      </b-button>
                     </div>
                   </b-col>
 
                   <b-col cols="6">
                     <blockquote v-if="!user.slogan" class="blockquote text-center font-italic text-white pt-5">
-                      <h1> "Allez vient
-                        <br>on est bien"</h1>
+                      <h4> "Allez vient
+                        <br>on est bien"</h4>
                     </blockquote>
-                    <h1 v-if="user.slogan" class="h1 text-center text-white pt-5">
-                      "{{ user.slogan }}"
-                    </h1>
+                    <blockquote v-if="user.slogan" class="blockquote text-center font-italic text-white pt-5">
+                      <h4>
+                        "{{ user.slogan }}"
+                      </h4>
+                    </blockquote>
                   </b-col>
                 </b-row>
               </b-col>

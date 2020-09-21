@@ -1,14 +1,15 @@
 <template>
   <div v-if="user !== undefined">
+    <Tabs :user="user"></Tabs>
   </div>
 </template>
 
 <script>
-import Jumbotron from "../../components/Jumbotron/Jumbotron";
+import Tabs from "../../components/Tabs/Tabs";
 
 export default {
   name: "Profile",
-  components: {Jumbotron},
+  components: {Tabs},
   props: {
     user: Object
   },
