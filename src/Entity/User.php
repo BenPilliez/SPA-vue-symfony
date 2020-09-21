@@ -100,19 +100,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read", "user:write"})
-     *
-     */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
-     */
-    private $lastname;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
      */
     private $gender;
 
@@ -164,12 +151,6 @@ class User implements UserInterface
     private $gamerType;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
-     */
-    private $motherTongue;
-
-    /**
      * @ORM\Column(type="json", nullable=true)
      * @Groups({"user:read", "user:write"})
      */
@@ -186,12 +167,6 @@ class User implements UserInterface
      * @Groups({"user:read", "user:write"})
      */
     private $gameRegion;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
-     */
-    private $city;
 
     /**
      * @var
@@ -292,30 +267,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(?string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(?string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
     public function getGender(): ?string
     {
         return $this->gender;
@@ -412,18 +363,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getMotherTongue(): ?string
-    {
-        return $this->motherTongue;
-    }
-
-    public function setMotherTongue(?string $motherTongue): self
-    {
-        $this->motherTongue = $motherTongue;
-
-        return $this;
-    }
-
     public function getLanguages(): ?array
     {
         return $this->languages;
@@ -456,18 +395,6 @@ class User implements UserInterface
     public function setGameRegion(?string $gameRegion): self
     {
         $this->gameRegion = $gameRegion;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
 
         return $this;
     }
