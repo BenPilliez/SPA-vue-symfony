@@ -1,6 +1,7 @@
 <template>
   <section v-if="user !== undefined">
     <b-row no-gutters>
+      {{ user }}
       <b-col cols="12">
         <jumbotron :user="user" class="profile-jumbotron">
           <template v-slot:header :user="user">
@@ -91,19 +92,10 @@ export default {
   },
   methods: {
     loadUser: (vm, id) => {
-      if (vm.$store.getters.users[id] !== undefined) {
-        vm.loadedUser = vm.$store.getters.users[id];
-        vm.loadedUser.edit = vm.$route.name === "edit";
-      } else {
-        vm.$store.dispatch('findBy', id)
-            .then((resp) => {
-              vm.loadedUser = vm.$store.getters.users[id]
-              vm.loadedUser.edit = vm.$route.name === "edit";
-            })
-            .catch((err) => {
-              console.error(err)
-            })
-      }
+      vm.$store.dispatch('findBy', {id: id, edit: vm.$route.name === "edit"})
+          .then((resp) => {
+            vm.loadedUser = vm.$store.getters.users[id];
+          })
     }
   }
 }

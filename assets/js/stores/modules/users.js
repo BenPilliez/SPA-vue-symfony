@@ -23,7 +23,7 @@ const actions = {
             axios({url: '/api/users', method: "GET"})
                 .then((resp) => {
 
-                    resp.data['hydra:member'].map((user) =>{
+                    resp.data['hydra:member'].map((user) => {
                         commit('users', user)
                     })
 
@@ -38,21 +38,30 @@ const actions = {
 
         })
     },
-    findBy({commit, state, rootState}, id) {
+    findBy({commit, state, rootState}, data) {
         rootState.loading = true;
         return new Promise((resolve, reject) => {
-            axios({url: `/api/users/${id}`, method: 'GET'})
-                .then((resp) => {
-                    rootState.loading = false;
-                    state.users[id] = resp.data
-                    state.users[id].isOwner = resp.data.id === rootState.auth.auth_user.id ;
-                    resolve(resp);
-                })
-                .catch((err) => {
-                    rootState.loading = false;
-                    console.log(err);
-                    reject(err)
-                })
+            if (state.users[data.id] !== undefined) {
+                state.users[data.id].isOwner = data.id == rootState.auth.auth_user.id;
+                state.users[data.id].edit = data.edit;
+                rootState.loading = false;
+                resolve(state.users[data.id]);
+            } else {
+                axios({url: `/api/users/${data.id}`, method: 'GET'})
+                    .then((resp) => {
+                        rootState.loading = false;
+                        state.users[data.id] = resp.data
+                        state.users[data.id].isOwner = resp.data.id == rootState.auth.auth_user.id;
+                        state.users[data.id].edit = data.edit;
+                        resolve(resp);
+                    })
+                    .catch((err) => {
+                        rootState.loading = false;
+                        console.log(err);
+                        reject(err)
+                    })
+            }
+
         })
     }
 }
