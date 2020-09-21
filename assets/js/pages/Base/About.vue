@@ -15,7 +15,7 @@
     </jumbotron>
 
     <b-container :fluid=true class="p-4 mt-5">
-      <b-row id="gamer-app-explain" class=" about p-5">
+      <b-row id="gamer-app-explain" class=" rounded p-5">
         <b-col cols="4" id="gamer-app">
         </b-col>
         <b-col cols="8" class="mb-4">
@@ -29,7 +29,7 @@
           </article>
         </b-col>
       </b-row>
-      <b-row id="gamer-app-author" class=" about mt-5 p-5">
+      <b-row id="gamer-app-author" class=" rounded mt-5 p-5">
         <b-col cols="8" class="mb-4">
           <h4 class=" text-center">Par qui ? </h4>
           <article>

@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <b-container :fluid="true">
     <social :socials="user.userPlatforms"></social>
-  </div>
+  </b-container>
 </template>
 
 <script>
