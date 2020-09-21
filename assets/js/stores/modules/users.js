@@ -61,7 +61,6 @@ const actions = {
                         reject(err)
                     })
             }
-
         })
     }
 }

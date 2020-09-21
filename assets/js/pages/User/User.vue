@@ -20,39 +20,39 @@
                     <b-dropdown-item-btn variant="danger">Delete</b-dropdown-item-btn>
                   </div>
                   <div v-if="!user.isOwner">
-                    <b-dropdown-item>
-                      <b-button variant="link">Add to friend</b-button>
-                    </b-dropdown-item>
-                    <b-dropdown-item>
-                      <b-button variant="link ">Report</b-button>
-                    </b-dropdown-item>
+                    <b-dropdown-item-button variant="danger">
+                      Signaler
+                    </b-dropdown-item-button>
                   </div>
                 </b-dropdown>
               </b-col>
             </b-row>
-            <b-row class="flex-column justify-content-between">
-              <b-col cols="12">
-                <blockquote v-if="!user.slogan" class="blockquote text-center text-white pt-5">
-                  <h1> Allez vient
-                    <br>on est bien</h1>
-                </blockquote>
-                <h1 v-if="user.slogan" class="h1 text-center text-white pt-5">
-                  {{ user.slogan }}
-                </h1>
-              </b-col>
+            <b-row class="flex-column justify-content-end">
               <b-col cols="12" class="mt-5">
-                <div class="d-flex flex-row">
-                  <b-avatar badge badge-variant="success" class="d-none d-lg-block d-md-block d-sm-block"
-                            :src="user.image ? `/media/avatars/${user.image}` : '/images/gamer.jpg'" size="12rem"
-                            rounded/>
+                <b-row class="justify-content-between ">
+                  <b-col cols="6" class=" d-flex flex-row">
+                    <b-avatar badge badge-variant="success" class="d-none d-lg-block d-md-block d-sm-block"
+                              :src="user.image ? `/media/avatars/${user.image}` : '/images/gamer.jpg'" size="12rem"
+                              rounded/>
 
-                  <div class="d-flex flex-column p-3 text-white">
-                    <h1>{{ user.username }}</h1>
-                    <p v-if="user.gamerType" class=" d-block font-italic">{{ user.gamerType }}</p>
-                    <p class="d-block" v-if="user.age && user.country">{{ user.age }} - {{ user.country }}</p>
-                    <b-button variant="warning" v-if="user.isOwner === false">Ajouter en ami</b-button>
-                  </div>
-                </div>
+                    <div class="d-flex flex-column p-3 text-white">
+                      <h3>{{ user.username }}</h3>
+                      <p v-if="user.gamerType" class=" d-block font-italic">{{ user.gamerType }}</p>
+                      <p class="d-block" v-if="user.age && user.country">{{ user.age }} - {{ user.country }}</p>
+                      <b-button variant="warning" v-if="user.isOwner === false">Ajouter en ami</b-button>
+                    </div>
+                  </b-col>
+
+                  <b-col cols="6">
+                    <blockquote v-if="!user.slogan" class="blockquote text-center font-italic text-white pt-5">
+                      <h1> "Allez vient
+                        <br>on est bien"</h1>
+                    </blockquote>
+                    <h1 v-if="user.slogan" class="h1 text-center text-white pt-5">
+                      "{{ user.slogan }}"
+                    </h1>
+                  </b-col>
+                </b-row>
               </b-col>
             </b-row>
           </template>
