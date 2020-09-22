@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col cols="12">
-      <h3>Slogan</h3>
+      <h6>Slogan</h6>
     </b-col>
     <b-col cols="12">
       <blockquote v-if="slogan" class="font-italic"> "{{ slogan }}"</blockquote>

@@ -4,20 +4,13 @@
       <social class="mb-5" :game-platforms="filter('game')" :social-platforms="filter('social')"></social>
 
       <hr class="w-75 ">
+
       <b-row class="mt-5">
         <b-col cols="6">
           <slogan :slogan="user.slogan"></slogan>
         </b-col>
-
         <b-col cols="6">
-          <b-row>
-            <b-col cols="12">
-              <h3>Description</h3>
-            </b-col>
-            <b-col cols="12">
-              {{ user.description }}
-            </b-col>
-          </b-row>
+          <description :description="user.description"></description>
         </b-col>
 
       </b-row>
@@ -35,10 +28,11 @@ import Social from "./Social";
 import Slogan from "./Slogan";
 import Config from "./Config";
 import Dispo from "./Dispo";
+import Description from "./Description";
 
 export default {
   name: "Detail",
-  components: {Social, Slogan, Config, Dispo},
+  components: {Social, Slogan, Config, Dispo,Description},
   props: {
     user: Object
   },
