@@ -82,6 +82,18 @@ class UserConfig
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user:read"})
+     */
+    private $cooler;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user:read"})
+     */
+    private $controller;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -203,6 +215,30 @@ class UserConfig
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCooler(): ?string
+    {
+        return $this->cooler;
+    }
+
+    public function setCooler(?string $cooler): self
+    {
+        $this->cooler = $cooler;
+
+        return $this;
+    }
+
+    public function getController(): ?string
+    {
+        return $this->controller;
+    }
+
+    public function setController(?string $controller): self
+    {
+        $this->controller = $controller;
 
         return $this;
     }

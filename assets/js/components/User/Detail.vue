@@ -1,30 +1,49 @@
 <template>
-  <b-container :fluid="true" class="rounded p-5" id="detail-container">
-    <social :game-platforms="filter('game')" :social-platforms="filter('social')"></social>
-    <b-row>
-      <b-col cols="12">
-        <h4>Son slogan</h4>
-      </b-col>
+  <div class="mt-8">
+    <b-container class="rounded p-5" id="detail-container">
+      <social class="mb-5" :game-platforms="filter('game')" :social-platforms="filter('social')"></social>
 
-      <b-col cols="12">
-        <blockquote v-if="user.slogan" class="font-italic"> "{{ user.slogan }}"</blockquote>
-        <blockquote v-if="!user.slogan" class="font-italic"> Il avait surement pas d'inspiration ce jour là</blockquote>
-      </b-col>
-    </b-row>
-  </b-container>
+      <hr class="w-75 ">
+      <b-row class="mt-5">
+        <b-col cols="6">
+          <slogan :slogan="user.slogan"></slogan>
+        </b-col>
+
+        <b-col cols="6">
+          <b-row>
+            <b-col cols="12">
+              <h3>Description</h3>
+            </b-col>
+            <b-col cols="12">
+              {{ user.description }}
+            </b-col>
+          </b-row>
+        </b-col>
+
+      </b-row>
+      <dispo></dispo>
+
+    </b-container>
+    <b-container class="rounded p-5 mt-8" id="config-container">
+      <config class="mt-5" :config="user.userConfig"></config>
+    </b-container>
+  </div>
 </template>
 
 <script>
 import Social from "./Social";
+import Slogan from "./Slogan";
+import Config from "./Config";
+import Dispo from "./Dispo";
 
 export default {
   name: "Detail",
-  components: {Social},
+  components: {Social, Slogan, Config, Dispo},
   props: {
     user: Object
   },
-  methods:{
-    filter(type){
+  methods: {
+    filter(type) {
       return this.user.userPlatforms.filter(item => item.platform.type === type)
     }
   }
