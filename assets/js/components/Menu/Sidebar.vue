@@ -77,9 +77,9 @@
       </template>
       <template v-slot:footer="{ hide }">
         <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
-          <a @click.prevent="logout"
+          <b-button @click="logout"
              class="btn btn-danger btn-lg w-100"
-          >Logout</a>
+          >Logout</b-button>
         </div>
       </template>
     </b-sidebar>

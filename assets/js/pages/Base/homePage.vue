@@ -2,7 +2,7 @@
   <div>
     <jumbotron>
       <template v-slot:header>
-        <div class="min-vh-100">
+        <div>
           <h1 class="h1 text-center text-white pt-5">
             Trouve des joueurs
             <del class="text-uppercase">toxic</del>

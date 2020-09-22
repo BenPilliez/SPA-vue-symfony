@@ -4,11 +4,9 @@
       <template v-slot:header>
         <b-row class="d-lg-block d-md-block d-sm-block d-none">
           <b-col class="d-flex justify-content-center">
-            <div class="min-vh-100">
-              <h1 class="h1 text-center text-white pt-5">
-                Gamer-app c'est quoi ? C'est qui ?
-              </h1>
-            </div>
+            <h1 class="h1 text-center text-white pt-5">
+              Gamer-app c'est quoi ? C'est qui ?
+            </h1>
           </b-col>
         </b-row>
       </template>

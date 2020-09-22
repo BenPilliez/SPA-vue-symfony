@@ -83,16 +83,13 @@ export default {
   components: {Jumbotron},
   data() {
     return {
-      loadedUser: undefined
+      loadedUser:this.loadUser(this, this.$route.params.id)
     }
   },
   computed: {
     user: function () {
       return this.loadedUser
     }
-  },
-  beforeMount() {
-    this.loadUser(this, this.$route.params.id)
   },
   watch: {
     $route() {

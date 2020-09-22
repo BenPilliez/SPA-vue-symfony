@@ -6,6 +6,7 @@ use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\Entity\Registration;
 use App\Entity\User;
+use App\Entity\UserConfig;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,6 +76,8 @@ class UserDataPersister implements DataPersisterInterface
         );
         $data->eraseCredentials();
         $registration = $this->registration($data);
+        $userConfig = new userConfig();
+        $data->setUserConfig($userConfig);
         $this->sendMail($data, $registration->getToken());
         $this->em->persist($data);
         $this->em->flush();

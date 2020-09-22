@@ -1,7 +1,7 @@
 <template>
-  <div class="mt-3 rounded p-5" id="social-container">
-    <b-row >
-      <b-col cols="12">
+  <div class="mt-3">
+    <b-row v-if="gamePlatforms.length > 0">
+      <b-col cols="12" >
         <h3>Platformes de jeux</h3>
       </b-col>
       <b-col cols="12">
@@ -11,7 +11,7 @@
       </b-col>
     </b-row>
 
-    <b-row class="mt-3">
+    <b-row class="mt-3" v-if="socialPlatforms.length > 0">
       <b-col cols="12">
         <h3>Réseaux sociaux</h3>
       </b-col>
@@ -27,20 +27,11 @@
 <script>
 export default {
   name: "Social",
-  props: {
-    socials: Array
-  },
-  data() {
-    return {
-      socialPlatforms: [],
-      gamePlatforms: [],
-    }
-  },
-
-  beforeMount() {
-    this.gamePlatforms = this.$props.socials.filter(item => item.platform.type === "game");
-    this.socialPlatforms = this.$props.socials.filter(item => item.platform.type === "social");
+  props:{
+    gamePlatforms: Array,
+    socialPlatforms: Array
   }
+
 }
 </script>
 

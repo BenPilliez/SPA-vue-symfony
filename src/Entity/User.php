@@ -182,6 +182,12 @@ class User implements UserInterface
      */
     private $userPlatforms;
 
+    /**
+     * @ORM\OneToOne(targetEntity=UserConfig::class, mappedBy="user", cascade={"persist", "remove"})
+     * @Groups("user:read")
+     */
+    private $userConfig;
+
     public function __construct()
     {
         $this->updatedAt = new DateTime();
@@ -450,6 +456,23 @@ class User implements UserInterface
             if ($userPlatform->getUser() === $this) {
                 $userPlatform->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getUserConfig(): ?UserConfig
+    {
+        return $this->userConfig;
+    }
+
+    public function setUserConfig(UserConfig $userConfig): self
+    {
+        $this->userConfig = $userConfig;
+
+        // set the owning side of the relation if necessary
+        if ($userConfig->getUser() !== $this) {
+            $userConfig->setUser($this);
         }
 
         return $this;

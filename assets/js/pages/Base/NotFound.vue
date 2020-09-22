@@ -4,7 +4,7 @@
       <template v-slot:header>
         <b-row class="d-lg-block d-md-block d-sm-block d-none">
           <b-col class="d-flex justify-content-center">
-            <div class="min-vh-100">
+            <div>
               <h1 class="h1 text-center text-white pt-5">
                 Oops, la page est inconnue au bataillon
               </h1>
