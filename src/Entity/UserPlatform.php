@@ -38,13 +38,14 @@ class UserPlatform
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userPlatforms")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"user_platform:read","user_platform:write"})
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Platform::class, inversedBy="userPlatforms")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"user_platform:read","user:read"})
+     * @Groups({"user_platform:read","user_platform:write","user:read"})
      */
     private $platform;
 
