@@ -49,6 +49,17 @@ class User implements UserInterface
      * @Assert\NotBlank(
      *     message="Le champ pseudonyme ne peut être vide"
      * )
+     * @Assert\Regex(
+     *     pattern="^[a-zA-Z0-9]*$",
+     *     message="Ton pseudo  ne
+     *          peut contentir d'émojies, d'espaces ou de cartères spéciaux"
+     * )
+     * @Assert\Length(
+     *     min= "4",
+     *     max="20",
+     *     minMessage="Ton pseudo doit faire au moin 4 caractères",
+     *     maxMessage="Ton pseudo ne peut faire plus de 20 caractères"
+     * )
      */
     private $username;
 
@@ -66,7 +77,22 @@ class User implements UserInterface
     /**
      * @Groups("user:write")
      * @SerializedName("password")
+     * @Assert\Regex(
+     *     pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]",
+     *     message="Ton mot de passe doit comprendre 4 caractères minimum et 2O max, il doit contenir
+    des lettres, au moins un chiffre et un caractère spécial, mais ni d'espace ou d'émojies"
+     * )
+     * @Assert\NotBlank(
+     *     message="Oula, il te faut un mot de passe"
+     * )
+     * @Assert\Length(
+     *     min="8",
+     *     max="20",
+     *     minMessage="Ton mot de passe doit faire au moin 8 caractères",
+     *     maxMessage="Ton mot de passe ne peut faire plus de 20 caractères"
+     * )
      */
+
     private $plainPassword;
 
     /**
