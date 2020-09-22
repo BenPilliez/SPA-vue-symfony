@@ -12,8 +12,8 @@
         </b-col>
       </b-row>
       <hr class="w-75 ">
-      <dispo v-if="user.userAvailibilities" :dispo="user.userAvailibilities"></dispo>
-      <p class="text-center mt-5" v-if="!user.userAvailibilities">Il faudrait que {{ user.username }} renseigne ces dispo</p>
+      <dispo v-if="user.userAvailibilities.length > 0" :dispo="user.userAvailibilities "></dispo>
+      <p class="text-center mt-5" v-if="user.userAvailibilities.length === 0">Il faudrait que {{ user.username }} renseigne ces dispo</p>
 
     </b-container>
     <b-container class="rounded p-5 mt-8" id="config-container">
