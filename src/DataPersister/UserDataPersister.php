@@ -76,8 +76,6 @@ class UserDataPersister implements DataPersisterInterface
         );
         $data->eraseCredentials();
         $registration = $this->registration($data);
-        $userConfig = new userConfig();
-        $data->setUserConfig($userConfig);
         $this->sendMail($data, $registration->getToken());
         $this->em->persist($data);
         $this->em->flush();

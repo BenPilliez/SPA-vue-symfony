@@ -65,18 +65,6 @@ class UserPlatform
         return $this;
     }
 
-    public function getName(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->username = $name;
-
-        return $this;
-    }
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -97,6 +85,18 @@ class UserPlatform
     public function setPlatform(?Platform $platform): self
     {
         $this->platform = $platform;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }

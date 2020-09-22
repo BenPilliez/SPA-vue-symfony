@@ -214,12 +214,20 @@ class User implements UserInterface
      */
     private $userConfig;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserAvailibility::class, mappedBy="user")
+     * @Groups("user:read")
+     */
+    private $userAvailibilities;
+
+
     public function __construct()
     {
         $this->updatedAt = new DateTime();
         $this->createdAt = new DateTime();
         $this->isVerified = false;
         $this->userPlatforms = new ArrayCollection();
+        $this->userAvailibilities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -499,6 +507,54 @@ class User implements UserInterface
         // set the owning side of the relation if necessary
         if ($userConfig->getUser() !== $this) {
             $userConfig->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getUserAvailibility(): ?UserAvailibility
+    {
+        return $this->userAvailibility;
+    }
+
+    public function setUserAvailibility(UserAvailibility $userAvailibility): self
+    {
+        $this->userAvailibility = $userAvailibility;
+
+        // set the owning side of the relation if necessary
+        if ($userAvailibility->getUser() !== $this) {
+            $userAvailibility->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserAvailibility[]
+     */
+    public function getUserAvailibilities(): Collection
+    {
+        return $this->userAvailibilities;
+    }
+
+    public function addUserAvailibility(UserAvailibility $userAvailibility): self
+    {
+        if (!$this->userAvailibilities->contains($userAvailibility)) {
+            $this->userAvailibilities[] = $userAvailibility;
+            $userAvailibility->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserAvailibility(UserAvailibility $userAvailibility): self
+    {
+        if ($this->userAvailibilities->contains($userAvailibility)) {
+            $this->userAvailibilities->removeElement($userAvailibility);
+            // set the owning side to null (unless already changed)
+            if ($userAvailibility->getUser() === $this) {
+                $userAvailibility->setUser(null);
+            }
         }
 
         return $this;
