@@ -1,0 +1,28 @@
+.formEdit{
+    min-height: 50vh;
+    padding: 30px 30px !important;
+    margin: 0;
+    width: 100%;
+    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    .tabs {
+        min-height: 50vh;
+    }
+
+    color:white;
+
+    .quillWrapper {
+        background-color: white;
+        color:black;
+    }
+
+    .vs__search {
+        color: grey;
+    }
+
+    .form-control .vs__dropdown-toggle {
+        border: none;
+    }
+  }

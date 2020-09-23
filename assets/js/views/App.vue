@@ -1,14 +1,13 @@
 <template>
-    <b-container :fluid=true>
-      <loader v-if="loading === true" object="#ff9633" color1="#ffffff" color2="#17fd3d" size="5" speed="2" bg="#343a40"
-              objectbg="#999793" opacity="80" name="circular"></loader>
-      <notifications class="mt-4" :message="message" group="app"/>
-      <router-view v-if="!authUser"></router-view>
-      <sidebar v-if="authUser" :authUser="authUser"></sidebar>
-      <Footer v-if="authUser"></Footer>
-    </b-container>
+  <b-container :fluid=true>
+    <loader v-if="loading === true" object="#ff9633" color1="#ffffff" color2="#17fd3d" size="5" speed="2" bg="#343a40"
+            objectbg="#999793" opacity="80" name="circular"></loader>
+    <notifications class="mt-4" :message="message" group="app"/>
+    <router-view v-if="!authUser" ></router-view>
+    <sidebar v-if="authUser" :authUser="authUser"></sidebar>
+    <Footer v-if="authUser"></Footer>
+  </b-container>
 </template>
-
 <script>
 
 import Sidebar from "../components/Menu/Sidebar"
@@ -19,10 +18,7 @@ export default {
   name: 'App',
   computed: {
     authUser: function () {
-      if (this !== undefined) {
-        return this.$store.getters.auth_user;
-      }
-      return null;
+      return this.$store.getters.auth_user;
     },
     message: function () {
       if (this !== undefined && this.$store.getters.message !== null) {
@@ -39,7 +35,6 @@ export default {
     },
     loading: function () {
       return !!(this !== undefined && this.$store.getters.loading);
-
     }
   },
   components: {Footer, Sidebar, Message}

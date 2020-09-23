@@ -4,6 +4,8 @@ import Auth from "./modules/auth"
 import Register from "./modules/register";
 import ResetPassword from "./modules/reset_password"
 import Users from "./modules/users";
+import Ajax from "./modules/ajaxLoad"
+import Form from "./modules/form";
 
 Vue.use(Vuex)
 
@@ -16,7 +18,9 @@ export const store = new Vuex.Store({
         auth: Auth,
         register: Register,
         reset: ResetPassword,
-        users: Users
+        users: Users,
+        ajax: Ajax,
+        form: Form,
     },
     mutations: {
         message(state, message) {

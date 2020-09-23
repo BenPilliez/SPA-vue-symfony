@@ -32,8 +32,8 @@
                     @click="hide"
                 >
                   <b-avatar
-                            :src="authUser.image ? `/media/avatars/${authUser.image.filePath}` : '/images/gamer.jpg' "
-                            alt="user-avatar" size="6rem"
+                      :src="authUser.image ? `/media/avatars/${authUser.image.filePath}` : '/images/gamer.jpg' "
+                      alt="user-avatar" size="6rem"
                   />
                 </router-link>
                 <span class="pt-4 pl-3">Bonjour,<br> {{ authUser.username }}</span>
@@ -78,8 +78,9 @@
       <template v-slot:footer="{ hide }">
         <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
           <b-button @click="logout"
-             class="btn btn-danger btn-lg w-100"
-          >Logout</b-button>
+                    class="btn btn-danger btn-lg w-100"
+          >Logout
+          </b-button>
         </div>
       </template>
     </b-sidebar>

@@ -22,10 +22,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}},
  *     collectionOperations={
- *       "post"={"security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"},
+ *     "post"={
+ *     "security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')",
+ *      "groups"={"Default","create"}
+ *          },
  *         "get"
  *     },
- *      itemOperations={"get","put","delete"},
+ *      itemOperations={"get","put" ={
+ *     "security"="is_granted('ROLE_USER') and object == user",
+ *     "security_message"="Petit coquin c'est pas ton compte ça "
+ * },"delete"},
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"username"},
@@ -50,7 +56,7 @@ class User implements UserInterface
      *     message="Le champ pseudonyme ne peut être vide"
      * )
      * @Assert\Regex(
-     *     pattern="^[a-zA-Z0-9]*$",
+     *     pattern="/^[a-zA-Z0-9]*$/",
      *     message="Ton pseudo  ne
      *          peut contentir d'émojies, d'espaces ou de cartères spéciaux"
      * )
@@ -83,6 +89,7 @@ class User implements UserInterface
     des lettres, au moins un chiffre et un caractère spécial, mais ni d'espace ou d'émojies"
      * )
      * @Assert\NotBlank(
+     *     groups="create",
      *     message="Oula, il te faut un mot de passe"
      * )
      * @Assert\Length(

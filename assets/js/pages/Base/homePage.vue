@@ -12,7 +12,7 @@
       </template>
     </jumbotron>
     <b-container>
-      <b-row cols="12">
+      <b-row>
         <b-col cols="12" lg="4" md="4" sm="4" v-for="user in users" :key="user.id">
           <b-card
               :title="user.username"
@@ -29,7 +29,6 @@
             <b-button variant="warning" :to="{name: 'profile', params:{id: user.id}}">
               Visiter le profile
             </b-button>
-
           </b-card>
         </b-col>
       </b-row>
@@ -43,10 +42,9 @@ import Jumbotron from "../../components/Jumbotron/Jumbotron";
 
 export default {
   name: "Home",
-  components: {Jumbotron},
-  data() {
+  data(){
     return {
-      users: null,
+      users: undefined
     }
   },
   mounted() {
@@ -57,7 +55,8 @@ export default {
         .catch((error) => {
           console.log(error)
         })
-  }
+  },
+  components: {Jumbotron},
 }
 
 </script>

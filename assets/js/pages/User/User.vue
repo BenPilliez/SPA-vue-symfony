@@ -2,8 +2,8 @@
   <section v-if="user !== undefined">
     <b-row no-gutters>
       <b-col cols="12">
-        <jumbotron :user="user" class="profile-jumbotron">
-          <template v-slot:header :user="user">
+        <jumbotron class="profile-jumbotron">
+          <template v-slot:header>
             <b-row>
               <b-col cols="12" class="d-flex flex-row justify-content-end">
                 <b-dropdown id="dropdown-dropleft" dropleft variant="bg-light" no-caret>
@@ -50,7 +50,6 @@
                       </b-button>
                     </div>
                   </b-col>
-
                   <b-col cols="4">
                     <blockquote v-if="!user.slogan" class="blockquote text-center font-italic text-white pt-5">
                       <h4> "Allez vient
@@ -77,18 +76,15 @@
 
 <script>
 import Jumbotron from "../../components/Jumbotron/Jumbotron";
+import {EventBus} from '../../helpers/event-bus';
+
 
 export default {
   name: "User",
   components: {Jumbotron},
   data() {
     return {
-      loadedUser:this.loadUser(this, this.$route.params.id)
-    }
-  },
-  computed: {
-    user: function () {
-      return this.loadedUser
+      user: this.loadUser(this, this.$route.params.id)
     }
   },
   watch: {
@@ -96,17 +92,21 @@ export default {
       this.loadUser(this, this.$route.params.id);
     }
   },
+  created() {
+    EventBus.$on('userUpdated', (user) => {
+      this.user = this.$store.getters.users[this.$route.params.id];
+    });
+  },
   methods: {
     loadUser: (vm, id) => {
-      vm.$store.dispatch('findBy', {id: id, edit: vm.$route.name === "edit"})
+      vm.$store.dispatch('findBy', {id: id, edit: vm.$route.name === "edit", user: vm.$store.getters.users[id] || null})
           .then((resp) => {
-            vm.loadedUser = vm.$store.getters.users[id];
+            vm.user = vm.$store.getters.users[id];
           })
-    }
+    },
   }
 }
 </script>
 
 <style scoped>
-
 </style>
