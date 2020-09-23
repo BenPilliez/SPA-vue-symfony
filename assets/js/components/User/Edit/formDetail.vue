@@ -172,7 +172,7 @@
                 <b-input-group class="mb-3">
                   <b-input-group-append>
                     <b-form-datepicker
-                        v-model="form.dateofbirth"
+                        v-model="form.birthday"
                         button-only
                         id="birthday"
                         left
@@ -184,7 +184,7 @@
                   </b-input-group-append>
                   <b-form-input
                       id="example-input"
-                      v-model="form.dateofbirth"
+                      v-model="form.birthday"
                       type="text"
                       placeholder="YYYY-MM-DD"
                       autocomplete="off"
@@ -233,7 +233,7 @@ export default {
         gender: this.user.gender,
         country: this.user.country,
         gameRegion: this.user.gameRegion,
-        dateofbirth: new Date(this.user.birthday).toLocaleDateString(),
+        birthday: new Date(this.user.birthday).toLocaleDateString(),
         gamerType: this.user.gamerType,
       },
       customToolbar: [
@@ -305,6 +305,7 @@ export default {
       let url = `/api/users/${this.$route.params.id}`;
       let isValid = await this.$refs.observer.validate();
 
+      console.log(this.form)
       if(isValid){
         this.$store.dispatch('send', {form, url})
         .then((resp)=> {
