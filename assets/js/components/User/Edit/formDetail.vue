@@ -262,9 +262,9 @@ export default {
         {value: 'Amérique', label: 'Amérique'}
       ],
       options: [
-        {value: 'Male', label: 'Male'},
-        {value: 'Female', label: 'Female'},
-        {value: 'Other', label: 'Other'},
+        {value: 'Homme', label: 'Homme'},
+        {value: 'Femme', label: 'Femme'},
+        {value: 'Autre', label: 'Autre'},
       ],
       languages: language,
       formatted: '',
