@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Social from "./Social";
+import Social from "../Social/Social";
 import Slogan from "./Slogan";
 import Config from "./Config";
 import Dispo from "./Dispo";
