@@ -13,11 +13,11 @@
 <script>
 
 import TabDetail from "../../components/Tabs/TabDetail"
-import tabEdit from "../../components/Tabs/TabForm"
+import tabForm from "../../components/Tabs/TabForm"
 
 export default {
   name: "Tabs",
-  components: {TabDetail, tabEdit},
+  components: {TabDetail, tabForm},
   props: {
     user: Object
   }

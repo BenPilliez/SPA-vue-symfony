@@ -24,7 +24,7 @@
 
 <script>
 
-import Detail from "../../components/User/Detail"
+import Detail from "../User/Show/Detail"
 
 export default{
   name:"tabDetail",

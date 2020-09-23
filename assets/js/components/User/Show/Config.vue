@@ -48,7 +48,7 @@
 
 <script>
 
-import Table from "../Table/Table";
+import Table from "../../Table/Table";
 
 export default {
   name: "Config",
