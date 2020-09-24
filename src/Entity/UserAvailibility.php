@@ -17,6 +17,7 @@ class UserAvailibility
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("user:read")
      */
     private $id;
 
@@ -52,6 +53,7 @@ class UserAvailibility
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userAvailibilities")
+     *
      */
     private $user;
 

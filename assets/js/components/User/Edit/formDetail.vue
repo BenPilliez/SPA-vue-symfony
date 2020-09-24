@@ -4,7 +4,12 @@
       <b-form @submit.stop.prevent="handleSubmit(onSubmit)" methods="PUT">
         <b-row>
           <b-col cols="12" lg="6" md="6" sm="6">
+            <label>Description</label>
             <vue-editor v-model="form.description" :editor-toolbar="customToolbar"></vue-editor>
+          </b-col>
+          <b-col cols="12" lg="6" md="6" sm="6">
+            <label>Slogan</label>
+            <vue-editor v-model="form.slogan" :editor-toolbar="customToolbar"></vue-editor>
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
@@ -35,7 +40,8 @@
                 </b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-
+          </b-col>
+          <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
                 name="country"
                 v-slot="validationContext"
@@ -73,7 +79,8 @@
                 </b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-
+          </b-col>
+          <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
                 name="other Language"
                 v-slot="validationContext"
@@ -100,7 +107,8 @@
                 </b-form-invalid-feedback>
               </b-form-group>
             </validation-provider>
-
+          </b-col>
+          <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
                 name="game region"
                 v-slot="validationContext"
@@ -305,14 +313,14 @@ export default {
       let url = `/api/users/${this.$route.params.id}`;
       let isValid = await this.$refs.observer.validate();
 
-      if(isValid){
+      if (isValid) {
         this.$store.dispatch('send', {form, url})
-        .then((resp)=> {
-          resp.data.isOwner = true;
-          resp.data.edit = true;
-          this.$store.commit('users', resp.data);
-          EventBus.$emit('userUpdated', resp.data);
-        })
+            .then((resp) => {
+              resp.data.isOwner = true;
+              resp.data.edit = true;
+              this.$store.commit('users', resp.data);
+              EventBus.$emit('userUpdated', resp.data);
+            })
       }
     }
   }
