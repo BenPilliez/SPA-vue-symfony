@@ -25,4 +25,56 @@
     .form-control .vs__dropdown-toggle {
         border: none;
     }
+
+    // customCheck1 - bootstrap-vue css prefixed with
+    // .customCheck1 to overwrite without affecting
+    // default checkboxes style
+    .customCheck1 label {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        margin: 20px;
+        background-color: #F4F4F4;
+        border-color: transparent !important;
+        opacity: 0.45;
+        transition: all 0.5s;
+    }
+    input[type="checkbox"] {
+        box-sizing: border-box;
+        padding: 0;
+        opacity: 0;
+    }
+
+    .customCheck1 label:hover {
+        // opacity: 1;
+        background-color: #F4F4F4 !important;
+    }
+
+    .customCheck1 > .btn:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-group:not(:last-child) > .btn
+    {
+        border-top-right-radius: 50% !important;
+        border-bottom-right-radius: 50% !important;
+    }
+
+    .customCheck1 > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) > .btn
+    {
+        border-top-left-radius: 50% !important;
+        border-bottom-left-radius: 50% !important;
+    }
+
+    .customCheck1 .btn:not(:disabled):not(.disabled):active,
+    .customCheck1 .btn-secondary:not(:disabled):not(.disabled).active, .show > .customCheck1 .btn-secondary.dropdown-toggle
+    {
+        color: #fff;
+        background-color: #F1F1F1 !important;
+        border-color: transparent !important;
+        opacity: 1;
+    }
+    .customCheck1 label span { display: none; }
+
+    .customCheck1 .btn:focus, .btn.focus
+    {
+        box-shadow: none !important;
+    }
   }
+

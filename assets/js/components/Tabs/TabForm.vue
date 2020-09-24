@@ -17,9 +17,10 @@
     </b-tab>
     <b-tab>
       <template v-slot:title>
-        <b-icon-person></b-icon-person>
-        Amis
+        <b-icon-calendar-event></b-icon-calendar-event>
+        Dispo
       </template>
+      <form-dispo :dispo="user.userAvailibilities"></form-dispo>
     </b-tab>
   </div>
 
@@ -29,12 +30,13 @@
 <script>
 import formDetail from "../User/Edit/formDetail";
 import formConfig from "../User/Edit/Config"
+import formDispo from "../User/Edit/Dispo";
 
 export default ({
   name: "TabForm",
-  components: {formDetail, formConfig},
-  props:{
-    user:Object
+  components: {formDetail, formConfig, formDispo},
+  props: {
+    user: Object
   }
 
 })

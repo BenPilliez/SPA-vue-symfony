@@ -1,5 +1,4 @@
 <template>
-
   <b-container :fluid="true" class="formEdit rounded">
     <validation-observer ref="observer" v-slot="{ handleSubmit }">
       <b-form @submit.stop.prevent="handleSubmit(onSubmit)" methods="PUT">
