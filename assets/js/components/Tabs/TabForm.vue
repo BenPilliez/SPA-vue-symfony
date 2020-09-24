@@ -10,9 +10,10 @@
     </b-tab>
     <b-tab>
       <template v-slot:title>
-        <b-icon-joystick></b-icon-joystick>
-        Jeux
+        <b-icon-laptop></b-icon-laptop>
+        Config
       </template>
+      <form-config :config="user.userConfig"></form-config>
     </b-tab>
     <b-tab>
       <template v-slot:title>
@@ -27,10 +28,11 @@
 
 <script>
 import formDetail from "../User/Edit/formDetail";
+import formConfig from "../User/Edit/Config"
 
 export default ({
   name: "TabForm",
-  components: {formDetail},
+  components: {formDetail, formConfig},
   props:{
     user:Object
   }

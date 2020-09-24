@@ -17,7 +17,7 @@
                 Ecran: config.screen,
                 Clavier: config.keyboard,
                 Souris: config.mouse,
-                Manette: config.controller,
+                Manette: config.controller
                 }]"
                  :options="{
             striped:true,
@@ -31,7 +31,7 @@
               :items="[
                   {
                 console: config.consoles ?  config.consoles.join(', ') : '',
-                screen: config.screen,
+                screen: config.screen
               }]"
               :options="{
                     striped:true,

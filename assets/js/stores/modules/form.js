@@ -1,15 +1,12 @@
 import axios from "axios";
+import {EventBus} from "../../helpers/event-bus";
 
 
-const state = () => ({
-})
+const state = () => ({})
 
-const mutations = {
+const mutations = {}
 
-}
-
-const getters = {
-}
+const getters = {}
 
 const actions = {
 
@@ -25,19 +22,28 @@ const actions = {
                     };
 
                     rootState.loading = false;
-                    localStorage.setItem('user', JSON.stringify(resp.data));
+                    let auth_user = JSON.parse(localStorage.getItem('auth_user'));
+
+                    if(form.type === "hardware"){
+                        auth_user.userConfig = resp.data
+                    }else if(form.type === "user"){
+                        auth_user = resp.data
+                    }
+
+                    localStorage.setItem('auth_user', JSON.stringify(auth_user));
+
                     resolve(resp);
 
                 })
                 .catch((err) => {
                     let violationArray = [];
                     let text;
-                    if (err.response.data.violations) {
+                    if (err.response && err.response.data.violations) {
                         err.response.data.violations.map((violation) => {
                             violationArray.push(violation.message);
                         })
                         text = violationArray.join('\n');
-                    } else if (err.response.data.error) {
+                    } else if (err.response && err.response.data.error) {
                         text = err.response.data.error;
                     } else {
                         text = 'Oops on a eu problème Houston'

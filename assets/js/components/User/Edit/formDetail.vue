@@ -305,7 +305,6 @@ export default {
       let url = `/api/users/${this.$route.params.id}`;
       let isValid = await this.$refs.observer.validate();
 
-      console.log(this.form)
       if(isValid){
         this.$store.dispatch('send', {form, url})
         .then((resp)=> {

@@ -9,7 +9,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *
+ *     normalizationContext={"groups"={"platform:read"}, "swagger_definition_name"="Read"},
+ *     denormalizationContext={"groups"={"platform:write"}, "swagger_definition_name"="Write"},
  * )
  * @ORM\Entity(repositoryClass=UserConfigRepository::class)
  */
@@ -19,60 +20,61 @@ class UserConfig
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"platform:read", "user:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $cpu;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $graphicCard;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $ram;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $screen;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $mouse;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $keyboard;
 
     /**
      * @ORM\Column(type="json", nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $consoles = [];
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $motherboard;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $power;
 
@@ -84,13 +86,13 @@ class UserConfig
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $cooler;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read"})
+     * @Groups({"platform:read", "platform:write", "user:read"})
      */
     private $controller;
 
