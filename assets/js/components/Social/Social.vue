@@ -13,6 +13,9 @@
         <social-item :item="social"></social-item>
       </span>
     </b-col>
+
+    <hr class="w-75 ">
+
   </b-row>
 </template>
 

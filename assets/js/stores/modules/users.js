@@ -62,7 +62,7 @@ const actions = {
     update_password({commit, rootState}, form) {
         rootState.loading = true
         return new Promise((resolve, reject) => {
-            axios({url: `/api/users/${form.id}`, data: form, method: 'PUT'})
+            axios({url: `/api/users/${form.id}/password/update`, data: form, method: 'PUT'})
                 .then((resp) => {
                     rootState.loading = false;
                     rootState.message = {
@@ -75,7 +75,7 @@ const actions = {
 
                 rootState.message = {
                     type: 'error',
-                    text: err.response.data['hydra:description']
+                    text: err.response.data.error
                 }
                 rootState.loading = false
                 reject(err)

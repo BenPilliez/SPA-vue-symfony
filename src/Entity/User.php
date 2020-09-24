@@ -32,6 +32,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "security"="is_granted('ROLE_USER') and object == user",
  *     "security_message"="Petit coquin c'est pas ton compte ça "
  * },"update_password"= {
+ *     "route_name"="password_update",
+ *     "method"="PUT",
  *     "security"="is_granted('ROLE_USER') and object == user",
  *     "security_message"="Petit coquin c'est pas ton compte ça ",
  *     },
@@ -213,17 +215,36 @@ class User implements UserInterface
      */
     private $age;
 
-    /**
-     * @ORM\OneToMany(targetEntity=UserPlatform::class, mappedBy="user", orphanRemoval=true)
-     * @Groups({"user:read", "user_platform:read"})
-     */
-    private $userPlatforms;
 
     /**
      * @ORM\OneToOne(targetEntity=UserConfig::class, mappedBy="user", cascade={"persist", "remove"})
      * @Groups("user:read")
      */
     private $userConfig;
+
+    /**
+     * @ORM\OneToOne(targetEntity=UserPlatform::class, mappedBy="user", cascade={"persist", "remove"})
+     * @Groups("user:read")
+     */
+    private $userPlatform;
+
+    /**
+     * @return mixed
+     */
+    public function getUserPlatform()
+    {
+        return $this->userPlatform;
+    }
+
+    /**
+     * @param mixed $userPlatform
+     * @return User
+     */
+    public function setUserPlatform($userPlatform)
+    {
+        $this->userPlatform = $userPlatform;
+        return $this;
+    }
 
     /**
      * @ORM\OneToMany(targetEntity=UserAvailibility::class, mappedBy="user")

@@ -99,18 +99,6 @@ class UserDataPersister implements DataPersisterInterface
             $this->em->flush();
         }
 
-        if (($context['item_operation_name'] ?? null) === 'update_password' ) {
-
-            if ($data->getPlainPassword()) {
-                $data->setPassword(
-                    $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
-                );
-                $data->eraseCredentials();
-            }
-            $this->em->persist($data);
-            $this->em->flush();
-        }
-
         return $data;
     }
 

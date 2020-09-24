@@ -1,8 +1,7 @@
 <template>
   <div class="mt-8">
     <b-container class="rounded p-5 " id="detail-container">
-      <social class="mb-5" :game-platforms="filter('game')" :social-platforms="filter('social')"></social>
-      <hr class="w-75 ">
+      <social class="mb-5" v-if="user.userPlatform !== null" :game-platforms="filter('game')" :social-platforms="filter('social')"></social>
       <b-row class="mt-5">
         <b-col cols="12" lg="6" md="6" sm="6">
           <slogan :slogan="user.slogan"></slogan>

@@ -5,15 +5,15 @@
         <b-row>
           <b-col cols="12">
             <validation-provider
-                title="old-password"
+                name="ancien mot de passe"
                 rules="required"
                 v-slot="validationContext">
               <b-input type="password"
                        :state="getValidationState(validationContext)"
                        aria-describedby="old-password-feedback"
-                       name="new-password"
+                       name="old-password"
                        v-model="form.old_password"
-                       placeholder="Old password"
+                       placeholder="Ancien mot de passe"
               />
               <b-form-invalid-feedback id="old-password-feedback">{{
                   validationContext.errors[0]
@@ -24,7 +24,7 @@
           <b-col cols="12" class="mt-3">
             <validation-observer>
               <validation-provider
-                  title="new-password"
+                  name="Nouveau mot de passe"
                   rules="required|confirmed:confirmation|min:8|max:20|regex:^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]"
                   v-slot="validationContext"
               >
