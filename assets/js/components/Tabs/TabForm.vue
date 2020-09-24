@@ -40,7 +40,7 @@
         <b-icon-key></b-icon-key>
         Sécurité
       </template>
-      <form-social :social="user.userPlatforms"></form-social>
+      <form-password></form-password>
     </b-tab>
   </div>
 
@@ -53,10 +53,11 @@ import formConfig from "../User/Edit/Config"
 import formDispo from "../User/Edit/Dispo";
 import formSocial from "../User/Edit/Social"
 import formAvatar from "../User/Edit/AvatarForm"
+import formPassword from "../User/Edit/PasswordForm";
 
 export default ({
   name: "TabForm",
-  components: {formDetail, formConfig, formDispo, formSocial, formAvatar},
+  components: {formDetail, formConfig, formDispo, formSocial, formAvatar,formPassword},
   props: {
     user: Object
   }

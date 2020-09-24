@@ -31,7 +31,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      itemOperations={"get","put" ={
  *     "security"="is_granted('ROLE_USER') and object == user",
  *     "security_message"="Petit coquin c'est pas ton compte ça "
- * },"delete"},
+ * },"update_password"= {
+ *     "security"="is_granted('ROLE_USER') and object == user",
+ *     "security_message"="Petit coquin c'est pas ton compte ça ",
+ *     },
+ *     "delete"},
  * )
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"username"},
@@ -84,7 +88,7 @@ class User implements UserInterface
      * @Groups("user:write")
      * @SerializedName("password")
      * @Assert\Regex(
-     *     pattern="^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]",
+     *     pattern="/^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]/",
      *     message="Ton mot de passe doit comprendre 4 caractères minimum et 2O max, il doit contenir
     des lettres, au moins un chiffre et un caractère spécial, mais ni d'espace ou d'émojies"
      * )

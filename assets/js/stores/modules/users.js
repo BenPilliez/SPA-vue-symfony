@@ -58,7 +58,30 @@ const actions = {
                     })
             }
         })
-    }
+    },
+    update_password({commit, rootState}, form) {
+        rootState.loading = true
+        return new Promise((resolve, reject) => {
+            axios({url: `/api/users/${form.id}`, data: form, method: 'PUT'})
+                .then((resp) => {
+                    rootState.loading = false;
+                    rootState.message = {
+                        type: 'success',
+                        text: 'Mot de passe mis à jour '
+                    }
+                    resolve(resp)
+                }).catch((err) => {
+                console.log(err.response)
+
+                rootState.message = {
+                    type: 'error',
+                    text: err.response.data['hydra:description']
+                }
+                rootState.loading = false
+                reject(err)
+            })
+        })
+    },
 }
 
 export default {
