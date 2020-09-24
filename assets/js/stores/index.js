@@ -6,6 +6,7 @@ import ResetPassword from "./modules/reset_password"
 import Users from "./modules/users";
 import Ajax from "./modules/ajaxLoad"
 import Form from "./modules/form";
+import Avatar from "./modules/avatar";
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export const store = new Vuex.Store({
         users: Users,
         ajax: Ajax,
         form: Form,
+        avatar:Avatar
     },
     mutations: {
         message(state, message) {

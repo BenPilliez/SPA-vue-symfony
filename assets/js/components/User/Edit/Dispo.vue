@@ -70,12 +70,8 @@ export default {
   },
   methods: {
     submit() {
-      console.log()
     }
   },
-  beforeMount() {
-    console.log(this.dispo)
-  }
 }
 </script>
 

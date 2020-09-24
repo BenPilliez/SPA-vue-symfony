@@ -319,6 +319,7 @@ export default {
               resp.data.isOwner = true;
               resp.data.edit = true;
               this.$store.commit('users', resp.data);
+              localStorage.setItem('auth_user', JSON.stringify(resp.data))
               EventBus.$emit('userUpdated', resp.data);
             })
       }

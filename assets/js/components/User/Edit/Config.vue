@@ -314,7 +314,8 @@ export default {
               let user = this.$store.getters.users[this.$route.params.id];
               user.userConfig = resp.data;
               this.$store.commit('users', user);
-              EventBus.$emit('userUpdated');
+              localStorage.setItem('auth_user', JSON.stringify(user));
+              EventBus.$emit('userUpdated',this.$store.getters.users[this.$route.params.id]);
             })
       }
     }

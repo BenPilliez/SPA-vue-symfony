@@ -32,7 +32,8 @@
                 <b-row class="justify-content-between ">
                   <b-col cols="8" class=" d-flex flex-row">
                     <b-avatar badge badge-variant="success" class="d-none d-lg-block d-md-block d-sm-block"
-                              :src="user.image ? `/media/avatars/${user.image}` : '/images/gamer.jpg'" size="12rem"
+                              :src="user.mediaObjects[0] ? `/media/avatars/${user.mediaObjects[0].filePath}` : '/images/gamer.jpg'"
+                              size="12rem"
                               rounded/>
 
                     <div class="d-flex flex-column p-3 text-white">
@@ -94,7 +95,7 @@ export default {
   },
   created() {
     EventBus.$on('userUpdated', (user) => {
-      this.user = this.$store.getters.users[this.$route.params.id];
+      this.user = this.loadUser(this, this.$route.params.id);
     });
   },
   methods: {

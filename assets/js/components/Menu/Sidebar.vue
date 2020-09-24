@@ -32,7 +32,7 @@
                     @click="hide"
                 >
                   <b-avatar
-                      :src="authUser.image ? `/media/avatars/${authUser.image.filePath}` : '/images/gamer.jpg' "
+                      :src="authUser.mediaObjects[0] ? `/media/avatars/${authUser.mediaObjects[0].filePath}` : '/images/gamer.jpg' "
                       alt="user-avatar" size="6rem"
                   />
                 </router-link>
@@ -90,10 +90,19 @@
 </template>
 
 <script>
+import {EventBus} from "../../helpers/event-bus";
+
 export default {
   name: "Sidebar",
-  props: {
-    authUser: Object
+  data(){
+    return{
+      authUser: this.$store.getters.auth_user
+    }
+  },
+  created() {
+    EventBus.$on('userUpdated', (user) => {
+      this.authUser = this.$store.getters.auth_user;
+    });
   },
   methods: {
     logout: function () {

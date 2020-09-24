@@ -227,6 +227,12 @@ class User implements UserInterface
      */
     private $userAvailibilities;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MediaObject::class, mappedBy="user")
+     * @Groups("user:read")
+     */
+    private $mediaObjects;
+
 
     public function __construct()
     {
@@ -235,6 +241,7 @@ class User implements UserInterface
         $this->isVerified = false;
         $this->userPlatforms = new ArrayCollection();
         $this->userAvailibilities = new ArrayCollection();
+        $this->mediaObjects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -561,6 +568,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($userAvailibility->getUser() === $this) {
                 $userAvailibility->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MediaObject[]
+     */
+    public function getMediaObjects(): Collection
+    {
+        return $this->mediaObjects;
+    }
+
+    public function addMediaObject(MediaObject $mediaObject): self
+    {
+        if (!$this->mediaObjects->contains($mediaObject)) {
+            $this->mediaObjects[] = $mediaObject;
+            $mediaObject->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMediaObject(MediaObject $mediaObject): self
+    {
+        if ($this->mediaObjects->contains($mediaObject)) {
+            $this->mediaObjects->removeElement($mediaObject);
+            // set the owning side to null (unless already changed)
+            if ($mediaObject->getUser() === $this) {
+                $mediaObject->setUser(null);
             }
         }
 
