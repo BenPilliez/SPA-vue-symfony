@@ -82,6 +82,45 @@ const actions = {
             })
         })
     },
+
+    platform({commit, rootState}, form){
+        rootState.loading = true;
+        return new Promise((resolve,reject) => {
+            axios({url: form.url, data:form, method: form.method,})
+                .then((resp) => {
+                    rootState.loading = false;
+
+                    rootState.message = {
+                        type:'success',
+                        text:'Profil mis à jour'
+                    }
+
+                    resolve(resp);
+                }).catch((err) => {
+
+                let violationArray = [];
+                let text;
+                if (err.response && err.response.data.violations) {
+                    err.response.data.violations.map((violation) => {
+                        violationArray.push(violation.message);
+                    })
+                    text = violationArray.join('\n');
+                } else if (err.response && err.response.data.error) {
+                    text = err.response.data.error;
+                } else {
+                    text = 'Oops on a eu problème Houston'
+                }
+
+                rootState.loading = false;
+                rootState.message = {
+                    type: "error",
+                    text: text
+                }
+                reject(err);
+
+            })
+        })
+    }
 }
 
 export default {

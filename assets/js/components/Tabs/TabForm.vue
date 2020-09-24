@@ -33,7 +33,7 @@
         <b-icon-card-list></b-icon-card-list>
         Platforms
       </template>
-      <form-social :social="user.userPlatforms"></form-social>
+      <form-social :social="user.userPlatform"></form-social>
     </b-tab>
     <b-tab>
       <template v-slot:title>

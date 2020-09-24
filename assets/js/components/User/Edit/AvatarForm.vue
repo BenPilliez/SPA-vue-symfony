@@ -34,7 +34,7 @@
         </b-row>
         <b-row>
           <b-col cols="12" class="mt-3">
-            <b-button size="lg" class="w-100" type="submit" variant="success">Update</b-button>
+            <b-button size="lg" class="w-100" type="submit" variant="success">Mettre à jour</b-button>
           </b-col>
         </b-row>
       </b-form>
