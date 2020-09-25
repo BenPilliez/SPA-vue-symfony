@@ -76,8 +76,6 @@ const actions = {
     logout({state, rootState}) {
         // On remove le header
         setAuthorizationToken();
-        //Il n'y a plus de user authentifié
-        state.auth_user = null;
         localStorage.clear();
         rootState.message = {
             type: 'success',
