@@ -7,10 +7,10 @@
     <b-col cols="12">
       <div class="p5" v-for="(value) in dispo">
         <b-row class="mt-4">
-          <b-col cols="3">
+          <b-col cols="12" lg="3" md="3" sm="3">
             {{ value.day }}
           </b-col>
-          <b-col cols="9">
+          <b-col cols="12" lg="9" md="9" sm="9" class="d-flex flex-row justify-content-between flex-wrap">
             <b-img width="32" height="32" src="/images/dispo/morning.svg"
                    :class="value.morning === true ? 'opacity-5 mr-3' : 'opacity-1 mr-3'"></b-img>
             <b-img width="32" height="32" src="/images/dispo/midday.svg"

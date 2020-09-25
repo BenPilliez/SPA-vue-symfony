@@ -13,6 +13,7 @@
 import Sidebar from "../components/Menu/Sidebar"
 import Message from "../components/Message/Message";
 import Footer from "../components/Footer/Footer";
+import {EventBus} from "../helpers/event-bus";
 
 export default {
   name: 'App',
@@ -36,6 +37,12 @@ export default {
     loading: function () {
       return !!(this !== undefined && this.$store.getters.loading);
     }
+  },
+  created() {
+    EventBus.$on('logout', (user) => {
+      this.$store.commit('auth_user', null)
+
+    })
   },
   components: {Footer, Sidebar, Message}
 }

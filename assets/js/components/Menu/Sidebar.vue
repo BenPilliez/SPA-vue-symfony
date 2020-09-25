@@ -109,6 +109,8 @@ export default {
       this.$store.dispatch('logout')
           .then(() => {
             this.$router.push('/login')
+            this.authUser = null;
+            EventBus.$emit('logout', this.authUser)
           })
     },
   }

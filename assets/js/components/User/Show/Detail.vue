@@ -41,29 +41,28 @@ export default {
   data() {
     return {
       gamePlatforms: {
-        steam: this.user.userPlatform.steam,
-        origin: this.user.userPlatform.origin,
-        ubisoft: this.user.userPlatform.ubisoft,
-        battlenet: this.user.userPlatform.battlenet,
-        gog: this.user.userPlatform.gog,
-        lol: this.user.userPlatform.lol,
-        nintendo: this.user.userPlatform.nintendo,
-        psn: this.user.userPlatform.psn,
-        rockstar: this.user.userPlatform.rockstar,
-        wargaming: this.user.userPlatform.wargaming,
-        xbox: this.user.userPlatform.xbox
+        steam: this.user.userPlatform ? this.user.userPlatform.steam : null,
+        origin: this.user.userPlatform ? this.user.userPlatform.origin : null,
+        ubisoft: this.user.userPlatform ? this.user.userPlatform.ubisoft : null,
+        battlenet: this.user.userPlatform ? this.user.userPlatform.battlenet : null,
+        gog: this.user.userPlatform ? this.user.userPlatform.gog : null,
+        lol: this.user.userPlatform ? this.user.userPlatform.lol : null,
+        nintendo: this.user.userPlatform ? this.user.userPlatform.nintendo : null,
+        psn: this.user.userPlatform ? this.user.userPlatform.psn : null,
+        rockstar: this.user.userPlatform ? this.user.userPlatform.rockstar : null,
+        wargaming: this.user.userPlatform ? this.user.userPlatform.wargaming : null,
+        xbox: this.user.userPlatform ? this.user.userPlatform.xbox : null
       },
       socialPlatforms:
           {
-            snapchat: this.user.userPlatform.snapchat,
-            instagram: this.user.userPlatform.instagram,
-            facebook: this.user.userPlatform.facebook,
-            twitter: this.user.userPlatform.twitter,
-            skype: this.user.userPlatform.skype,
-            twitch: this.user.userPlatform.twitch,
-            youtube: this.user.userPlatform.youtube
+            snapchat: this.user.userPlatform ? this.user.userPlatform.snapchat : null,
+            instagram: this.user.userPlatform ? this.user.userPlatform.instagram : null,
+            facebook: this.user.userPlatform ? this.user.userPlatform.facebook : null,
+            twitter: this.user.userPlatform ? this.user.userPlatform.twitter : null,
+            skype: this.user.userPlatform ? this.user.userPlatform.skype : null,
+            twitch: this.user.userPlatform ? this.user.userPlatform.twitch : null,
+            youtube: this.user.userPlatform ? this.user.userPlatform.youtube : null
           }
-
     }
   }
 

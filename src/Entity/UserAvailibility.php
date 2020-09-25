@@ -17,7 +17,6 @@ class UserAvailibility
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("user:read")
      */
     private $id;
 
@@ -25,25 +24,25 @@ class UserAvailibility
      * @ORM\Column(type="boolean")
      * @Groups("user:read")
      */
-    private $morning;
+    private $morning = false;
 
     /**
      * @ORM\Column(type="boolean")
      * @Groups("user:read")
      */
-    private $midday;
+    private $midday = false;
 
     /**
      * @ORM\Column(type="boolean")
      * @Groups("user:read")
      */
-    private $evening;
+    private $evening = false;
 
     /**
      * @ORM\Column(type="boolean")
      * @Groups("user:read")
      */
-    private $night;
+    private $night = false;
 
     /**
      * @ORM\Column(type="string", length=255)

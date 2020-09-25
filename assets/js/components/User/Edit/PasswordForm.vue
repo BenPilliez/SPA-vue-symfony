@@ -1,7 +1,7 @@
 <template>
-  <b-container class="formEdit" fluid>
+  <b-container class="formEdit rounded" fluid>
     <validation-observer ref="observer" slim tag="form" v-slot="{ handleSubmit }">
-      <b-form @submit.stop.prevent="handleSubmit(onSubmit)" methods="PUT" class="bg-white">
+      <b-form @submit.stop.prevent="handleSubmit(onSubmit)" methods="PUT" class=" rounded bg-white">
         <b-row>
           <b-col cols="12">
             <validation-provider

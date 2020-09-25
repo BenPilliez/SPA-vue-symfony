@@ -2,14 +2,14 @@
   <b-row>
     <b-col cols="12" lg="6" md="6" sm="6">
       <h6>Platformes de jeux</h6>
-      <span v-for="(game, propertyName) in gamePlatforms" :key="game.id" class="pl-2">
+      <span v-for="(game, propertyName) in gamePlatforms" :key="propertyName" class="pl-2">
         <social-item v-if="game !== ''" :value="game" :icon-name="propertyName" :url="regex(game)"></social-item>
       </span>
     </b-col>
 
     <b-col cols="12" lg="6" md="6" sm="6">
       <h6>Réseaux sociaux</h6>
-      <span v-for="(social, propertyName) in socialPlatforms" :key="social.id" class="pl-2">
+      <span v-for="(social, propertyName) in socialPlatforms" :key="propertyName" class="pl-2">
         <social-item v-if="social !== ''" :value="social" :icon-name="propertyName" :url="regex(social)"></social-item>
       </span>
     </b-col>
