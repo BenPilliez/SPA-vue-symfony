@@ -2,23 +2,23 @@
   <span>
     <transition name="slide-fade">
       <b-button v-bind:style="{
-          'background': `url(${item.platform.iconPath})`,
+          'background': `url(/images/logo/${iconName}.svg)`,
           'background-size': 'cover',
           'background-repeat': 'no-repeat',
           'background-position': 'center',
           'border': 'none'}"
                 v-show="isShow"
                 class="social-button"
-                :href="item.url"
+                :href="url === true ? value : ''"
                 target="_blank"
-                :variant="item.url !== null ? 'link' : ''"
-                @click=" !item.url ? toggleShow($event) : '' ">
+                :variant="url === true ? 'link' : ''"
+                @click=" url === false ? toggleShow($event) : '' ">
     </b-button>
     </transition>
     <transition name="slide-fade">
         <span class="social-item-span" v-show="!isShow"
               @click=" toggleShow($event)">
-              {{ item.username }}
+              {{ value}}
         </span>
       </transition>
   </span>
@@ -28,7 +28,9 @@
 export default {
   name: 'SocialItem',
   props: {
-    item: Object
+    value: String,
+    iconName: String,
+    url: Boolean
   },
   data() {
     return {

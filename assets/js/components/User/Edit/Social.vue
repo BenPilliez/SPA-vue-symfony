@@ -333,7 +333,7 @@
           <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
                 name="youtube"
-                rules="max:255"
+                rules="max:255|url"
                 v-slot="validationContext"
             >
               <b-form-input
@@ -353,7 +353,7 @@
           <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
                 name="twitch"
-                rules="max:255|"
+                rules="max:255|url"
                 v-slot="validationContext"
             >
               <b-form-input

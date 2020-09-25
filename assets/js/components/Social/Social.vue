@@ -2,15 +2,15 @@
   <b-row>
     <b-col cols="12" lg="6" md="6" sm="6">
       <h6>Platformes de jeux</h6>
-      <span v-for="game in gamePlatforms" :key="game.id" class="pl-2">
-        <social-item :item="game"></social-item>
+      <span v-for="(game, propertyName) in gamePlatforms" :key="game.id" class="pl-2">
+        <social-item v-if="game !== ''" :value="game" :icon-name="propertyName" :url="regex(game)"></social-item>
       </span>
     </b-col>
 
     <b-col cols="12" lg="6" md="6" sm="6">
       <h6>Réseaux sociaux</h6>
-      <span v-for="social in socialPlatforms" :key="social.id" class="pl-2">
-        <social-item :item="social"></social-item>
+      <span v-for="(social, propertyName) in socialPlatforms" :key="social.id" class="pl-2">
+        <social-item v-if="social !== ''" :value="social" :icon-name="propertyName" :url="regex(social)"></social-item>
       </span>
     </b-col>
 
@@ -25,10 +25,15 @@ import SocialItem from "./SocialItem";
 export default {
   name: "Social",
   props: {
-    gamePlatforms: Array,
-    socialPlatforms: Array
+    gamePlatforms: Object,
+    socialPlatforms: Object
   },
   components: {SocialItem},
+  methods:{
+    regex: function(value){
+       return /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(value);
+    }
+  }
 
 }
 </script>
