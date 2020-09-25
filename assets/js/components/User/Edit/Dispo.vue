@@ -63,20 +63,20 @@ export default {
           form[checked.getAttribute('data-day')][checked.getAttribute('data-partDay')] = true
         } else {
           form[checked.getAttribute('data-day')] = {};
+          form[checked.getAttribute('data-day')].day = checked.getAttribute('data-day');
           form[checked.getAttribute('data-day')][checked.getAttribute('data-partDay')] = true
         }
       }
-      form.url = "/api/user_availibilities";
-      form.method= "POST";
-      form.user_id = this.$route.params.id;
+      let url = "/api/user_availibilities";
+      let method= "POST";
+      let user = this.$route.params.id;
 
       if(this.dispo.length > 0){
-        form.method = "PUT";
-        form.url = `/api/user_availibilities/${this.$route.params.id}`
+        method = "PUT";
+        url = `/api/user_availibilities/${this.$route.params.id}`
       }
 
-      console.log(form)
-      this.$store.dispatch('dispo', form)
+      this.$store.dispatch('dispo', {form,  url, method, user})
     }
   },
 }

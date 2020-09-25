@@ -51,31 +51,32 @@ final class CreateAvailibilitesController
         $body = json_decode($request->getContent(), true);
 
         $user = $this->userRepository->find($body['user_id']);
-        $test =['morning'];
 
-        foreach ($body as $data => $value) {
+        foreach ($body['form']['form'] as $data => $value) {
             $availibility = new UserAvailibility();
             $availibility->setUser($user);
 
-            if (array_key_exists('morning', $value)) {
+            if (gettype($value) === 'array' &&  array_key_exists('morning', $value)) {
                 $availibility->setMorning($value['morning']);
             }
-       
-            if (array_key_exists('midday', $value)) {
+
+            if (gettype($value) === 'array' && array_key_exists('midday', $value)) {
                 $availibility->setMidday($value['midday']);
-
             }
 
-            if (array_key_exists('evening', $value)) {
+            if (gettype($value) === 'array' && array_key_exists('evening', $value)) {
                 $availibility->setEvening($value['evening']);
-
             }
 
-            if (array_key_exists('night', $value)) {
+            if (gettype($value) === 'array' && array_key_exists('night', $value)) {
                 $availibility->setNight($value['night']);
             }
 
-            $availibility->setDay($data);
+
+            if(gettype($value) === 'array' && array_key_exists('day', $value)){
+                $availibility->setDay("lundi");
+            }
+
             $this->em->persist($availibility);
         }
 

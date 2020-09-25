@@ -11,6 +11,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
+ *     normalizationContext={"groups"={"dispo:read"}},
+ *     denormalizationContext={"groups"={"dispo:write"}},
  *     collectionOperations={
  *       "post" ={
  *         "controller"=CreateAvailibilitesController::class,
@@ -30,37 +32,37 @@ class UserAvailibility
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("user:read")
+     * @Groups({"dispo:read", "user:read","dispo:write"})
      */
     private $morning = false;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("user:read")
+     * @Groups({"dispo:read", "user:read","dispo:write"})
      */
     private $midday = false;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("user:read")
+     * @Groups({"dispo:read", "user:read","dispo:write"})
      */
     private $evening = false;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups("user:read")
+     * @Groups({"dispo:read", "user:read","dispo:write"})
      */
     private $night = false;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("user:read")
+     * @Groups({"dispo:read", "user:read","dispo:write"})
      */
     private $day;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userAvailibilities")
-     *
+     * @Groups({"dispo:read","dispo:write"})
      */
     private $user;
 
