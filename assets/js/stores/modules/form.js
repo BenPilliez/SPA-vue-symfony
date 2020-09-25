@@ -57,6 +57,24 @@ const actions = {
                     reject(err);
                 })
         })
+    },
+    dispo({commit, rootState}, form){
+        rootState.loading = true;
+        return new Promise((resolve, reject) => {
+            axios({url: form.url, data: form, method:form.method})
+                .then((resp) => {
+                    rootState.loading = false;
+                    rootState.message = {
+                        type:'success',
+                        text: 'Tes dispo ont bien été save'
+                    }
+                })
+                .catch((err) => {
+                    console.error(err);
+                    rootState.loading = false;
+                    reject(err)
+                })
+        })
     }
 
 }

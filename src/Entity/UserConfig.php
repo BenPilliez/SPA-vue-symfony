@@ -81,6 +81,7 @@ class UserConfig
     /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="userConfig", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"platform:read", "platform:write"})
      */
     private $user;
 

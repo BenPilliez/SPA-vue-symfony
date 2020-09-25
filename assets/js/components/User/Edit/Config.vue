@@ -270,17 +270,17 @@ export default {
   data() {
     return {
       form: {
-        cpu: this.config.cpu,
-        motherboard: this.config.motherboard,
-        graphicCard: this.config.graphicCard,
-        power: this.config.power,
-        ram: this.config.ram,
-        cooler: this.config.cooler,
-        screen: this.config.screen,
-        keyboard: this.config.keyboard,
-        mousepad: this.config.mousepad,
-        controller: this.config.controller,
-        console: this.config.consoles
+        cpu: this.config ? this.config.cpu : '',
+        motherboard: this.config ? this.config.motherboard : '',
+        graphicCard: this.config ? this.config.graphicCard : '',
+        power: this.config ? this.config.power : '',
+        ram: this.config ? this.config.ram : '',
+        cooler: this.config ? this.config.cooler : '',
+        screen: this.config ? this.config.screen : '',
+        keyboard: this.config ? this.config.keyboard : '',
+        mousepad: this.config ? this.config.mousepad : '',
+        controller: this.config ? this.config.controller : '',
+        console: this.config ? this.config.consoles : ''
       },
       consoleType: [
         {value: 'PS4', label: 'PS4'},
@@ -301,9 +301,18 @@ export default {
     async onSubmit() {
 
       let form = this.form;
-      form.method = "PUT";
+      let url = "/api/user_configs";
       form.type = "hardware";
-      let url = `/api/user_configs/${this.config.id}`;
+      let user = this.$store.getters.users[this.$route.params.id];
+
+      form.method = "POST";
+      form.user = user['@id'];
+
+      if (this.config !== null) {
+        form.method = "PUT";
+        url = `/api/user_configs/${this.config.id}`;
+      }
+
       let isValid = await this.$refs.observer.validate();
 
       if (isValid) {
@@ -311,11 +320,10 @@ export default {
             .then((resp) => {
               resp.data.isOwner = true;
               resp.data.edit = true;
-              let user = this.$store.getters.users[this.$route.params.id];
               user.userConfig = resp.data;
               this.$store.commit('users', user);
               localStorage.setItem('auth_user', JSON.stringify(user));
-              EventBus.$emit('userUpdated',this.$store.getters.users[this.$route.params.id]);
+              EventBus.$emit('userUpdated', this.$store.getters.users[this.$route.params.id]);
             })
       }
     }
