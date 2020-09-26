@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserAvailibilityRepository;
-use App\Controller\User\CreateMediaObjectAction;
+use App\Controller\Availibilities\EditAvailibilitesController;
 use App\Controller\Availibilities\CreateAvailibilitesController;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -15,9 +15,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     denormalizationContext={"groups"={"dispo:write"}},
  *     collectionOperations={
  *       "post" ={
- *         "controller"=CreateAvailibilitesController::class,
+ *         "controller"=CreateAvailibilitesController::class
  *     }
- *     }
+ *     },
  * )
  * @ORM\Entity(repositoryClass=UserAvailibilityRepository::class)
  */

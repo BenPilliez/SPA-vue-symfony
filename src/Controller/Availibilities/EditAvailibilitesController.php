@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class CreateAvailibilitesController
  * @package App\Controller\Availibilities
  */
-final class CreateAvailibilitesController extends AbstractController
+final class EditAvailibilitesController extends AbstractController
 {
     /**
      * @var UserAvailibilityRepository

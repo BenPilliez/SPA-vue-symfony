@@ -60,15 +60,15 @@ const actions = {
     },
     dispo({commit, rootState}, form){
         rootState.loading = true;
-        console.log(form)
         return new Promise((resolve, reject) => {
-            axios({url: form.url, data: {form: form, user_id:form.user}, method:form.method})
+            axios({url: form.url, data: {form: form, user_id:form.user.id}, method:form.method})
                 .then((resp) => {
                     rootState.loading = false;
                     rootState.message = {
                         type:'success',
                         text: 'Tes dispo ont bien été save'
                     }
+                    resolve(resp)
                 })
                 .catch((err) => {
                     console.error(err);

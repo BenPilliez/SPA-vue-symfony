@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import {EventBus} from "../../../helpers/event-bus";
+
 export default {
   name: "formDispo",
   props: {
@@ -69,14 +71,18 @@ export default {
       }
       let url = "/api/user_availibilities";
       let method= "POST";
-      let user = this.$route.params.id;
+      let user = this.$store.getters.users[this.$route.params.id];
 
       if(this.dispo.length > 0){
         method = "PUT";
-        url = `/api/user_availibilities/${this.$route.params.id}`
+        url = `/api/user_availibilities/${user.id}`
       }
 
       this.$store.dispatch('dispo', {form,  url, method, user})
+      .then((resp) => {
+        user.userAvailibilities = resp.data.result;
+        EventBus.$emit('userUpdated', user);
+      })
     }
   },
 }
