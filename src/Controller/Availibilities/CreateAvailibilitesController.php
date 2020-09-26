@@ -54,17 +54,29 @@ final class CreateAvailibilitesController extends AbstractController
         $user = $this->userRepository->find($body['user_id']);
 
         foreach ($body['form']['form'] as $data => $value) {
+            $exist = $this->repository->findOneBy(['day' => $value['day'], "user" => $user]);
+            if ($exist) {
 
-            $availibility = new UserAvailibility();
-            $availibility->setUser($user);
+                $exist->setMorning($value['morning']);
+                $exist->setMidday($value['midday']);
+                $exist->setEvening($value['evening']);
+                $exist->setNight($value['night']);
 
-            $availibility->setMorning($value['morning']);
-            $availibility->setMidday($value['midday']);
-            $availibility->setEvening($value['evening']);
-            $availibility->setNight($value['night']);
-            $availibility->setDay($value['day']);
-            
-            $this->em->persist($availibility);
+                $this->em->persist($exist);
+
+            } else {
+                $availibility = new UserAvailibility();
+                $availibility->setUser($user);
+
+                $availibility->setMorning($value['morning']);
+                $availibility->setMidday($value['midday']);
+                $availibility->setEvening($value['evening']);
+                $availibility->setNight($value['night']);
+                $availibility->setDay($value['day']);
+
+                $this->em->persist($availibility);
+            }
+
         }
 
         $this->em->flush();

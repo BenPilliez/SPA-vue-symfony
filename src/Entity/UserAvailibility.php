@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "controller"=CreateAvailibilitesController::class
  *     }
  *     },
- *     itemOperations={ "get" = {"controller": GetAvailibilitesController::class},
+ *     itemOperations={ "get",
  *     "update_availibilities"= {
  *     "route_name"="availibility_update",
  *     "method"="PUT",

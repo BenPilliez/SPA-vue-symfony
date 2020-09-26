@@ -77,11 +77,6 @@ export default {
       let method= "POST";
       let user = this.$store.getters.users[this.$route.params.id];
 
-      if(this.dispo.length > 0){
-        method = "PUT";
-        url = `/api/user_availibilities/${user.id}`
-      }
-
       this.$store.dispatch('dispo', {form,  url, method, user})
       .then((resp) => {
         user.userAvailibilities = resp.data.result;
