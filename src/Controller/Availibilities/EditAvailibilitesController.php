@@ -7,10 +7,10 @@ use App\Entity\UserAvailibility;
 use App\Repository\UserAvailibilityRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Egulias\EmailValidator\Exception\CharNotAllowed;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class CreateAvailibilitesController
@@ -47,38 +47,34 @@ final class EditAvailibilitesController extends AbstractController
      * @param Request $request
      * @return JsonResponse
      */
-    public function __invoke(Request $request): JsonResponse
+
+    /**
+     * @Route(
+     *     name="availibility_update",
+     *     path="/api/user_availibilities/{id}",
+     *     methods={"PUT"},
+     *     defaults={
+     *         "_api_resource_class"=UserAvailibility::class,
+     *         "_api_item_operation_name"="update_availibilities"
+     *     }
+     * )
+     */
+    public function update(Request $request): JsonResponse
     {
         $body = json_decode($request->getContent(), true);
-
         $user = $this->userRepository->find($body['user_id']);
 
         foreach ($body['form']['form'] as $data => $value) {
-            $availibility = new UserAvailibility();
-            $availibility->setUser($user);
 
-            if (gettype($value) === 'array' &&  array_key_exists('morning', $value)) {
-                $availibility->setMorning($value['morning']);
-            }
+            /*$userAvaibility = $this->repository->findOneBy(['user' => $user, 'day' => $value['day']]);
 
-            if (gettype($value) === 'array' && array_key_exists('midday', $value)) {
-                $availibility->setMidday($value['midday']);
-            }
+            $userAvaibility->setMorning($value['morning']);
+            $userAvaibility->setMidday($value['midday']);
+            $userAvaibility->setEvening($value['evening']);
+            $userAvaibility->setNight($value['night']);
 
-            if (gettype($value) === 'array' && array_key_exists('evening', $value)) {
-                $availibility->setEvening($value['evening']);
-            }
+            $this->em->persist($userAvaibility);*/
 
-            if (gettype($value) === 'array' && array_key_exists('night', $value)) {
-                $availibility->setNight($value['night']);
-            }
-
-
-            if(gettype($value) === 'array' && array_key_exists('day', $value)){
-                $availibility->setDay($value['day']);
-            }
-
-            $this->em->persist($availibility);
         }
 
         $this->em->flush();

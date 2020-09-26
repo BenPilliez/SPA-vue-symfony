@@ -60,15 +60,19 @@ export default {
   methods: {
     submit() {
       let form = {};
-      for (let checked of document.querySelectorAll('input[type=checkbox]:checked')) {
-        if (form.hasOwnProperty(checked.getAttribute('data-day'))) {
-          form[checked.getAttribute('data-day')][checked.getAttribute('data-partDay')] = true
+      for (let checkbox of document.querySelectorAll('input[type=checkbox]')) {
+        if (checkbox.checked === true) {
+          console.log("bite")
+        }
+        if (form.hasOwnProperty(checkbox.getAttribute('data-day'))) {
+          form[checkbox.getAttribute('data-day')][checkbox.getAttribute('data-partDay')] = checkbox.checked === true;
         } else {
-          form[checked.getAttribute('data-day')] = {};
-          form[checked.getAttribute('data-day')].day = checked.getAttribute('data-day');
-          form[checked.getAttribute('data-day')][checked.getAttribute('data-partDay')] = true
+          form[checkbox.getAttribute('data-day')] = {};
+          form[checkbox.getAttribute('data-day')].day = checkbox.getAttribute('data-day');
+          form[checkbox.getAttribute('data-day')][checkbox.getAttribute('data-partDay')] = checkbox.checked === true;
         }
       }
+
       let url = "/api/user_availibilities";
       let method= "POST";
       let user = this.$store.getters.users[this.$route.params.id];

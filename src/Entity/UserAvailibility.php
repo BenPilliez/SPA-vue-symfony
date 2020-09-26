@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserAvailibilityRepository;
-use App\Controller\Availibilities\EditAvailibilitesController;
+use APP\Controller\Availibilities\GetAvailibilitesController;
 use App\Controller\Availibilities\CreateAvailibilitesController;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -18,6 +20,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *         "controller"=CreateAvailibilitesController::class
  *     }
  *     },
+ *     itemOperations={ "get" = {"controller": GetAvailibilitesController::class},
+ *     "update_availibilities"= {
+ *     "route_name"="availibility_update",
+ *     "method"="PUT",
+ *     },}
  * )
  * @ORM\Entity(repositoryClass=UserAvailibilityRepository::class)
  */
@@ -27,6 +34,7 @@ class UserAvailibility
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ApiProperty(identifier=false)
      */
     private $id;
 
@@ -63,6 +71,7 @@ class UserAvailibility
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userAvailibilities")
      * @Groups({"dispo:read","dispo:write"})
+     * @ApiProperty(identifier=true)
      */
     private $user;
 
