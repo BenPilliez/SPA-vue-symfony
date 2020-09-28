@@ -14,5 +14,11 @@ export default{
     user: Object
   },
 
+  beforeMount() {
+    if(!this.user.isOwner){
+      this.$router.push('/');
+    }
+  }
+
 }
 </script>
