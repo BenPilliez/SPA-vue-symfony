@@ -5,7 +5,9 @@
     <notifications class="mt-4" :message="message" group="app"/>
     <router-view v-if="!authUser" ></router-view>
     <sidebar v-if="authUser" :authUser="authUser"></sidebar>
+    <cookie></cookie>
     <Footer v-if="authUser"></Footer>
+
   </b-container>
 </template>
 <script>
@@ -14,6 +16,7 @@ import Sidebar from "../components/Menu/Sidebar"
 import Message from "../components/Message/Message";
 import Footer from "../components/Footer/Footer";
 import {EventBus} from "../helpers/event-bus";
+import Cookie from "../components/Cookies/Cookie";
 
 export default {
   name: 'App',
@@ -44,7 +47,7 @@ export default {
 
     })
   },
-  components: {Footer, Sidebar, Message}
+  components: {Footer, Sidebar, Message,Cookie}
 }
 
 </script>

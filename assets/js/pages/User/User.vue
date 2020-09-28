@@ -30,7 +30,7 @@
             <b-row class="flex-column justify-content-end">
               <b-col cols="12" class="mt-5">
                 <b-row class="justify-content-between ">
-                  <b-col cols="8" class=" d-flex flex-row">
+                  <b-col cols="12" lg="8" md="8" sm="8" class=" d-flex flex-row">
                     <b-avatar badge badge-variant="success" class="d-none d-lg-block d-md-block d-sm-block"
                               :src="user.mediaObjects[0] ? `/media/avatars/${user.mediaObjects[0].filePath}` : '/images/gamer.jpg'"
                               size="12rem"
@@ -51,14 +51,14 @@
                       </b-button>
                     </div>
                   </b-col>
-                  <b-col cols="4">
+                  <b-col cols="12" lg="4" md="4" sm="4">
                     <blockquote v-if="!user.slogan" class="blockquote text-center font-italic text-white pt-5">
                       <h4> "Allez vient
                         <br>on est bien"</h4>
                     </blockquote>
-                    <blockquote v-if="user.slogan" class="blockquote text-center font-italic text-white pt-5">
+                    <blockquote v-html="user.slogan" v-if="user.slogan" class="blockquote text-center font-italic text-white pt-5">
                       <h4>
-                        "{{ user.slogan }}"
+                        {{ user.slogan }}
                       </h4>
                     </blockquote>
                   </b-col>

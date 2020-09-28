@@ -23,8 +23,8 @@
               style="max-width: 20rem;"
               class="mb-2"
           >
-            <b-card-text>
-              {{ user.slogan }}
+            <b-card-text v-html="user.slogan">
+              {{user.slogan}}
             </b-card-text>
             <b-button variant="warning" :to="{name: 'profile', params:{id: user.id}}">
               Visiter le profile

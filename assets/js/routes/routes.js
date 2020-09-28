@@ -11,6 +11,7 @@ import Reset from "../pages/ResetPassword/Reset";
 import User from "../pages/User/User";
 import Profile from "../pages/User/Profile";
 import ProfileEdit from "../pages/User/ProfileEdit"
+import Mentions from "../pages/Base/Mentions";
 
 
 Vue.use(Router)
@@ -32,12 +33,20 @@ const router = new Router({
                 {path: '', name: "profile", component: Profile},
                 {path: 'edit', name: "edit", component: ProfileEdit},
             ],
-            meta:{requiresAuth: true}
+            meta: {requiresAuth: true}
         },
         {
             path: '/about',
             name: 'about',
             component: About,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/mentions',
+            name: 'mentions',
+            component: Mentions,
             meta: {
                 requiresAuth: true
             }

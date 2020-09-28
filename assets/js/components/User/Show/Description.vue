@@ -3,7 +3,7 @@
     <b-col cols="12">
       <h6>Description</h6>
     </b-col>
-    <b-col cols="12">
+    <b-col cols="12" v-html="description">
       {{ description }}
     </b-col>
   </b-row>
