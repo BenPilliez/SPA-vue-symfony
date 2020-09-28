@@ -9,7 +9,7 @@ import * as rules from 'vee-validate/dist/rules'
 import {messages} from 'vee-validate/dist/locale/fr.json';
 import Notifications from 'vue-notification'
 import loader from "vue-ui-preloader";
-
+import vSelect from "vue-select";
 
 export default class VueClass {
     static init() {
@@ -53,6 +53,7 @@ export default class VueClass {
         Vue.use(Notifications);
         Vue.use(loader);
 
+        Vue.component("v-select", vSelect);
         Vue.component("ValidationObserver", ValidationObserver);
         Vue.component("ValidationProvider", ValidationProvider);
 
@@ -62,6 +63,17 @@ export default class VueClass {
                 message: messages[rule] // assign message
             });
         });
+
+        extend('url', {
+            validate(value) {
+                if (value) {
+                    return /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/.test(value);
+                }
+
+                return false;
+            },
+            message: "T'es sur que c'est une url ?",
+        })
 
         new Vue({
             el: '#app',

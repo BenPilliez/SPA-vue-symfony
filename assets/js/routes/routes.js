@@ -8,6 +8,10 @@ import Register from "../pages/Register/Register";
 import Email from "../pages/ResetPassword/Email-Pass"
 import Confirmation from "../pages/Confirmation/Confirmation";
 import Reset from "../pages/ResetPassword/Reset";
+import User from "../pages/User/User";
+import Profile from "../pages/User/Profile";
+import ProfileEdit from "../pages/User/ProfileEdit"
+import Mentions from "../pages/Base/Mentions";
 
 
 Vue.use(Router)
@@ -24,9 +28,12 @@ const router = new Router({
             }
         },
         {
-            path: '/confirmation',
-            name: 'confirmation',
-            component: Confirmation
+            path: '/user/:id', component: User,
+            children: [
+                {path: '', name: "profile", component: Profile},
+                {path: 'edit', name: "edit", component: ProfileEdit},
+            ],
+            meta: {requiresAuth: true}
         },
         {
             path: '/about',
@@ -35,6 +42,19 @@ const router = new Router({
             meta: {
                 requiresAuth: true
             }
+        },
+        {
+            path: '/mentions',
+            name: 'mentions',
+            component: Mentions,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/confirmation',
+            name: 'confirmation',
+            component: Confirmation
         },
         {
             path: '/register',

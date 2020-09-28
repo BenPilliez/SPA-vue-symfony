@@ -6,6 +6,7 @@ use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\Entity\Registration;
 use App\Entity\User;
+use App\Entity\UserConfig;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -67,22 +68,41 @@ class UserDataPersister implements DataPersisterInterface
         return $data instanceof User;
     }
 
-    public function persist($data)
+    public function persist($data, array $context = [])
     {
 
-        $data->setPassword(
-            $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
-        );
-        $data->eraseCredentials();
-        $registration = $this->registration($data);
-        $this->sendMail($data, $registration->getToken());
-        $this->em->persist($data);
-        $this->em->flush();
+        if (($context['collection_operation_name'] ?? null) === 'post' ||
+            ($context['graphql_operation_name'] ?? null) === 'create') {
+
+            if ($data->getPlainPassword()) {
+                $data->setPassword(
+                    $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
+                );
+                $data->eraseCredentials();
+            }
+            $registration = $this->registration($data);
+            $this->sendMail($data, $registration->getToken());
+            $this->em->persist($data);
+            $this->em->flush();
+        }
+
+        if (($context['item_operation_name'] ?? null) === 'put' ||
+            ($context['graphql_operation_name'] ?? null) === 'update') {
+
+            if ($data->getPlainPassword()) {
+                $data->setPassword(
+                    $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
+                );
+                $data->eraseCredentials();
+            }
+            $this->em->persist($data);
+            $this->em->flush();
+        }
 
         return $data;
     }
 
-    public function remove($data)
+    public function remove($data, array $context = [])
     {
         $this->em->remove($data);
         $this->em->flush();
@@ -106,7 +126,7 @@ class UserDataPersister implements DataPersisterInterface
         return $registration;
     }
 
-    private function sendMail(User $user, String $token)
+    private function sendMail(User $user, string $token)
     {
         $url = $this->generateUrl('user_verify_register', ['token' => $token]);
         $email = (new TemplatedEmail())

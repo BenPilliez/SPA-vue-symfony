@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 use App\Repository\UserRepository;
@@ -20,11 +22,24 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}},
  *     collectionOperations={
- *       "post"={"security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')"},
+ *     "post"={
+ *     "security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')",
+ *      "groups"={"Default","create"}
+ *          },
+ *         "get"
  *     },
- *      itemOperations={"get","put","delete"},
+ *      itemOperations={"get","put" ={
+ *     "security"="is_granted('ROLE_USER') and object == user",
+ *     "security_message"="Petit coquin c'est pas ton compte ça "
+ * },"update_password"= {
+ *     "route_name"="password_update",
+ *     "method"="PUT",
+ *     "security"="is_granted('ROLE_USER') and object == user",
+ *     "security_message"="Petit coquin c'est pas ton compte ça ",
+ *     },
+ *     "delete"},
  * )
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"username"},
  * message="Le pseudonyme ou email est déjà associé à un compte")
  *
@@ -46,6 +61,17 @@ class User implements UserInterface
      * @Assert\NotBlank(
      *     message="Le champ pseudonyme ne peut être vide"
      * )
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z0-9]*$/",
+     *     message="Ton pseudo  ne
+     *          peut contentir d'émojies, d'espaces ou de cartères spéciaux"
+     * )
+     * @Assert\Length(
+     *     min= "4",
+     *     max="20",
+     *     minMessage="Ton pseudo doit faire au moin 4 caractères",
+     *     maxMessage="Ton pseudo ne peut faire plus de 20 caractères"
+     * )
      */
     private $username;
 
@@ -63,7 +89,23 @@ class User implements UserInterface
     /**
      * @Groups("user:write")
      * @SerializedName("password")
+     * @Assert\Regex(
+     *     pattern="/^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]/",
+     *     message="Ton mot de passe doit comprendre 4 caractères minimum et 2O max, il doit contenir
+    des lettres, au moins un chiffre et un caractère spécial, mais ni d'espace ou d'émojies"
+     * )
+     * @Assert\NotBlank(
+     *     groups="create",
+     *     message="Oula, il te faut un mot de passe"
+     * )
+     * @Assert\Length(
+     *     min="8",
+     *     max="20",
+     *     minMessage="Ton mot de passe doit faire au moin 8 caractères",
+     *     maxMessage="Ton mot de passe ne peut faire plus de 20 caractères"
+     * )
      */
+
     private $plainPassword;
 
     /**
@@ -95,19 +137,6 @@ class User implements UserInterface
      * )
      */
     private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
-     *
-     */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
-     */
-    private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -160,13 +189,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read", "user:write"})
      */
-    private $gamer_type;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
-     */
-    private $mother_tongue;
+    private $gamerType;
 
     /**
      * @ORM\Column(type="json", nullable=true)
@@ -184,13 +207,7 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"user:read", "user:write"})
      */
-    private $game_region;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user:read", "user:write"})
-     */
-    private $city;
+    private $gameRegion;
 
     /**
      * @var
@@ -199,11 +216,57 @@ class User implements UserInterface
     private $age;
 
 
+    /**
+     * @ORM\OneToOne(targetEntity=UserConfig::class, mappedBy="user", cascade={"persist", "remove"})
+     * @Groups("user:read")
+     */
+    private $userConfig;
+
+    /**
+     * @ORM\OneToOne(targetEntity=UserPlatform::class, mappedBy="user", cascade={"persist", "remove"})
+     * @Groups("user:read")
+     */
+    private $userPlatform;
+
+    /**
+     * @return mixed
+     */
+    public function getUserPlatform()
+    {
+        return $this->userPlatform;
+    }
+
+    /**
+     * @param mixed $userPlatform
+     * @return User
+     */
+    public function setUserPlatform($userPlatform)
+    {
+        $this->userPlatform = $userPlatform;
+        return $this;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserAvailibility::class, mappedBy="user")
+     * @Groups("user:read")
+     */
+    private $userAvailibilities;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MediaObject::class, mappedBy="user")
+     * @Groups("user:read")
+     */
+    private $mediaObjects;
+
+
     public function __construct()
     {
         $this->updatedAt = new DateTime();
         $this->createdAt = new DateTime();
         $this->isVerified = false;
+        $this->userPlatforms = new ArrayCollection();
+        $this->userAvailibilities = new ArrayCollection();
+        $this->mediaObjects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -287,30 +350,6 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(?string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(?string $lastname): self
-    {
-        $this->lastname = $lastname;
 
         return $this;
     }
@@ -401,24 +440,12 @@ class User implements UserInterface
 
     public function getGamerType(): ?string
     {
-        return $this->gamer_type;
+        return $this->gamerType;
     }
 
-    public function setGamerType(?string $gamer_type): self
+    public function setGamerType(?string $gamerType): self
     {
-        $this->gamer_type = $gamer_type;
-
-        return $this;
-    }
-
-    public function getMotherTongue(): ?string
-    {
-        return $this->mother_tongue;
-    }
-
-    public function setMotherTongue(?string $mother_tongue): self
-    {
-        $this->mother_tongue = $mother_tongue;
+        $this->gamerType = $gamerType;
 
         return $this;
     }
@@ -449,24 +476,12 @@ class User implements UserInterface
 
     public function getGameRegion(): ?string
     {
-        return $this->game_region;
+        return $this->gameRegion;
     }
 
-    public function setGameRegion(?string $game_region): self
+    public function setGameRegion(?string $gameRegion): self
     {
-        $this->game_region = $game_region;
-
-        return $this;
-    }
-
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(?string $city): self
-    {
-        $this->city = $city;
+        $this->gameRegion = $gameRegion;
 
         return $this;
     }
@@ -486,5 +501,132 @@ class User implements UserInterface
         $this->age = $age->format('%y');
 
         return $this->age;
+    }
+
+    /**
+     * @return Collection|UserPlatform[]
+     */
+    public function getUserPlatforms(): Collection
+    {
+        return $this->userPlatforms;
+    }
+
+    public function addUserPlatform(UserPlatform $userPlatform): self
+    {
+        if (!$this->userPlatforms->contains($userPlatform)) {
+            $this->userPlatforms[] = $userPlatform;
+            $userPlatform->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserPlatform(UserPlatform $userPlatform): self
+    {
+        if ($this->userPlatforms->contains($userPlatform)) {
+            $this->userPlatforms->removeElement($userPlatform);
+            // set the owning side to null (unless already changed)
+            if ($userPlatform->getUser() === $this) {
+                $userPlatform->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUserConfig(): ?UserConfig
+    {
+        return $this->userConfig;
+    }
+
+    public function setUserConfig(UserConfig $userConfig): self
+    {
+        $this->userConfig = $userConfig;
+
+        // set the owning side of the relation if necessary
+        if ($userConfig->getUser() !== $this) {
+            $userConfig->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getUserAvailibility(): ?UserAvailibility
+    {
+        return $this->userAvailibility;
+    }
+
+    public function setUserAvailibility(UserAvailibility $userAvailibility): self
+    {
+        $this->userAvailibility = $userAvailibility;
+
+        // set the owning side of the relation if necessary
+        if ($userAvailibility->getUser() !== $this) {
+            $userAvailibility->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserAvailibility[]
+     */
+    public function getUserAvailibilities(): Collection
+    {
+        return $this->userAvailibilities;
+    }
+
+    public function addUserAvailibility(UserAvailibility $userAvailibility): self
+    {
+        if (!$this->userAvailibilities->contains($userAvailibility)) {
+            $this->userAvailibilities[] = $userAvailibility;
+            $userAvailibility->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserAvailibility(UserAvailibility $userAvailibility): self
+    {
+        if ($this->userAvailibilities->contains($userAvailibility)) {
+            $this->userAvailibilities->removeElement($userAvailibility);
+            // set the owning side to null (unless already changed)
+            if ($userAvailibility->getUser() === $this) {
+                $userAvailibility->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MediaObject[]
+     */
+    public function getMediaObjects(): Collection
+    {
+        return $this->mediaObjects;
+    }
+
+    public function addMediaObject(MediaObject $mediaObject): self
+    {
+        if (!$this->mediaObjects->contains($mediaObject)) {
+            $this->mediaObjects[] = $mediaObject;
+            $mediaObject->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMediaObject(MediaObject $mediaObject): self
+    {
+        if ($this->mediaObjects->contains($mediaObject)) {
+            $this->mediaObjects->removeElement($mediaObject);
+            // set the owning side to null (unless already changed)
+            if ($mediaObject->getUser() === $this) {
+                $mediaObject->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }
