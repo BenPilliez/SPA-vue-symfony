@@ -56,7 +56,8 @@
                       <h4> "Allez vient
                         <br>on est bien"</h4>
                     </blockquote>
-                    <blockquote v-html="user.slogan" v-if="user.slogan" class="blockquote text-center font-italic text-white pt-5">
+                    <blockquote v-html="user.slogan" v-if="user.slogan"
+                                class="blockquote text-center font-italic text-white pt-5">
                       <h4>
                         {{ user.slogan }}
                       </h4>
@@ -103,6 +104,11 @@ export default {
       vm.$store.dispatch('findBy', {id: id, edit: vm.$route.name === "edit", user: vm.$store.getters.users[id] || null})
           .then((resp) => {
             vm.user = vm.$store.getters.users[id];
+          })
+          .catch((err) => {
+            if (err.response.status === 404) {
+              vm.$router.push('/404');
+            }
           })
     },
   }
