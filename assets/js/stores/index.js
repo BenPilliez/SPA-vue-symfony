@@ -2,21 +2,30 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Auth from "./modules/auth"
 import Register from "./modules/register";
+import ResetPassword from "./modules/reset_password"
+import Users from "./modules/users";
+import Ajax from "./modules/ajaxLoad"
+import Form from "./modules/form";
+import Avatar from "./modules/avatar";
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
+        loading: false,
         message: null,
-        users: {},
     },
     modules: {
         auth: Auth,
-        register: Register
+        register: Register,
+        reset: ResetPassword,
+        users: Users,
+        ajax: Ajax,
+        form: Form,
+        avatar:Avatar
     },
     mutations: {
         message(state, message) {
-
             state.message = {
                 type: message.type,
                 text: message.text
@@ -28,7 +37,7 @@ export const store = new Vuex.Store({
     },
 
     getters: {
-        users: state => state.users,
-        message: state => state.message
+        message: state => state.message,
+        loading: state => state.loading
     }
 })

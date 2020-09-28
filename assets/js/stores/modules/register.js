@@ -1,42 +1,50 @@
 import axios from "axios";
 
-const state = () => ({
-    status: '',
-    auth_user: JSON.parse(localStorage.getItem('auth_user')) || null,
-    isLogged: false,
-})
+const state = () => ({})
 
-const mutations = {
-    status(state) {
-        state.status = "Loading";
-    }
-}
+const mutations = {}
 
 const getters = {}
 
 const actions = {
     register({commit, rootState}, user) {
-        console.log(user)
+        rootState.loading = true;
         return new Promise((resolve, reject) => {
             axios({url: '/api/users', data: user, method: 'POST'})
                 .then(resp => {
-                    console.log(resp.data)
                     rootState.message = {
                         type: "success",
                         text: `Ton compte a bien été créé, un email de confirmation t'as été envoyé à ${resp.data.email}`
                     }
+
+                    rootState.loading = false;
                     resolve(resp)
 
                 })
                 .catch(err => {
+                    let violationArray = [];
+                    let text;
+                    if (err.response.data.violations) {
+                        err.response.data.violations.map((violation) => {
+                            violationArray.push(violation.message);
+                        })
+                        text = violationArray.join('\n');
+                    } else if (err.response.data.error) {
+                        text = err.response.data.error;
+                    } else {
+                        text = 'Oops on a eu problème Houston'
+                    }
+
+                    rootState.loading = false;
                     rootState.message = {
                         type: "error",
-                        text: err.response.data['hydra:description']
+                        text: text
                     }
+
                     reject(err);
                 })
         })
-    },
+    }
 }
 
 export default {

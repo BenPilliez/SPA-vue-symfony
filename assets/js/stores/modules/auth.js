@@ -74,28 +74,13 @@ const actions = {
         })
     },
     logout({state, rootState}) {
-
-        return new Promise((resolve, reject) => {
-
-            axios({url: '/api/logout'}).then((resp) => {
-
-                    // On remove le header
-                    setAuthorizationToken();
-                    //Il n'y a plus de user authentifié
-                    state.auth_user = null;
-                    localStorage.clear();
-                    rootState.message = {
-                        type: 'success',
-                        text: 'Vous êtes bien déconnecté'
-                    }
-                    resolve(resp);
-                }
-            ).catch(error => {
-                    rootState.error = {type: 'error', text: error.response.data.message};
-                    reject(error);
-                }
-            )
-        })
+        // On remove le header
+        setAuthorizationToken();
+        localStorage.clear();
+        rootState.message = {
+            type: 'success',
+            text: 'Vous êtes bien déconnecté'
+        }
     }
 }
 

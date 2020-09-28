@@ -28,16 +28,13 @@
             <b-nav class="components">
               <div class="d-flex">
                 <router-link
-                    :to="{name: 'user_show', params:{id: authUser.id}}"
+                    :to="{name: 'profile', params:{id: authUser.id}}"
                     @click="hide"
                 >
-                  <b-avatar v-if="authUser.image "
-                            :src="`/media/avatars/${authUser.image.filePath}`"
-                            alt="user-avatar" size="6rem"
+                  <b-avatar
+                      :src="authUser.mediaObjects[0] ? `/media/avatars/${authUser.mediaObjects[0].filePath}` : '/images/gamer.jpg' "
+                      alt="user-avatar" size="6rem"
                   />
-                  <b-avatar v-if="!authUser.image"
-                            :src="'/images/gamer.jpg'" alt="user-avatar"
-                            size="6rem"/>
                 </router-link>
                 <span class="pt-4 pl-3">Bonjour,<br> {{ authUser.username }}</span>
               </div>
@@ -80,9 +77,10 @@
       </template>
       <template v-slot:footer="{ hide }">
         <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
-          <a @click.prevent="logout"
-             class="btn btn-danger btn-lg w-100"
-          >Logout</a>
+          <b-button @click.stop.prevent="logout"
+                    class="btn btn-danger btn-lg w-100"
+          >Logout
+          </b-button>
         </div>
       </template>
     </b-sidebar>
@@ -92,16 +90,27 @@
 </template>
 
 <script>
+import {EventBus} from "../../helpers/event-bus";
+
 export default {
   name: "Sidebar",
-  props: {
-    authUser: Object
+  data(){
+    return{
+      authUser: this.$store.getters.auth_user
+    }
+  },
+  created() {
+    EventBus.$on('userUpdated', (user) => {
+      this.authUser = this.$store.getters.auth_user;
+    });
   },
   methods: {
     logout: function () {
       this.$store.dispatch('logout')
           .then(() => {
             this.$router.push('/login')
+            this.authUser = null;
+            EventBus.$emit('logout', this.authUser)
           })
     },
   }

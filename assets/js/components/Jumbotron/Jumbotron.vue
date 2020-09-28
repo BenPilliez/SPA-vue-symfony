@@ -2,7 +2,7 @@
   <b-container :fluid=true>
     <b-row no-gutters>
       <b-col cols="12">
-        <b-jumbotron fluid>
+        <b-jumbotron fluid container-fluid>
           <ButtonSidebar></ButtonSidebar>
           <slot name="header"></slot>
           <slot name="footer"></slot>

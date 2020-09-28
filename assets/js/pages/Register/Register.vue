@@ -1,6 +1,6 @@
 <template>
   <section class="customForm">
-    <b-container fluid>
+    <b-container :fluid=true>
       <b-row class="w-100 justify-content-center align-items-center">
         <div class="d-flex justify-content-between  bg-white container-register">
           <b-col lg="6" md="6" class="d-none d-lg-block d-md-block">
@@ -127,7 +127,7 @@
                           <b-form-input
                               :state="getValidationState(validationContext)"
                               aria-describedby="confirm-feedback"
-                              id="password-input"
+                              id="password-confirm-input"
                               type="password"
                               v-model="form.confirm_password"
                               placeholder="Confirmation mot de passe">
@@ -173,7 +173,7 @@ export default {
       return dirty || validated ? valid : null;
     },
 
-    async submit (){
+    async submit() {
       let isValid = await this.$refs.observer.validate();
 
       if (isValid) {
@@ -183,7 +183,6 @@ export default {
         })
       }
     }
-
   }
 }
 

@@ -6,6 +6,7 @@ use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\Entity\Registration;
 use App\Entity\User;
+use App\Entity\UserConfig;
 use DateInterval;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,7 +18,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
-class UserDataPersister implements ContextAwareDataPersisterInterface
+class UserDataPersister implements DataPersisterInterface
 {
 
     /**
@@ -42,10 +43,19 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
     private $tokenGenerator;
     private $userPasswordEncoder;
 
-    public function __construct(TokenGeneratorInterface $tokenGenerator, ContextAwareDataPersisterInterface $decorated, EntityManagerInterface $entityManager, MailerInterface $mailer,
+    /**
+     * UserDataPersister constructor.
+     * @param TokenGeneratorInterface $tokenGenerator
+     * @param EntityManagerInterface $entityManager
+     * @param MailerInterface $mailer
+     * @param RouterInterface $router
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     */
+
+    public function __construct(TokenGeneratorInterface $tokenGenerator, EntityManagerInterface $entityManager, MailerInterface $mailer,
                                 RouterInterface $router, UserPasswordEncoderInterface $passwordEncoder)
     {
-        $this->decorated = $decorated;
+
         $this->em = $entityManager;
         $this->mailer = $mailer;
         $this->router = $router;
@@ -53,35 +63,49 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
         $this->userPasswordEncoder = $passwordEncoder;
     }
 
-    public function supports($data, array $context = []): bool
+    public function supports($data): bool
     {
-        return $this->decorated->supports($data, $context);
+        return $data instanceof User;
     }
 
     public function persist($data, array $context = [])
     {
 
-        $data->setPassword(
-            $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
-        );
-        $data->eraseCredentials();
-        $this->registration($data);
-        $result = $this->decorated->persist($data, $context);
+        if (($context['collection_operation_name'] ?? null) === 'post' ||
+            ($context['graphql_operation_name'] ?? null) === 'create') {
 
-        if (
-            $data instanceof User && (
-                ($context['collection_operation_name'] ?? null) === 'post' ||
-                ($context['graphql_operation_name'] ?? null) === 'create'
-            )
-        ) {
-            $this->sendMail($data);
+            if ($data->getPlainPassword()) {
+                $data->setPassword(
+                    $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
+                );
+                $data->eraseCredentials();
+            }
+            $registration = $this->registration($data);
+            $this->sendMail($data, $registration->getToken());
+            $this->em->persist($data);
+            $this->em->flush();
         }
-        return $result;
+
+        if (($context['item_operation_name'] ?? null) === 'put' ||
+            ($context['graphql_operation_name'] ?? null) === 'update') {
+
+            if ($data->getPlainPassword()) {
+                $data->setPassword(
+                    $this->userPasswordEncoder->encodePassword($data, $data->getPlainPassword())
+                );
+                $data->eraseCredentials();
+            }
+            $this->em->persist($data);
+            $this->em->flush();
+        }
+
+        return $data;
     }
 
     public function remove($data, array $context = [])
     {
-        return $this->decorated->remove($data, $context);
+        $this->em->remove($data);
+        $this->em->flush();
     }
 
     private function registration(User $user)
@@ -99,12 +123,12 @@ class UserDataPersister implements ContextAwareDataPersisterInterface
         $this->em->persist($registration);
         $this->em->flush();
 
-        return true;
+        return $registration;
     }
 
-    private function sendMail(User $user)
+    private function sendMail(User $user, string $token)
     {
-        $url = $this->generateUrl('user_verify_register', ['token' => $user->getRegistration()->getToken()]);
+        $url = $this->generateUrl('user_verify_register', ['token' => $token]);
         $email = (new TemplatedEmail())
             ->from(new Address('gamers-seek@benpilliez.fr', 'Gamers-seek Bot'))
             ->to($user->getEmail())
