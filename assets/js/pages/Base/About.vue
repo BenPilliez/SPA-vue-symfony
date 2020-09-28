@@ -14,9 +14,9 @@
 
     <b-container :fluid=true class="p-4 mt-5">
       <b-row id="gamer-app-explain" class=" rounded p-5">
-        <b-col cols="4" id="gamer-app">
+        <b-col cols="12" lg="4" sm="4" md="4" id="gamer-app">
         </b-col>
-        <b-col cols="8" class="mb-4">
+        <b-col cols="12" lg="8" md="8" sm="8" class="mb-4">
           <h4 class="text-center">Gamer-app c'est quoi ? </h4>
 
           <article>
@@ -28,7 +28,7 @@
         </b-col>
       </b-row>
       <b-row id="gamer-app-author" class=" rounded mt-5 p-5">
-        <b-col cols="8" class="mb-4">
+        <b-col cols="12" lg="8" md="8" sm="8" class="mb-4">
           <h4 class=" text-center">Par qui ? </h4>
           <article>
             <p>
@@ -48,7 +48,7 @@
               formulaire de contact.</em>
           </article>
         </b-col>
-        <b-col cols="4" id="author-background">
+        <b-col cols="12" lg="4" md="4" sm="4" id="author-background">
         </b-col>
       </b-row>
     </b-container>

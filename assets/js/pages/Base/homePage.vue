@@ -27,7 +27,7 @@
               {{user.slogan}}
             </b-card-text>
             <b-button variant="warning" :to="{name: 'profile', params:{id: user.id}}">
-              Visiter le profile
+              Visiter le profil
             </b-button>
           </b-card>
         </b-col>

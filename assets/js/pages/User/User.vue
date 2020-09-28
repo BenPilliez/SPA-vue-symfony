@@ -15,9 +15,9 @@
                         :to=" user.edit === false ? {name:'edit', id:user.id} : {name:'profile', id:user.id}"
                         class="font-weight-bold text-uppercase "
                     >
-                      {{ user.edit === false ? 'Editer' : 'Profile' }}
+                      {{ user.edit === false ? 'Editer' : 'Profil' }}
                     </b-dropdown-item>
-                    <b-dropdown-item-btn variant="danger">Delete</b-dropdown-item-btn>
+                    <b-dropdown-item-btn variant="danger">Supprimer</b-dropdown-item-btn>
                   </div>
                   <div v-if="!user.isOwner">
                     <b-dropdown-item-button variant="danger">
@@ -47,7 +47,7 @@
                       <b-button variant="warning"
                                 :to=" user.edit === false ? {name:'edit', id:user.id} : {name:'profile', id:user.id}"
                                 v-if="user.isOwner">
-                        {{ user.edit === false ? 'Editer' : 'Profile' }}
+                        {{ user.edit === false ? 'Editer' : 'Profil' }}
                       </b-button>
                     </div>
                   </b-col>

@@ -87,7 +87,7 @@
                          :state="getValidationState(validationContext)"
                          aria-describedby="power-feedback"
                          v-model="form.power"
-                         placeholder="Power supply unit"></b-input>
+                         placeholder="Alimentation"></b-input>
 
                 <b-form-invalid-feedback id="power-feedback">{{
                     validationContext.errors[0]
