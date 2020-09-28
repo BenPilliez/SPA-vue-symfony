@@ -19,6 +19,7 @@ security:
       pattern: ^/api/login
       stateless: true
       anonymous: true
+      methods: POST
       json_login:
         check_path: app_login_check
         success_handler: lexik_jwt_authentication.handler.authentication_success
@@ -27,9 +28,22 @@ security:
       pattern: ^/api/users
       methods: POST
       anonymous: true
+    request_reset_password:
+      pattern: ^/api/reset_password_requests
+      methods: POST
+      anonymous: true
+    reset_password:
+      pattern: ^/api/reset/password
+      methods: POST
+      anonymous: true
+    user_verify:
+      pattern: ^/api/users/verify_email
+      methods: GET
+      anonymous: true
     api:
       pattern: ^/api
       stateless: true
+      methods: ['POST', 'GET','PUT','PATCH','DELETE' ]
       guard:
         authenticators:
           - lexik_jwt_authentication.jwt_token_authenticator
@@ -45,6 +59,9 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/api,       roles: [ IS_AUTHENTICATED_FULLY, ROLE_USER, ROLE_ADMIN ] }
+    - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [ 'POST' ] }
+    - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [ 'POST' ] }
+    - { path: ^/api/reset_password_requests, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [ 'POST' ] }
+    - { path: ^/api/reset/password, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [ 'POST' ] }
+    - { path: ^/api/users/verify_email, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [ 'GET' ] }
+    - { path: ^/api/,    roles: [ IS_AUTHENTICATED_FULLY, ROLE_USER, ROLE_ADMIN ], methods: [ 'POST','GET','PUT','PATCH','DELETE' ] }
