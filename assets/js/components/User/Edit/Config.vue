@@ -64,7 +64,7 @@
                          :state="getValidationState(validationContext)"
                          aria-describedby="cg-feedback"
                          v-model="form.graphicCard"
-                         placeholder="Graphic Card"></b-input>
+                         placeholder="Carte graphique"></b-input>
                 <b-form-invalid-feedback id="cg-feedback">{{
                     validationContext.errors[0]
                   }}

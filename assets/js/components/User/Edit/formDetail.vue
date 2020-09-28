@@ -64,7 +64,7 @@
                             :reduce="countries => countries.place_name" :options="countries"
                             @search="onSearch">
                     <template slot="no-options">
-                      Type to search country
+                      Recherche ton pays
                     </template>
                     <template slot="option" slot-scope="option">
                       <div class="d-center">
@@ -124,7 +124,7 @@
                   </template>
                   <v-select :reduce="gameRegions => gameRegions.value" class=" form-control"
                             v-model="form.gameRegion"
-                            :placeholder="'Select game Region'"
+                            :placeholder="'Choisi ta région de jeu'"
                             id="gamre_region-input"
                             :state="getValidationState(validationContext)"
                             aria-describedby="game-region-feedback"
@@ -185,7 +185,7 @@
                         id="birthday"
                         left
                         dropleft
-                        locale="en-US"
+                        locale="fr-FR"
                         aria-controls="example-input"
                         @context="onContext"
                     ></b-form-datepicker>
