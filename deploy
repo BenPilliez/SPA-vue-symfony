@@ -1,2 +1,2 @@
 #!/bin/sh
-rsync -av ./ benpilf@ssh.cluster028.hosting.ovh.net:~/gamer-app --include=config/jwt --include=src/DataFixtures --exclude-from=.gitignore --exclude=".*"
+rsync -av ./ benpilf@ssh.cluster028.hosting.ovh.net:~/gamer-app --include=config/jwt --include=src/DataFixtures --include=public/build --exclude-from=.gitignore --exclude=".*"
