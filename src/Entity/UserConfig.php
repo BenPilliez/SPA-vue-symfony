@@ -11,6 +11,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *     normalizationContext={"groups"={"platform:read"}, "swagger_definition_name"="Read"},
  *     denormalizationContext={"groups"={"platform:write"}, "swagger_definition_name"="Write"},
+ *     itemOperations={
+ *      "put"={
+ *       "security"="is_granted('ROLE_USER') and object.user == user"
+ *     },
+ *     "get"
+ *     }
  * )
  * @ORM\Entity(repositoryClass=UserConfigRepository::class)
  */
@@ -83,7 +89,7 @@ class UserConfig
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"platform:read", "platform:write"})
      */
-    private $user;
+    public $user;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

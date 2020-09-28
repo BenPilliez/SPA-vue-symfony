@@ -24,6 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "update_availibilities"= {
  *     "route_name"="availibility_update",
  *     "method"="PUT",
+ *
  *     },}
  * )
  * @ORM\Entity(repositoryClass=UserAvailibilityRepository::class)

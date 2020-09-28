@@ -8,7 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={
+ *      "post"={"security"="is_granted('ROLE_USER') and object == user",}
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=UserPlatformRepository::class)
  */
 class UserPlatform

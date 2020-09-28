@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\User;
 
 use App\Entity\User;
@@ -50,16 +51,15 @@ class UserController extends AbstractController
      * )
      */
 
-    public function update_password(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder ) : JsonResponse
+    public function update_password(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): JsonResponse
     {
         $body = json_decode($request->getContent(), true);
-
-        if($user->getPlainPassword() !== $body['old_password'])
-        {
+        
+        if (!$passwordEncoder->isPasswordValid($user, $body['old_password'])) {
             return new JsonResponse(['error' => "Ton ancien mot de passe ne correspond pas"], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $user->setPassword($passwordEncoder->encodePassword($user,$body['password']));
+        $user->setPassword($passwordEncoder->encodePassword($user, $body['password']));
         $this->em->persist($user);
         $this->em->flush();
 
