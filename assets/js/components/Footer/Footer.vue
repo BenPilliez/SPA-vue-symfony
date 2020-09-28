@@ -18,7 +18,6 @@
           <b-list-group class="list-unstyled text-center">
             <b-list-group-item href="mailto:admin@benpilliez.fr">Me contacter</b-list-group-item>
             <b-list-group-item :to="{name:'mentions'}">Mentions légales</b-list-group-item>
-            <b-list-group-item href="#">Politique de confidentialité</b-list-group-item>
           </b-list-group>
         </b-col>
       </b-row>
