@@ -203,7 +203,7 @@
                 <b-input id="mousepad-input"
                          :state="getValidationState(validationContext)"
                          aria-describedby="mousepad-feedback"
-                         v-model="form.mousepad"
+                         v-model="form.mouse"
                          placeholder="Souris"></b-input>
                 <b-form-invalid-feedback id="mousepad-feedback">{{
                     validationContext.errors[0]
@@ -243,7 +243,7 @@
             >
               <v-select id="console-input" class="form-control" :multiple=true
                         :reduce="consoleType => consoleType.value"
-                        v-model="form.console"
+                        v-model="form.consoles"
                         :placeholder="'Tes consoles'"
                         :options="consoleType"></v-select>
             </b-form-group>
@@ -278,9 +278,9 @@ export default {
         cooler: this.config ? this.config.cooler : '',
         screen: this.config ? this.config.screen : '',
         keyboard: this.config ? this.config.keyboard : '',
-        mousepad: this.config ? this.config.mousepad : '',
+        mouse: this.config ? this.config.mouse : '',
         controller: this.config ? this.config.controller : '',
-        console: this.config ? this.config.consoles : ''
+        consoles: this.config ? this.config.consoles : ''
       },
       consoleType: [
         {value: 'PS4', label: 'PS4'},

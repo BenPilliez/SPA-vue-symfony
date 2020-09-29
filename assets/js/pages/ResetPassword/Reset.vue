@@ -10,7 +10,7 @@
           </b-col>
 
           <b-col cols="12" md="6" lg="6">
-            <validation-observer ref="observer"  v-slot="{ handleSubmit }">
+            <validation-observer ref="observer" v-slot="{ handleSubmit }">
               <form @submit.stop.prevent="handleSubmit(submit)">
                 <b-form-row>
                   <b-col cols="12">
@@ -54,7 +54,6 @@
                           v-slot="validationContext"
                           name="confirmation"
                       >
-
                         <b-input-group class="mt-3">
                           <template v-slot:prepend>
                             <b-input-group-text>
