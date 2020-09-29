@@ -158,3 +158,11 @@ a, a:hover, a:focus {
 .mt-8{
   margin-top: 8rem !important;
 }
+
+.modal-open{
+  padding-right: 0px !important;
+}
+
+body:not(.modal-open){
+  padding-right: 0px !important;
+}

@@ -247,13 +247,13 @@ class User implements UserInterface
     }
 
     /**
-     * @ORM\OneToMany(targetEntity=UserAvailibility::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=UserAvailibility::class, mappedBy="user",cascade={"persist", "remove"})
      * @Groups("user:read")
      */
     private $userAvailibilities;
 
     /**
-     * @ORM\OneToMany(targetEntity=MediaObject::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=MediaObject::class, mappedBy="user",cascade={"persist", "remove"})
      * @Groups("user:read")
      */
     private $mediaObjects;

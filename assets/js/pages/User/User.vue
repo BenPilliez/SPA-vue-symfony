@@ -17,7 +17,8 @@
                     >
                       {{ user.edit === false ? 'Editer' : 'Profil' }}
                     </b-dropdown-item>
-                    <b-dropdown-item-btn variant="danger">Supprimer</b-dropdown-item-btn>
+                    <b-dropdown-item-btn variant="danger" @click="$bvModal.show('delete-modal')">Supprimer</b-dropdown-item-btn>
+                    <modal :user_id="user.id"></modal>
                   </div>
                   <div v-if="!user.isOwner">
                     <b-dropdown-item-button variant="danger">
@@ -79,11 +80,11 @@
 <script>
 import Jumbotron from "../../components/Jumbotron/Jumbotron";
 import {EventBus} from '../../helpers/event-bus';
-
+import Modal from "../../components/Modal/Modal"
 
 export default {
   name: "User",
-  components: {Jumbotron},
+  components: {Jumbotron,Modal},
   data() {
     return {
       user: this.loadUser(this, this.$route.params.id)

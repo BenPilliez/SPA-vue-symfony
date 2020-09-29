@@ -59,68 +59,42 @@ const actions = {
             }
         })
     },
-    update_password({commit, rootState}, form) {
-        rootState.loading = true
+    delete({commit, rootState}, user) {
         return new Promise((resolve, reject) => {
-            axios({url: `/api/users/${form.id}/password/update`, data: form, method: 'PUT'})
+            axios({url: `/api/users/${user}`, method: 'DELETE'})
                 .then((resp) => {
-                    rootState.loading = false;
+                    console.log(resp.data);
                     rootState.message = {
                         type: 'success',
-                        text: 'Mot de passe mis à jour '
+                        text: "Ton compte a bien été supprimé, merci d'être passé"
                     }
-                    resolve(resp)
-                }).catch((err) => {
-                console.log(err.response)
-
-                rootState.message = {
-                    type: 'error',
-                    text: err.response.data.error
-                }
-                rootState.loading = false
-                reject(err)
-            })
-        })
-    },
-
-    platform({commit, rootState}, form){
-        rootState.loading = true;
-        return new Promise((resolve,reject) => {
-            axios({url: form.url, data:form, method: form.method,})
-                .then((resp) => {
-                    rootState.loading = false;
-
-                    rootState.message = {
-                        type:'success',
-                        text:'Profil mis à jour'
-                    }
-
                     resolve(resp);
-                }).catch((err) => {
+                })
+                .catch((err) => {
 
-                let violationArray = [];
-                let text;
-                if (err.response && err.response.data.violations) {
-                    err.response.data.violations.map((violation) => {
-                        violationArray.push(violation.message);
-                    })
-                    text = violationArray.join('\n');
-                } else if (err.response && err.response.data.error) {
-                    text = err.response.data.error;
-                } else {
-                    text = 'Oops on a eu problème Houston'
-                }
+                    let violationArray = [];
+                    let text;
+                    if (err.response && err.response.data.violations) {
+                        err.response.data.violations.map((violation) => {
+                            violationArray.push(violation.message);
+                        })
+                        text = violationArray.join('\n');
+                    } else if (err.response && err.response.data.error) {
+                        text = err.response.data.error;
+                    } else {
+                        text = 'Apparement tu ne dois pas supprimer ton compte '
+                    }
 
-                rootState.loading = false;
-                rootState.message = {
-                    type: "error",
-                    text: text
-                }
-                reject(err);
-
-            })
+                    rootState.loading = false;
+                    rootState.message = {
+                        type: "error",
+                        text: text
+                    }
+                    reject(err);
+                })
         })
     }
+
 }
 
 export default {
