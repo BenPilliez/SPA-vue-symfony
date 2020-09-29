@@ -21,7 +21,8 @@
                 }]"
                  :options="{
             striped:true,
-            stacked: true
+            stacked: true,
+            responsive: true
           }" class="text-white"
           ></Table>
         </b-tab>

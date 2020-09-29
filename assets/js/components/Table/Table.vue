@@ -13,7 +13,8 @@
            :fields="fields"
            :head-variant="headVariant"
            :table-variant="tableVariant"
-           :items="items">
+           :items="items"
+           :responsive="responsive">
 
   </b-table>
 </template>
@@ -38,6 +39,7 @@ export default {
       tableVariant: '',
       noCollapse: false,
       stacked: false,
+      responsive: false
     }
   }, mounted() {
     for (let option in this.$props.options) {
@@ -49,3 +51,19 @@ export default {
 }
 
 </script>
+
+<style>
+.table.b-table.b-table-stacked > tbody > tr > [data-label] > div {
+  width: calc(100% - 50%) !important;
+
+}
+
+.table.b-table.b-table-stacked > tbody > tr > [data-label]::before {
+  content: attr(data-label)!important;
+  width: 50%!important;
+  float: left!important;
+  overflow-wrap: break-word!important;
+  text-align: left !important;
+
+}
+</style>

@@ -341,7 +341,7 @@
                   aria-describedby="youtube-feedback"
                   id="youtube-input"
                   v-model="form.youtube"
-                  placeholder="Lient de ta chaine"
+                  placeholder="Lien de ta chaine"
               ></b-form-input>
               <b-form-invalid-feedback id="youtube-feedback">{{
                   validationContext.errors[0]
