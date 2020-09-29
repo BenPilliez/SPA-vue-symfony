@@ -7,6 +7,9 @@ const state = () => ({
 const mutations = {
     users(state, user) {
         state.users[user.id] = user
+    },
+    users_delete(state, user) {
+        delete state.users[user];
     }
 }
 
@@ -63,11 +66,11 @@ const actions = {
         return new Promise((resolve, reject) => {
             axios({url: `/api/users/${user}`, method: 'DELETE'})
                 .then((resp) => {
-                    console.log(resp.data);
                     rootState.message = {
                         type: 'success',
                         text: "Ton compte a bien été supprimé, merci d'être passé"
                     }
+                   commit('users_delete', user);
                     resolve(resp);
                 })
                 .catch((err) => {

@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import {EventBus} from "../../helpers/event-bus";
+
 export default {
   name: "Modal",
   props:['user_id'],
@@ -24,7 +26,8 @@ export default {
       this.$store.dispatch('delete', id)
       .then((resp) => {
         localStorage.clear();
-        this.$router.push('/')
+        EventBus.$emit('userDelete', id)
+        this.$router.push('/login')
       })
     }
   }

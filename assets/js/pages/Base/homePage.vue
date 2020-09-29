@@ -24,7 +24,7 @@
               class="mb-2"
           >
             <b-card-text v-html="user.slogan">
-              {{user.slogan}}
+              {{ user.slogan }}
             </b-card-text>
             <b-button variant="warning" :to="{name: 'profile', params:{id: user.id}}">
               Visiter le profil
@@ -39,10 +39,11 @@
 <script>
 
 import Jumbotron from "../../components/Jumbotron/Jumbotron";
+import {EventBus} from "../../helpers/event-bus";
 
 export default {
   name: "Home",
-  data(){
+  data() {
     return {
       users: undefined
     }
@@ -55,6 +56,12 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+  },
+  created() {
+    EventBus.$on('userDelete', (user) => {
+      this.users = this.$store.getters.users
+    })
+
   },
   components: {Jumbotron},
 }

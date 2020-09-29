@@ -90,7 +90,7 @@ class User implements UserInterface
      * @Groups("user:write")
      * @SerializedName("password")
      * @Assert\Regex(
-     *     pattern="/^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]/",
+     *     pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\?<>\{\}\[\]\(\)\$%\^&\*])(?=.{8,})/",
      *     message="Ton mot de passe doit comprendre 4 caractères minimum et 2O max, il doit contenir
     des lettres, au moins un chiffre et un caractère spécial, mais ni d'espace ou d'émojies"
      * )
@@ -228,6 +228,10 @@ class User implements UserInterface
      */
     private $userPlatform;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Registration::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userRegistration;
     /**
      * @return mixed
      */
