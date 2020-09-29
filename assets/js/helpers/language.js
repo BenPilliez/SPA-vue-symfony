@@ -1,21 +1,23 @@
 const language = [
     {
-        value: "Abkhaz",
-        label: "Abkhaz"
-    },
-
-    {
-        value: "Amharic",
-        label: "Amharic"
-    },
-
-    {
-        value: "German",
-        label: "German"
+        value: "Abkhaze",
+        label: "Abkhaze"
     },
     {
-        value: "Greek, Modern",
-        label: "Greek"
+        value: "Amharique",
+        label: "Amharique"
+    },
+    {
+        value: "Anglais",
+        label: "Anglais"
+    },
+    {
+        value: "Allemand",
+        label: "Allemand"
+    },
+    {
+        value: "Grec",
+        label: "Grec"
     },
     {
         value: "Guaraní",
@@ -23,52 +25,36 @@ const language = [
     },
 
     {
-        value: "Wolof",
-        label: "Wolof"
+        value: "Wolofe",
+        label: "Wolofe"
     },
     {
         value: "Yiddish",
         label: "Yiddish"
     },
     {
-        value: "Yoruba",
-        label: "Yoruba"
+        value: "Africain",
+        label: "Africain"
     },
     {
-        value: "Zhuang, Chuang",
-        label: "SZhuang, Chuang"
+        value: "Albanais",
+        label: "Albanais"
     },
     {
-        value: "Afar",
-        label: "Afar"
+        value: "Arabe",
+        label: "Arabe"
     },
     {
-        value: "Afrikaans",
-        label: "Afrikaans"
+        value: "Aragonais",
+        label: "Aragonais"
     },
     {
-        value: "Akan",
-        label: "Akan"
+        value: "Arménien",
+        label: "Arménien"
     },
     {
-        value: "Albanian",
-        label: "Albanian"
-    },
-    {
-        value: "Arabic",
-        label: "Arabic"
-    },
-    {
-        value: "Aragonese",
-        label: "Aragonese"
-    },
-    {
-        value: "Armenian",
-        label: "Armenian"
-    },
-    {
-        value: "Assamese",
-        label: "Assamese"
+        value: "Assamais",
+        label: "Assamais"
     },
     {
         value: "Avaric",
@@ -83,24 +69,16 @@ const language = [
         label: "Aymara"
     },
     {
-        value: "Azerbaijani",
-        label: "Azerbaijani"
+        value: "Azerbaïdjanais",
+        label: "Azerbaïdjanais"
     },
     {
         value: "Bambara",
         label: "Bambara"
     },
     {
-        value: "Bashkir",
-        label: "Bashkir"
-    },
-    {
-        value: "Basque",
-        label: "Basque"
-    },
-    {
-        value: "Belarusian",
-        label: "Belarusian"
+        value: "Biélorusse",
+        label: "Biélorusse"
     },
     {
         value: "Bengali",
@@ -115,120 +93,101 @@ const language = [
         label: "Bislama"
     },
     {
-        value: "Bosnian",
-        label: "Bosnian"
+        value: "Bosniaque",
+        label: "Bosniaque"
     },
     {
         value: "Breton",
         label: "Breton"
     },
     {
-        value: "Bulgarian",
-        label: "Bulgarian"
+        value: "Bulgare",
+        label: "Bulgare"
     },
     {
-        value: "Burmese",
-        label: "Burmese"
+        value: "Birman",
+        label: "Birman"
     },
     {
-        value: "Catalan; Valencian",
-        label: "Catalan; Valencian"
+        value: "Catalan; Valencien",
+        label: "Catalan; Valencien"
     },
     {
         value: "Chamorro",
-        label: "Chamoru"
+        label: "Chamorro"
     },
     {
-        value: "Chechen",
-        label: "Chechen"
-    },
-    {
-        value: "Chichewa; Chewa; Nyanja",
-        label: "Chichewa; Chewa; Nyanja"
-    },
-    {
-        value: "Chinese",
-        label: "Chinese"
+        value: "Chinois",
+        label: "Chinois"
     },
     {
         value: "Chuvash",
         label: "Chuvash"
     },
     {
-        value: "Cornish",
-        label: "Cornish"
+        value: "Cornouaillais",
+        label: "Cornouaillais"
     },
     {
-        value: "Corsican",
-        label: "Corsican"
+        value: "Coréen",
+        label: "Coréen"
+    },
+    {
+        value: "Corse",
+        label: "Corse"
     },
     {
         value: "Cree",
         label: "Cree"
     },
     {
-        value: "Croatian",
-        label: "Croatian"
+        value: "Croate",
+        label: "Croate"
     },
     {
-        value: "Czech",
-        label: "Czech"
+        value: "Tchèque",
+        label: "Tchèque"
     },
     {
-        value: "Danish",
-        label: "Danish"
+        value: "Danois",
+        label: "Danois"
+    },
+
+    {
+        value: "Néerlandais",
+        label: "Néerlandais"
     },
     {
-        value: "Divehi; Dhivehi; Maldivian;",
-        label: "Divehi; Dhivehi; Maldivian;\""
+        value: "Espéranto",
+        label: "Espéranto"
     },
     {
-        value: "Dutch",
-        label: "Dutch"
+        value: "Estonien",
+        label: "Estonien"
     },
     {
-        value: "English",
-        label: "English"
+        value: "Féroïen",
+        label: "Féroïen"
     },
     {
-        value: "Esperanto",
-        label: "Esperanto"
+        value: "Fidjien",
+        label: "Fidjien"
     },
     {
-        value: "Estonian",
-        label: "Estonian"
+        value: "Finlandais",
+        label: "Finlandais"
     },
     {
-        value: "Ewe",
-        label: "Ewe"
+        value: "Français",
+        label: "Français"
     },
     {
-        value: "Faroese",
-        label: "Faroese"
+        value: "Galicien",
+        label: "Galicien"
     },
     {
-        value: "Fijian",
-        label: "Fijian"
-    },
-    {
-        value: "Finnish",
-        label: "Finnish"
-    },
-    {
-        value: "French",
-        label: "French"
-    },
-    {
-        value: "Fula; Fulah; Pulaar; Pular",
-        label: "Fula; Fulah; Pulaar; Pular"
-    },
-    {
-        value: "Galician",
-        label: "Galician"
-    },
-    {
-        value: "Georgian",
-        label: "Georgian"
+        value: "Géorgien",
+        label: "Géorgien"
     },
 
     {
@@ -236,16 +195,12 @@ const language = [
         label: "Gujarati"
     },
     {
-        value: "Haitian; Haitian Creole",
-        label: "Haitian; Haitian Creole"
+        value: "Haoussa",
+        label: "Haoussa"
     },
     {
-        value: "Hausa",
-        label: "Hausa"
-    },
-    {
-        value: "Hebrew",
-        label: "Hebrew"
+        value: "Hébreu",
+        label: "Hébreu"
     },
     {
         value: "Herero",
@@ -256,28 +211,16 @@ const language = [
         label: "Hindi"
     },
     {
-        value: "Hiri Motu",
-        label: "Hiri Motu"
+        value: "Hongrois",
+        label: "Hongrois"
     },
     {
-        value: "Hungarian",
-        label: "Hungarian"
+        value: "Indonésien",
+        label: "Indonésien"
     },
     {
-        value: "Interlingua",
-        label: "Interlingua"
-    },
-    {
-        value: "Indonesian",
-        label: "Indonesian"
-    },
-    {
-        value: "Interlingue",
-        label: "Interlingue"
-    },
-    {
-        value: "Irish",
-        label: "Irish"
+        value: "Irlandais",
+        label: "Irlandais"
     },
     {
         value: "Igbo",
@@ -292,29 +235,26 @@ const language = [
         label: "Ido"
     },
     {
-        value: "Icelandic",
-        label: "Icelandic"
+        value: "Islandais",
+        label: "Islandais"
     },
     {
-        value: "Italian",
-        label: "Italian"
+        value: "Italien",
+        label: "Italien"
     },
     {
         value: "Inuktitut",
         label: "Inuktitut"
     },
     {
-        value: "Japanese",
-        label: "Japanese"
+        value: "Japonais",
+        label: "Japonais"
     },
     {
-        value: "Javanese",
-        label: "Javanese"
+        value: "Javanais",
+        label: "Javanais"
     },
     {
-        value: "Kalaallisut, Greenlandic",
-        label: "kalaallisut,Greenlandic "
-    }, {
         value: "Kannada",
         label: "Kannada"
     },
@@ -343,10 +283,6 @@ const language = [
         label: "Kinyarwanda"
     },
     {
-        value: "Kirghiz, Kyrgyz",
-        label: "Kirghiz, Kyrgyz"
-    },
-    {
         value: "Komi",
         label: "Komi"
     },
@@ -355,80 +291,68 @@ const language = [
         label: "Kongo"
     },
     {
-        value: "Korean",
-        label: "Korean"
-    },
-    {
-        value: "Kurdish",
-        label: "Kurdish"
-    },
-    {
-        value: "Kwanyama",
-        label: "Kuanyama"
+        value: "Kurde",
+        label: "Kurde"
     },
     {
         value: "Latin",
         label: "Latin"
     },
     {
-        value: "Luxembourgish",
-        label: "Luxembourgish"
+        value: "Luxembourgeois",
+        label: "Luxembourgeois"
     },
     {
         value: "Luganda",
         label: "Luganda"
     },
     {
-        value: "Limburgish",
-        label: "Limburgish"
+        value: "Limbourgeois",
+        label: "Limbourgeois"
     },
     {
         value: "Lingala",
-        label: "Lingála"
+        label: "Lingala"
     },
     {
-        value: "Lao",
-        label: "Lao"
+        value: "Laotien",
+        label: "Laotien"
     },
     {
-        value: "Lithuanian",
-        label: "Lithuanian"
+        value: "Lituanien",
+        label: "Lituanien"
     },
     {
         value: "Luba-Katanga",
         label: "Luba-Katanga"
     },
     {
-        value: "Latvian",
-        label: "Latvian"
+        value: "Letton",
+        label: "Letton"
     },
     {
-        value: "Manx",
-        label: "Manx"
+        value: "Macédonien",
+        label: "Macédonien"
     },
     {
-        value: "Macedonian",
-        label: "Macedonian"
+        value: "Malgache",
+        label: "Malgache "
     },
     {
-        value: "Malagasy",
-        label: "Malagasy "
-    },
-    {
-        value: "Malay",
-        label: "Malay"
+        value: "Malais",
+        label: "Malais"
     },
     {
         value: "Malayalam",
         label: "Malayalam"
     },
     {
-        value: "Maltese",
-        label: "Maltese"
+        value: "Maltais",
+        label: "Maltais"
     },
     {
-        value: "Māori",
-        label: "Māori"
+        value: "Maoris",
+        label: "Maoris"
     },
     {
         value: "Marathi",
@@ -439,8 +363,8 @@ const language = [
         label: "Marshallese"
     },
     {
-        value: "Mongolian",
-        label: "Mongolian"
+        value: "Mongol",
+        label: "Mongol"
     },
     {
         value: "Nauru",
@@ -451,32 +375,24 @@ const language = [
         label: "Navajo"
     },
     {
-        value: "Norwegian Bokmål",
-        label: "Norwegian Bokmål"
+        value: "Norvégien bokmål",
+        label: "Norvégien bokmål"
     },
     {
-        value: "North Ndebele",
-        label: "North Ndebele"
-    },
-    {
-        value: "Nepali",
-        label: "Nepali"
+        value: "Népalais",
+        label: "Népalais"
     },
     {
         value: "Ndonga",
         label: "Ndonga"
     },
     {
-        value: "Norwegian",
-        label: "Norwegian"
+        value: "Norvégien",
+        label: "Norvégien"
     },
     {
         value: "Nuosu",
         label: "Nuosu"
-    },
-    {
-        value: "South Ndebele",
-        label: "South Ndebele"
     },
     {
         value: "Occitan",
@@ -484,18 +400,21 @@ const language = [
     },
 
     {
-        value: "Polish",
-        label: "Polish"
-    },
-
-    {
-        value: "Portuguese",
-        label: "Português"
+        value: "Polonais",
+        label: "Polonais"
     },
     {
-        value: "Russian",
-        label: "Russian"
-    }
+        value: "Portugais",
+        label: "Portugais"
+    },
+    {
+        value: "Russe",
+        label: "Russe"
+    },
+    {
+        value: "Tchétchène",
+        label: "Tchétchène"
+    },
 ]
 
 export

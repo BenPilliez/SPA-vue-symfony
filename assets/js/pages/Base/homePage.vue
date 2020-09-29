@@ -16,8 +16,10 @@
         <b-col cols="12" lg="4" md="4" sm="4" v-for="user in users" :key="user.id">
           <b-card
               :title="user.username"
-              :img-src=" user.image ? `/media/avatars/${user.image}` :'/images/gamer.jpg' "
+              :img-src=" user.mediaObjects[0] ? `/media/avatars/${user.mediaObjects[0].filePath}` :'/images/gamer.jpg' "
               img-alt="user-image"
+              img-width="350"
+              img-height="200"
               img-top
               tag="article"
               style="max-width: 20rem;"
