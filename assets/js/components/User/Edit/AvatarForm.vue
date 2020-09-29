@@ -20,10 +20,9 @@
                   v-model="file"
                   :state="getValidationState(validationContext)"
                   accept=".jpg, .png"
-                  placeholder="Choose a file or drop it here..."
-                  drop-placeholder="Drop file here..."
+                  placeholder="Choisi une photo ou dépose là ici"
+                  drop-placeholder="Dépose le fichier ici"
                   aria-describedby="file-feedback"
-
               ></b-form-file>
               <b-form-invalid-feedback id="file-feedback">{{
                   validationContext.errors[0]

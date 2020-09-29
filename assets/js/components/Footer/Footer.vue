@@ -1,6 +1,6 @@
 <template>
   <!-- Footer -->
-  <footer class="mt-5">
+  <footer id="site_footer" class="mt-5">
     <b-container>
       <b-row no-gutters>
         <b-col cols="6" class=" mt-5 text-center d-flex flex-column">

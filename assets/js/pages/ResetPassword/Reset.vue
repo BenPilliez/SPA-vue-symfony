@@ -20,7 +20,7 @@
                     <validation-observer>
                       <validation-provider
                           name="password"
-                          rules="required|confirmed:confirmation|min:8|max:20|regex:^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]"
+                          :rules="{ required: true,confirmed:'confirmation',min:8, max:20, regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\?<>\{\}\[\]\(\)\$%\^&\*])(?=.{8,})/ }"
                           v-slot="validationContext"
                       >
                         <b-form-group

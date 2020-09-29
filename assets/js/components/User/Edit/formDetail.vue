@@ -4,14 +4,6 @@
       <b-form @submit.stop.prevent="handleSubmit(onSubmit)" methods="PUT">
         <b-row>
           <b-col cols="12" lg="6" md="6" sm="6">
-            <label>Description</label>
-            <vue-editor v-model="form.description" :editor-toolbar="customToolbar"></vue-editor>
-          </b-col>
-          <b-col cols="12" lg="6" md="6" sm="6">
-            <label>Slogan</label>
-            <vue-editor v-model="form.slogan" :editor-toolbar="customToolbar"></vue-editor>
-          </b-col>
-          <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
                 name="Gamer Type"
                 v-slot="validationContext"
@@ -56,7 +48,7 @@
                     <b-input-group-text><i class="fas fa-globe"></i></b-input-group-text>
                   </template>
                   <v-select class=" form-control" v-model="form.country" label="place_name"
-                            placeholder="Select your country"
+                            placeholder="Recherche ton pays"
                             :filterable="false"
                             id="country-input"
                             :state="getValidationState(validationContext)"
@@ -125,7 +117,7 @@
                   <v-select :reduce="gameRegions => gameRegions.value" class=" form-control"
                             v-model="form.gameRegion"
                             :placeholder="'Choisi ta région de jeu'"
-                            id="gamre_region-input"
+                            id="game_region-input"
                             :state="getValidationState(validationContext)"
                             aria-describedby="game-region-feedback"
                             :options="gameRegions"></v-select>
@@ -153,7 +145,7 @@
                     <b-input-group-text><i class="fas fa-venus-mars"></i></b-input-group-text>
                   </template>
                   <v-select class="form-control" :reduce="options => options.value" v-model="form.gender"
-                            :placeholder="'Select gender'"
+                            :placeholder="'Genre'"
                             :state="getValidationState(validationContext)"
                             aria-describedby="gender-feedback"
                             id="gender-input"
@@ -185,6 +177,9 @@
                         id="birthday"
                         left
                         dropleft
+                        v-bind="labels"
+                        :show-decade-nav="true"
+                        :hide-header="true"
                         locale="fr-FR"
                         aria-controls="example-input"
                         @context="onContext"
@@ -208,6 +203,15 @@
               </b-form-group>
             </validation-provider>
           </b-col>
+          <b-col cols="12" lg="6" md="6" sm="6">
+            <label>Description</label>
+            <vue-editor v-model="form.description" :editor-toolbar="customToolbar" ></vue-editor>
+          </b-col>
+          <b-col cols="12" lg="6" md="6" sm="6">
+            <label>Slogan</label>
+            <vue-editor v-model="form.slogan" :editor-toolbar="customToolbar"></vue-editor>
+          </b-col>
+
         </b-row>
         <b-row class="mt-4">
           <b-col cols="12">
@@ -256,6 +260,21 @@ export default {
         [{color: []}]
       ],
       countries: [],
+      labels: {
+        labelPrevDecade: 'Décennie précédente',
+        labelPrevYear: 'Année précédente',
+        labelPrevMonth: 'Mois précédent',
+        labelCurrentMonth: 'Mois en cours',
+        labelNextMonth: 'Le mois prochain',
+        labelNextYear: "L'année prochaine",
+        labelNextDecade: 'Prochaine décennie',
+        labelToday: "Aujourd'hui",
+        labelSelected: 'Date sélectionnée',
+        labelNoDateSelected: 'Aucune date sélectionnée',
+        labelCalendar: 'Calendrier',
+        labelNav: 'Navigation dans le calendrier',
+        labelHelp: "Utilisez les touches fléchées pour naviguer dans le calendrier"
+      },
       gamerTypes: [
         {value: 'Casual', label: 'Casual'},
         {value: 'Regular', label: 'Regular'},

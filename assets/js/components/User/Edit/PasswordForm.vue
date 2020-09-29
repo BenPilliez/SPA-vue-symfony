@@ -25,7 +25,7 @@
             <validation-observer>
               <validation-provider
                   name="Nouveau mot de passe"
-                  rules="required|confirmed:confirmation|min:8|max:20|regex:^(?=.*\d)(?=.*[A-Z])(?=.*[@#$%])(?!.*(.)\1{2}).*[a-z]"
+                  :rules="{ required: true,confirmed:'confirmation',min:8, max:20, regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\?<>\{\}\[\]\(\)\$%\^&\*])(?=.{8,})/ }"
                   v-slot="validationContext"
               >
                 <b-input type="password"
