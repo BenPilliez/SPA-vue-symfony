@@ -228,6 +228,7 @@
 import {VueEditor} from "vue2-editor";
 import {language} from "../../../helpers/language";
 import {EventBus} from "../../../helpers/event-bus";
+import checkToken from "../../../helpers/checkToken";
 
 
 export default {
@@ -332,7 +333,9 @@ export default {
       let url = `/api/users/${this.$route.params.id}`;
       let isValid = await this.$refs.observer.validate();
 
+
       if (isValid) {
+        await checkToken();
         this.$store.dispatch('send', {form, url})
             .then((resp) => {
               resp.data.isOwner = true;

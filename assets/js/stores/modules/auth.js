@@ -37,6 +37,8 @@ const actions = {
                 .then((resp) => {
 
                     localStorage.setItem('token', resp.data.token.token);
+                    localStorage.setItem('refresh_token', resp.data.refresh_token)
+                    localStorage.setItem('connect_at', new Date());
                     setAuthorizationToken(resp.data.token.token);
                     dispatch('authUser', resp.data.user)
                         .then((response) => {

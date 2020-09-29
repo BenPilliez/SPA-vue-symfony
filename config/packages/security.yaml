@@ -15,6 +15,10 @@ security:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
+    refresh:
+      pattern: ^/api/token/refresh
+      stateless: true
+      anonymous: true
     login:
       pattern: ^/api/login
       stateless: true
@@ -43,7 +47,7 @@ security:
     api:
       pattern: ^/api
       stateless: true
-      methods: ['POST', 'GET','PUT','PATCH','DELETE' ]
+      methods: [ 'POST', 'GET','PUT','PATCH','DELETE' ]
       guard:
         authenticators:
           - lexik_jwt_authentication.jwt_token_authenticator
@@ -59,6 +63,7 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
+    - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [ 'POST' ] }
     - { path: ^/api/users, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [ 'POST' ] }
     - { path: ^/api/reset_password_requests, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [ 'POST' ] }
