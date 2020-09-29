@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *     collectionOperations={
- *      "post"={"security"="is_granted('ROLE_USER') and object.user == user ",}
+ *      "post"={"security"="is_granted('ROLE_USER')",}
  *     },
  *     itemOperations={
  *     "get",
