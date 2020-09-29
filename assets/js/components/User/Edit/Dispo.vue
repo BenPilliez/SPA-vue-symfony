@@ -2,14 +2,14 @@
 
   <b-container :fluid="true" class="rounded formEdit">
     <b-form id="form" @submit.stop.prevent="submit">
-      <b-row>
+      <b-row no-gutters>
         <b-col cols="12">
           <div class="p5" v-for="(value, index) in ['lundi','mardi','mercredi','jeudi','vendredi','samedi','dimanche']">
-            <b-row class="mt-4">
-              <b-col cols="3">
+            <b-row class="mt-4" no-gutters>
+              <b-col cols="12" lg="3" md="3" sm="3">
                 {{ value }}
               </b-col>
-              <b-col cols="9" class="d-flex flex-row justify-content-between">
+              <b-col cols="12" lg="9" md="9" sm="9" class="d-flex flex-row flex-wrap justify-content-between">
                 <b-form-checkbox :id='value + "-morning"' :data-day="value" data-partDay="morning"
                                  :name='value + "-morning" ' :checked="dispo[index] ? dispo[index].morning : false "
                 >
