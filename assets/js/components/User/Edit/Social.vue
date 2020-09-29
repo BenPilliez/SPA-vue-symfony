@@ -22,6 +22,7 @@
                   id="steam-input"
                   v-model="form.steam"
                   placeholder="Pseudo steam"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="steam-feedback">{{
                   validationContext.errors[0]
@@ -42,6 +43,7 @@
                   id="origin-input"
                   v-model="form.origin"
                   placeholder="Pseudo origin"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="origin-feedback">{{
                   validationContext.errors[0]
@@ -64,6 +66,7 @@
                   id="ubisoft-input"
                   v-model="form.ubisoft"
                   placeholder="Pseudo ubisoft"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="ubisoft-feedback">{{
                   validationContext.errors[0]
@@ -84,6 +87,7 @@
                   id="battlenet-input"
                   v-model="form.battlenet"
                   placeholder="Url battlenet"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="battlenet-feedback">{{
                   validationContext.errors[0]
@@ -106,6 +110,7 @@
                   id="gog-input"
                   v-model="form.gog"
                   placeholder="Pseudo gog"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="gog-feedback">{{
                   validationContext.errors[0]
@@ -126,6 +131,7 @@
                   id="lol-input"
                   v-model="form.lol"
                   placeholder="Pseudo lol"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="lol-feedback">{{
                   validationContext.errors[0]
@@ -149,6 +155,7 @@
                   id="nintendo-input"
                   v-model="form.nintendo"
                   placeholder="Pseudo nintendo"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="nintendo-feedback">{{
                   validationContext.errors[0]
@@ -169,6 +176,7 @@
                   id="psn-input"
                   v-model="form.psn"
                   placeholder="Pseudo psn"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="psn-feedback">{{
                   validationContext.errors[0]
@@ -191,6 +199,7 @@
                   id="rockstar-input"
                   v-model="form.rockstar"
                   placeholder="Pseudo rockstar"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="rockstar-feedback">{{
                   validationContext.errors[0]
@@ -211,6 +220,7 @@
                   id="wargaming-input"
                   v-model="form.wargaming"
                   placeholder="Pseudo wargaming"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="wargaming-feedback">{{
                   validationContext.errors[0]
@@ -258,6 +268,7 @@
                   id="instagram-input"
                   v-model="form.instagram"
                   placeholder="Pseudo instagram"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="instagram-feedback">{{
                   validationContext.errors[0]
@@ -278,6 +289,7 @@
                   id="snapchat-input"
                   v-model="form.snapchat"
                   placeholder="Pseudo snapchat"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="snapchat-feedback">{{
                   validationContext.errors[0]
@@ -291,7 +303,7 @@
           <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
                 name="facebook"
-                rules="max:255"
+                rules="max:255|url"
                 v-slot="validationContext"
             >
               <b-form-input
@@ -299,7 +311,8 @@
                   aria-describedby="facebook-feedback"
                   id="facebook-input"
                   v-model="form.facebook"
-                  placeholder="Pseudo facebook"
+                  placeholder="URL facebook"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="facebook-feedback">{{
                   validationContext.errors[0]
@@ -311,7 +324,7 @@
           <b-col cols="12" lg="6" md="6" sm="6">
             <validation-provider
                 name="twitter"
-                rules="max:255"
+                rules="max:255|url"
                 v-slot="validationContext"
             >
               <b-form-input
@@ -319,7 +332,8 @@
                   aria-describedby="twitter-feedback"
                   id="twitter-input"
                   v-model="form.twitter"
-                  placeholder="Pseudo twitter"
+                  placeholder="URL twitter"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="twitter-feedback">{{
                   validationContext.errors[0]
@@ -341,7 +355,8 @@
                   aria-describedby="youtube-feedback"
                   id="youtube-input"
                   v-model="form.youtube"
-                  placeholder="Lien de ta chaine"
+                  placeholder="URL de ta chaine"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="youtube-feedback">{{
                   validationContext.errors[0]
@@ -361,7 +376,8 @@
                   aria-describedby="twitch-feedback"
                   id="twitch-input"
                   v-model="form.twitch"
-                  placeholder="pseudo twitch"
+                  placeholder="URL twitch"
+                  class="mb-2 mb-lg-0 mb-md-0 mb-sm-0"
               ></b-form-input>
               <b-form-invalid-feedback id="twitch-feedback">{{
                   validationContext.errors[0]

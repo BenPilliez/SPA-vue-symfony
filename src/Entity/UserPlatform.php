@@ -10,7 +10,14 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ApiResource(
  *     collectionOperations={
- *      "post"={"security"="is_granted('ROLE_USER') and object == user",}
+ *      "post"={"security"="is_granted('ROLE_USER') and object.user == user ",}
+ *     },
+ *     itemOperations={
+ *     "get",
+ *      "put"={
+ *     "security"="is_granted('ROLE_USER') and object.user == user",
+ *      "method"="PUT"
+ *          }
  *     }
  * )
  * @ORM\Entity(repositoryClass=UserPlatformRepository::class)
@@ -28,9 +35,8 @@ class UserPlatform
     /**
      * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
-     *
      */
-    private $user;
+    public $user;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
