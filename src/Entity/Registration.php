@@ -50,6 +50,7 @@ class Registration
      */
     private $user;
 
+
     public function __construct()
     {
         $this->createdAt = new DateTime();
@@ -107,4 +108,5 @@ class Registration
 
         return $this;
     }
+
 }

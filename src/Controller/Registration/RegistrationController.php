@@ -65,7 +65,6 @@ class RegistrationController extends AbstractController
                 $user = $registration->getUser();
                 $user->setIsVerified(true);
 
-                $this->entityManager->remove($registration);
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
 
@@ -97,11 +96,8 @@ class RegistrationController extends AbstractController
         $user = $this->entityManager->getRepository(User::class)->find($body['user_id']);
         $registration = $this->entityManager->getRepository(Registration::class)->findOneBy(['user' => $user]);
 
-        if($user->getIsVerified() === false) {
-            if ($registration === null) {
-                $registration = new Registration();
-                $registration->setUser($user);
-            }
+        if ($user->getIsVerified() === false) {
+        
             $token = $this->tokenGenerator->generateToken();
             $registration->setToken($token);
 
@@ -129,6 +125,6 @@ class RegistrationController extends AbstractController
         }
 
         return $this->json(['message' => "Tu as déjà vérifié ton compte"]);
-    
+
     }
 }
