@@ -1,3 +1,0 @@
-#!/bin/sh
-rsync -av ./ benpilf@ssh.cluster028.hosting.ovh.net:~/gamer-app --include=config/jwt --include=src/DataFixtures --include=.htaccess --include=public/build --include=public/.htaccess --exclude-from=.gitignore --exclude=".*"
-
