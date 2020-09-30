@@ -14,21 +14,21 @@ use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManager as BaseRefreshToken
  */
 class RefreshTokenManager extends BaseRefreshTokenManager
 {
-    protected ObjectManager $objectManager;
+    protected  $objectManager;
 
     /**
      * @var class-string<mixed>
      */
-    protected string $class;
+    protected  $class;
 
-    protected RefreshTokenRepository $repository;
+    protected  $repository;
 
     /**
      * Constructor.
      *
      * @param class-string<mixed> $class
      */
-    public function __construct(ObjectManager $om, $class)
+    public function __construct(ObjectManager  $om, $class)
     {
         $this->objectManager = $om;
 

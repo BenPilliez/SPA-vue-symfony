@@ -52,6 +52,7 @@ const actions = {
                         })
                         .catch((error) => {
                             rootState.error = {type: 'error', text: error.response.data.message};
+                            console.error(error)
                             localStorage.clear();
                         })
                 })

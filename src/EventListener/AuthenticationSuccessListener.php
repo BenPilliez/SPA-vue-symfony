@@ -30,16 +30,10 @@ class AuthenticationSuccessListener
             return;
         }
 
-       if(method_exists($user, 'getId()')){
-           $user = $user->getId();
-       }else{
-           $user = $user->getUsername();
-       }
-
         $event->setData([
             'code' => $event->getResponse()->getStatusCode(),
             'token' => $event->getData(),
-            'user' => $user
+            'user' => $user->getId()
         ]);
     }
 }
