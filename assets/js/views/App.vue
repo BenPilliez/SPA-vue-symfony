@@ -13,7 +13,7 @@
 <script>
 
 import Sidebar from "../components/Menu/Sidebar"
-import Message from "../components/Message/Message";
+import Message from "../components/Custom/Message";
 import Footer from "../components/Footer/Footer";
 import {EventBus} from "../helpers/event-bus";
 import Cookie from "../components/Cookies/Cookie";

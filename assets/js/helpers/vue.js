@@ -13,6 +13,7 @@ import vSelect from "vue-select";
 import checkToken from "./checkToken";
 import decode from "./jwtDecode";
 import refreshToken from "./checkToken";
+import auth from "../stores/modules/auth";
 
 export default class VueClass {
     static init() {
@@ -37,6 +38,12 @@ export default class VueClass {
         }
 
         router.beforeEach(async (to, from, next) => {
+            if (to.query.success === "true" && to.name === "confirmation" && localStorage.auth_user) {
+                let auth_user = JSON.parse(localStorage.auth_user);
+                auth_user.isVerified = true;
+                localStorage.setItem('auth_user', JSON.stringify(auth_user));
+                store.commit('auth_user', auth_user);
+            }
             if (localStorage.token) {
                 let token = decode(localStorage.getItem('token'));
                 if (token.exp < Date.now() / 1000) {
@@ -45,7 +52,7 @@ export default class VueClass {
                     localStorage.setItem('token', response.token.token)
                     localStorage.setItem('refresh_token', response.refresh_token)
                 }
-            }else{
+            } else {
                 next();
             }
             if (to.matched.some(record => record.meta.requiresAuth)) {

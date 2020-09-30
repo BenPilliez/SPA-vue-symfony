@@ -1,5 +1,4 @@
 <template>
-  <b-row>
     <b-col cols="12">
       <b-tabs id="tabs-container" active-nav-item-class="font-weight-bold text-uppercase text-danger"
               content-class="mt-3" justified>
@@ -7,7 +6,6 @@
       <tab-form v-if="user.edit" :user="user"></tab-form>
       </b-tabs>
     </b-col>
-  </b-row>
 </template>
 
 <script>

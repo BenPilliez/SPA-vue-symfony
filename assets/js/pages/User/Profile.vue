@@ -1,7 +1,7 @@
 <template>
-  <div v-if="user !== undefined">
+  <b-row v-if="user !== undefined">
     <Tabs :user="user"></Tabs>
-  </div>
+  </b-row>
 </template>
 
 <script>

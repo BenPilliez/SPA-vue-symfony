@@ -2,12 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\RegistrationRepository;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ApiResource(
+ *     collectionOperations={
+ *      "token_update"= {"route_name"="update_token", "method"="POST"},
+ *     },
+ *     itemOperations={
+ *     "get",
+ *     }
+ *
+ * )
  * @ORM\Entity(repositoryClass=RegistrationRepository::class)
  */
 class Registration
@@ -40,7 +50,8 @@ class Registration
      */
     private $user;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->createdAt = new DateTime();
     }
 

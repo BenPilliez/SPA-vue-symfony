@@ -31,7 +31,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      itemOperations={"get","put" ={
  *     "security"="is_granted('ROLE_USER') and object == user",
  *     "security_message"="Petit coquin c'est pas ton compte ça "
- * },"update_password"= {
+ * },
+ *     "update_password"= {
  *     "route_name"="password_update",
  *     "method"="PUT",
  *     "security"="is_granted('ROLE_USER') and object == user",

@@ -70,7 +70,7 @@ const actions = {
                         type: 'success',
                         text: "Ton compte a bien été supprimé, merci d'être passé"
                     }
-                   commit('users_delete', user);
+                    commit('users_delete', user);
                     resolve(resp);
                 })
                 .catch((err) => {
@@ -95,6 +95,34 @@ const actions = {
                     }
                     reject(err);
                 })
+        })
+    },
+    sendConfirmEmail({commit, rootState}, form) {
+        rootState.loading = true;
+        return new Promise((resolve, reject) => {
+            axios({url: '/api/registrations', data: form, method: 'POST'})
+                .then((resp) => {
+                    rootState.loading = false;
+                    rootState.message = {
+                        type: "success",
+                        text: resp.data.message
+                    }
+
+                    resolve(resp)
+                }).catch((err) => {
+                rootState.loading = false;
+                let message = {
+                    type: 'error', text: 'Oops, contact un admin à admin@benpilliez.fr'
+                }
+
+                if (err.response.data && err.response.data.error) {
+                    message.text = err.response.data.error
+                }
+
+                rootState.message = message
+
+                reject(err);
+            })
         })
     }
 
