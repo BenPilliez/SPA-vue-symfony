@@ -37,6 +37,11 @@
                   />
                 </router-link>
                 <span class="pt-4 pl-3">Bonjour,<br> {{ authUser.username }}</span>
+                <span class="pt-4 pl-3 ">
+                  <b-button @click.stop.prevent="logout"
+                            class="btn btn-danger"
+                  ><i class="fas fa-power-off"></i>
+          </b-button></span>
               </div>
             </b-nav>
             <b-nav vertical class="components">
@@ -75,14 +80,6 @@
           </nav>
         </div>
       </template>
-      <template v-slot:footer="{ hide }">
-        <div class="d-flex bg-dark text-light align-items-center px-3 py-2">
-          <b-button @click.stop.prevent="logout"
-                    class="btn btn-danger btn-lg w-100"
-          >Logout
-          </b-button>
-        </div>
-      </template>
     </b-sidebar>
     <router-view>
     </router-view>
@@ -94,8 +91,8 @@ import {EventBus} from "../../helpers/event-bus";
 
 export default {
   name: "Sidebar",
-  data(){
-    return{
+  data() {
+    return {
       authUser: this.$store.getters.auth_user
     }
   },

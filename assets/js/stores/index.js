@@ -22,7 +22,7 @@ export const store = new Vuex.Store({
         users: Users,
         ajax: Ajax,
         form: Form,
-        avatar:Avatar
+        avatar: Avatar
     },
     mutations: {
         message(state, message) {
@@ -31,11 +31,10 @@ export const store = new Vuex.Store({
                 text: message.text
             }
         },
-        message_null(state){
+        message_null(state) {
             state.message = null
         }
     },
-
     getters: {
         message: state => state.message,
         loading: state => state.loading

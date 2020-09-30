@@ -1,5 +1,5 @@
 <template>
-  <b-row class="mt-5">
+  <b-row no-gutters class="mt-5">
     <b-col cols="12">
       <h6 class="text-center">Disponibilité</h6>
     </b-col>

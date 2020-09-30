@@ -205,7 +205,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6">
             <label>Description</label>
-            <vue-editor v-model="form.description" :editor-toolbar="customToolbar" ></vue-editor>
+            <vue-editor v-model="form.description" :editor-toolbar="customToolbar"></vue-editor>
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6">
             <label>Slogan</label>
@@ -331,6 +331,7 @@ export default {
       form.method = "PUT";
       let url = `/api/users/${this.$route.params.id}`;
       let isValid = await this.$refs.observer.validate();
+
 
       if (isValid) {
         this.$store.dispatch('send', {form, url})

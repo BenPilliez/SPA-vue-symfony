@@ -1,5 +1,5 @@
 import axios from "axios";
-import {EventBus} from "../../helpers/event-bus";
+import checkToken from "../../helpers/checkToken";
 
 
 const state = () => ({})
@@ -10,9 +10,12 @@ const getters = {}
 
 const actions = {
 
-    send({commit, rootState}, {form, url}) {
+     send({commit, dispatch, rootState}, {form, url}) {
+
         rootState.loading = true;
+
         return new Promise((resolve, reject) => {
+
             axios({url: url, data: form, method: form.method})
                 .then((resp) => {
 
@@ -45,8 +48,8 @@ const actions = {
                         text = violationArray.join('\n');
                     } else if (err.response && err.response.data.error) {
                         text = err.response.data.error;
-                    } else {
-                        text = 'Oops on a eu problème Houston'
+                    } else{
+                        text= "Oops, Houston on a problème"
                     }
 
                     rootState.loading = false;

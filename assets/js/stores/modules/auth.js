@@ -37,6 +37,7 @@ const actions = {
                 .then((resp) => {
 
                     localStorage.setItem('token', resp.data.token.token);
+                    localStorage.setItem('refresh_token', resp.data.refresh_token)
                     setAuthorizationToken(resp.data.token.token);
                     dispatch('authUser', resp.data.user)
                         .then((response) => {
@@ -65,7 +66,6 @@ const actions = {
         return new Promise((resolve, reject) => {
             axios({url: `/api/users/${id}`, method: "GET"})
                 .then((resp) => {
-
                     resolve(resp);
                 })
                 .catch((error) => {
