@@ -50,10 +50,16 @@ class Registration
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $active;
+
 
     public function __construct()
     {
         $this->createdAt = new DateTime();
+        $this->active = true;
     }
 
     public function getId(): ?int
@@ -105,6 +111,18 @@ class Registration
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
 
         return $this;
     }

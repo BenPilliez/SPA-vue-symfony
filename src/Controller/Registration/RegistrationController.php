@@ -56,7 +56,7 @@ class RegistrationController extends AbstractController
 
         $registration = $this->entityManager->getRepository(Registration::class)->findOneBy(['token' => $token]);
 
-        if ($registration) {
+        if ($registration && $registration->getActive() === true) {
             $timeLife = $registration->getExpiresAt()->getTimestamp();
             $now = new DateTime();
 
@@ -64,7 +64,9 @@ class RegistrationController extends AbstractController
 
                 $user = $registration->getUser();
                 $user->setIsVerified(true);
+                $registration->setActive(false);
 
+                $this->entityManager->persist($registration);
                 $this->entityManager->persist($user);
                 $this->entityManager->flush();
 
@@ -96,14 +98,18 @@ class RegistrationController extends AbstractController
         $user = $this->entityManager->getRepository(User::class)->find($body['user_id']);
         $registration = $this->entityManager->getRepository(Registration::class)->findOneBy(['user' => $user]);
 
-        if ($user->getIsVerified() === false) {
-        
+        if($user->getIsVerified() === false) {
+            if ($registration === null) {
+                $registration = new Registration();
+                $registration->setUser($user);
+            }
             $token = $this->tokenGenerator->generateToken();
             $registration->setToken($token);
 
             $date = new DateTime();
             $date->add(new DateInterval('PT1H'));
             $registration->setExpiresAt($date);
+            $registration->setActive(true);
 
             $url = $this->generateUrl('user_verify_register', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
             $email = (new TemplatedEmail())
