@@ -48,11 +48,8 @@ const actions = {
                         text = violationArray.join('\n');
                     } else if (err.response && err.response.data.error) {
                         text = err.response.data.error;
-                    } else if (err.response.data.message === "Expired JWT Token") {
-
-                        dispatch('refresh_token');
-                        text = "Oops ton token était expiré mais t'en fais pas \n " +
-                            "je l'ai rafraîchi";
+                    } else{
+                        text= "Oops, Houston on a problème"
                     }
 
                     rootState.loading = false;
