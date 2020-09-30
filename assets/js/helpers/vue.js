@@ -10,9 +10,18 @@ import {messages} from 'vee-validate/dist/locale/fr.json';
 import Notifications from 'vue-notification'
 import loader from "vue-ui-preloader";
 import vSelect from "vue-select";
+import checkToken from "./checkToken";
+import decode from "./jwtDecode";
+import refreshToken from "./checkToken";
 
 export default class VueClass {
     static init() {
+
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            setAuthorizationToken(token);
+        }
 
         // On maintient la connexion pendant 24h
         let hours = 24; // Reset when storage is more than 24hours
@@ -27,7 +36,18 @@ export default class VueClass {
             }
         }
 
-        router.beforeEach((to, from, next) => {
+        router.beforeEach(async (to, from, next) => {
+            if (localStorage.token) {
+                let token = decode(localStorage.getItem('token'));
+                if (token.exp < Date.now() / 1000) {
+                    let response = await refreshToken();
+                    setAuthorizationToken(response.token.token);
+                    localStorage.setItem('token', response.token.token)
+                    localStorage.setItem('refresh_token', response.refresh_token)
+                }
+            }else{
+                next();
+            }
             if (to.matched.some(record => record.meta.requiresAuth)) {
                 // this route requires auth, check if logged in
                 // if not, redirect to login page.
@@ -42,11 +62,6 @@ export default class VueClass {
             }
         })
 
-        const token = localStorage.getItem('token');
-
-        if (token) {
-            setAuthorizationToken(token);
-        }
 
         Vue.use(BootstrapVue);
         Vue.use(BootstrapVueIcons);

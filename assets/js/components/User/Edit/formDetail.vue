@@ -205,7 +205,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6">
             <label>Description</label>
-            <vue-editor v-model="form.description" :editor-toolbar="customToolbar" ></vue-editor>
+            <vue-editor v-model="form.description" :editor-toolbar="customToolbar"></vue-editor>
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6">
             <label>Slogan</label>
@@ -228,7 +228,6 @@
 import {VueEditor} from "vue2-editor";
 import {language} from "../../../helpers/language";
 import {EventBus} from "../../../helpers/event-bus";
-import checkToken from "../../../helpers/checkToken";
 
 
 export default {
@@ -335,7 +334,6 @@ export default {
 
 
       if (isValid) {
-        await checkToken();
         this.$store.dispatch('send', {form, url})
             .then((resp) => {
               resp.data.isOwner = true;

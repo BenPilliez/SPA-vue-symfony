@@ -1,6 +1,7 @@
 <?php
 
 namespace App\EventListener;
+
 use App\Repository\UserRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -20,6 +21,7 @@ class AuthenticationSuccessListener
     {
         $this->repository = $user;
     }
+
     public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event)
     {
         $user = $event->getUser();
@@ -28,10 +30,16 @@ class AuthenticationSuccessListener
             return;
         }
 
+       if(method_exists($user, 'getId()')){
+           $user = $user->getId();
+       }else{
+           $user = $user->getUsername();
+       }
+
         $event->setData([
             'code' => $event->getResponse()->getStatusCode(),
             'token' => $event->getData(),
-            'user' => $user->getId()
+            'user' => $user
         ]);
     }
 }

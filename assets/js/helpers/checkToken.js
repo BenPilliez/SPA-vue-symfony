@@ -1,20 +1,17 @@
 import setAuthorizationToken from "./axios";
 import axios from "axios";
 
-export default function checkToken() {
-    let token = {refresh_token :  localStorage.getItem('refresh_token')};
-    let connectedAt = new Date(localStorage.getItem('connect_at'));
+export default async function refreshToken() {
 
-    console.log(token);
-    if (Date.now() - connectedAt >= 86400000) {
-        axios({url: ' /api/token/refresh', data: token, method: 'POST'})
-            .then((resp) => {
-                console.log(resp.data);
-                setAuthorizationToken(resp.data.token);
+    let response = await axios({
+        url: '/api/token/refresh',
+        data: {refresh_token: localStorage.getItem('refresh_token')},
+        method: 'POST'
+    });
 
-            })
-            .catch((err) => {
-                console.error(err);
-            })
+    if (response.status === 200) {
+        return response.data;
     }
+        
+
 }
