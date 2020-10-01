@@ -26,7 +26,7 @@ const actions = {
     favorite({commit, rootState}) {
         return new Promise((resolve, reject) => {
             axios({url: `api/games/`, method: 'GET',
-                query: {"rate['gte']": 4, itemsPerPage: 10}})
+                params: {"rate[gte]": 4, itemsPerPage: 10}})
                 .then((resp) => {
                     commit('favorite', resp.data['hydra:member']);
                     resolve(resp)
