@@ -11,6 +11,8 @@ import '../css/app.scss';
 
 //On importe et initialise vue
 import VueClass from "./helpers/vue";
+import "@fortawesome/fontawesome-free/js/all.js";
+import "@fortawesome/fontawesome-free/css/all.min.css"
 
 VueClass.init();
 

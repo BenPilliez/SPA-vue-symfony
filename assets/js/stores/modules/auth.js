@@ -31,6 +31,7 @@ const getters = {
 
 const actions = {
     login({commit, dispatch, rootState}, user) {
+        rootState.loading = true;
         return new Promise((resolve, reject) => {
             commit('status')
             axios({url: '/api/login_check', data: user, method: "POST"})
@@ -39,24 +40,34 @@ const actions = {
                     localStorage.setItem('token', resp.data.token.token);
                     localStorage.setItem('refresh_token', resp.data.refresh_token)
                     setAuthorizationToken(resp.data.token.token);
+                    rootState.message = {
+                        type: 'success',
+                        text: 'Connexion réussie'
+                    }
                     dispatch('authUser', resp.data.user)
                         .then((response) => {
                             localStorage.setItem('auth_user', JSON.stringify(response.data));
                             commit('isLogged', true);
                             commit('auth_user', response.data);
+                            rootState.loading = false;
                             rootState.message = {
                                 type: 'success',
                                 text: 'Connexion réussie'
                             }
                             resolve(resp);
+
                         })
                         .catch((error) => {
+                            rootState.loading = false;
+
                             rootState.error = {type: 'error', text: error.response.data.message};
                             console.error(error)
                             localStorage.clear();
                         })
                 })
                 .catch((error) => {
+                    rootState.loading = false;
+
                     rootState.message = {type: 'error', text: error.response.data.message};
                     localStorage.clear();
                     reject(error);
