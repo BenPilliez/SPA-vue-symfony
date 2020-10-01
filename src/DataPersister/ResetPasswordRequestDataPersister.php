@@ -93,7 +93,7 @@ class ResetPasswordRequestDataPersister implements DataPersisterInterface
     {
         $url = $this->generateUrl('reset_password', ['token' => $passwordRequest->getToken()]);
         $email = (new TemplatedEmail())
-            ->from(new Address('gamers-seek@benpilliez.fr', 'Gamers-seek Bot'))
+            ->from(new Address('gamers-seek@benpilliez.fr', 'Gamer app '))
             ->to($passwordRequest->getUser()->getEmail())
             ->subject('Reset password')
             ->htmlTemplate('Password/email.html.twig')

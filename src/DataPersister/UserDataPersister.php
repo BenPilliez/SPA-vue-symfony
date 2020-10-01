@@ -130,7 +130,7 @@ class UserDataPersister implements DataPersisterInterface
     {
         $url = $this->generateUrl('user_verify_register', ['token' => $token]);
         $email = (new TemplatedEmail())
-            ->from(new Address('gamers-seek@benpilliez.fr', 'Gamers-app Bot'))
+            ->from(new Address('gamers-seek@benpilliez.fr', 'Gamer app'))
             ->to($user->getEmail())
             ->subject('Confirmation compte')
             ->htmlTemplate('Registration/confirmation_email.html.twig')
