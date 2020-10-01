@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="homePage">
     <jumbotron>
       <template v-slot:header>
         <div>
@@ -12,26 +12,24 @@
       </template>
     </jumbotron>
     <b-container>
-      <b-row>
-        <b-col cols="12" lg="4" md="4" sm="4" v-for="user in users" :key="user.id">
-          <b-card
-              :title="user.username"
-              :img-src=" user.mediaObjects[0] ? `/media/avatars/${user.mediaObjects[0].filePath}` :'/images/gamer.jpg' "
-              img-alt="user-image"
-              img-width="350"
-              img-height="200"
-              img-top
-              tag="article"
-              style="max-width: 20rem;"
-              class="mb-2"
-          >
-            <b-card-text v-html="user.slogan">
-              {{ user.slogan }}
-            </b-card-text>
-            <b-button variant="warning" :to="{name: 'profile', params:{id: user.id}}">
-              Visiter le profil
-            </b-button>
-          </b-card>
+      <b-row class="rounded mt-5" id="registrations">
+        <b-col cols="12" lg="6" md="6" sm="6" class="text-center pt-3 pt-lg-5">
+          <h3>Pour le moment gamer-app c'est </h3>
+          <p class="mt-lg-5 mt-md-5 mt-sm-5 "><strong class="pt-3">{{ registrations }}</strong> <br>joueurs d'inscrit
+          </p>
+        </b-col>
+        <b-col cols="12" lg="6" md="6" sm="6" class="text-center pt-3 pt-lg-5">
+
+          <logo :options="optionsConsole"></logo>
+
+         <logo :options="optionsLogo"></logo>
+        </b-col>
+      </b-row>
+
+      <b-row class="mt-8 rounded text-center " id="favorite-games">
+        <b-col cols="12">
+          <h3>Les jeux les plus appréciés en ce moment </h3>
+          <c-swiper :options="optionsSlider" :items="favoriteGames" :banner="true"></c-swiper>
         </b-col>
       </b-row>
     </b-container>
@@ -41,31 +39,92 @@
 <script>
 
 import Jumbotron from "../../components/Custom/Jumbotron";
-import {EventBus} from "../../helpers/event-bus";
+import Swiper from "../../components/Custom/Swiper";
+import Logo from "../../components/Custom/Logo"
 
 export default {
   name: "Home",
   data() {
     return {
-      users: undefined
+      registrations: null,
+      favoriteGames: null,
+      optionsConsole:{
+        width:40,
+        height:40,
+        title:'<h3>Tu peux trouver des joueurs sur</h3>',
+        spanClass:'pl-2',
+        class:'',
+        items:[
+          "/images/consoles/ps3.svg","/images/consoles/ps4.svg",
+          "/images/consoles/psp.svg","/images/consoles/wii-u.svg",
+          "/images/consoles/nintendo-ds.svg","/images/logo/xbox.svg"
+        ]
+      },
+      optionsLogo:{
+        width:40,
+        height:40,
+        class:'mt-lg-5 mt-md-5  mb-2',
+        spanClass:'pl-2',
+        title:'<p class="white">Et des platforms comme </p>',
+        items:[
+            "/images/logo/steam.svg","/images/logo/ubisoft.svg",
+            "/images/logo/GOG.svg","/images/logo/origin.svg","/images/logo/wargaming.svg"
+        ]
+      },
+      optionsSlider: {
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        breakpoints: {
+          1024: {
+            slidesPerView: 2,
+            spaceBetween: 20
+          },
+          640: {
+            slidesPerView: 1,
+            spaceBetween: 10
+          },
+          320: {
+            slidesPerView: 1,
+            spaceBetween: 10
+          }
+        }
+      }
     }
   },
   mounted() {
-    this.$store.dispatch('findAll')
-        .then((resp) => {
-          this.users = this.$store.getters.users
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+    this.loadRegistrations();
+    this.loadFavoriteGames();
   },
-  created() {
-    EventBus.$on('userDelete', (user) => {
-      this.users = this.$store.getters.users
-    })
-
+  methods: {
+    loadRegistrations: function () {
+      if (this.$store.getters.registrations !== null) {
+        this.registrations = this.$store.getters.registrations
+      } else {
+        this.$store.dispatch('registrations')
+            .then((resp) => {
+              this.registrations = this.$store.getters.registrations
+            })
+      }
+    },
+    loadFavoriteGames() {
+      if (this.$store.getters.registrations !== null) {
+        this.favoriteGames = this.$store.getters.favorite
+      } else {
+        this.$store.dispatch('favorite')
+            .then((resp) => {
+              this.favoriteGames = this.$store.getters.favorite
+            })
+      }
+    }
   },
-  components: {Jumbotron},
+  components: {Jumbotron, cSwiper: Swiper,Logo},
 }
 
 </script>

@@ -10,10 +10,9 @@ import {messages} from 'vee-validate/dist/locale/fr.json';
 import Notifications from 'vue-notification'
 import loader from "vue-ui-preloader";
 import vSelect from "vue-select";
-import checkToken from "./checkToken";
 import decode from "./jwtDecode";
 import refreshToken from "./checkToken";
-import auth from "../stores/modules/auth";
+
 
 export default class VueClass {
     static init() {

@@ -1,10 +1,18 @@
 import axios from "axios";
 
-const state = () => ({})
+const state = () => ({
+    registrations: null
+})
 
-const mutations = {}
+const mutations = {
+    registrations(state, number) {
+        state.registrations = number;
+    }
+}
 
-const getters = {}
+const getters = {
+    registrations: state => state.registrations
+}
 
 const actions = {
     register({commit, rootState}, user) {
@@ -42,6 +50,19 @@ const actions = {
                     }
 
                     reject(err);
+                })
+        })
+    },
+    registrations({commit}) {
+        return new Promise((resolve, reject) => {
+            axios({url: `/api/registrations`, method: 'GET'})
+                .then((resp) => {
+                    commit('registrations', resp.data['hydra:totalItems']);
+                    resolve(resp);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    reject(err)
                 })
         })
     }

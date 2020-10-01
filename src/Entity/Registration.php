@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ApiResource(
  *     collectionOperations={
+ *     "get",
  *      "token_update"= {"route_name"="update_token", "method"="POST"},
  *     },
  *     itemOperations={

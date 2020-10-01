@@ -47,8 +47,7 @@ const actions = {
                     dispatch('authUser', resp.data.user)
                         .then((response) => {
                             localStorage.setItem('auth_user', JSON.stringify(response.data));
-                            commit('isLogged', true);
-                            commit('auth_user', response.data);
+
                             rootState.loading = false;
                             rootState.message = {
                                 type: 'success',
