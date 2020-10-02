@@ -44,3 +44,9 @@ services:
     class: App\Doctrine\RefreshTokenManager
     public: true
     arguments: [ '@doctrine.orm.default_entity_manager', 'Gesdinet\JWTRefreshTokenBundle\Entity\RefreshToken' ]
+
+  gesdinet.jwtrefreshtoken.send_token:
+    class: App\EventListener\AttachRefreshTokenOnSuccessListener
+    arguments: [ "@gesdinet.jwtrefreshtoken.refresh_token_manager", "%gesdinet_jwt_refresh_token.ttl%", "@validator", "@request_stack", "%gesdinet_jwt_refresh_token.user_identity_field%", "%gesdinet_jwt_refresh_token.token_parameter_name%", "%gesdinet_jwt_refresh_token.single_use%" ]
+    tags:
+      - { name: kernel.event_listener, event: lexik_jwt_authentication.on_authentication_success, method: attachRefreshToken }
