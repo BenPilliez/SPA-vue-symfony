@@ -40,14 +40,11 @@ const actions = {
                     localStorage.setItem('token', resp.data.token.token);
                     localStorage.setItem('refresh_token', resp.data.refresh_token)
                     setAuthorizationToken(resp.data.token.token);
-                    rootState.message = {
-                        type: 'success',
-                        text: 'Connexion réussie'
-                    }
+
                     dispatch('authUser', resp.data.user)
                         .then((response) => {
                             localStorage.setItem('auth_user', JSON.stringify(response.data));
-
+                            commit('auth_user', response.data);
                             rootState.loading = false;
                             rootState.message = {
                                 type: 'success',
