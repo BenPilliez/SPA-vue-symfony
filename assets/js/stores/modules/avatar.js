@@ -19,13 +19,17 @@ const actions = {
     upload({commit, rootState}, form) {
         rootState.loading = true;
         return new Promise((resolve, reject) => {
+
             let url = form.url !== null ? form.url : `/api/media_objects`
-            let method = form.url !== null ? 'PUT' : 'POST'
+
+            axios.headers = form.selectedAvatar === null ? 'headers' : {
+                'Content-Type': 'multipart/form-data'
+            }
+
+
             axios({
-                url: url, data: form.formData, method: 'POST',
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                url: url, data: form.formData, method: form.method,
+
             })
                 .then(resp => {
                     rootState.loading = false

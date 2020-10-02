@@ -7,8 +7,10 @@ use App\Repository\MediaObjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\Validator\Constraints\Json;
 
 class EditAvatarController
 {
@@ -54,7 +56,7 @@ class EditAvatarController
     {
 
         $webPath = $this->parameterBag->get('kernel.project_dir') . '/public/media/avatars/' . $file->getFilePath();
-        unlink($webPath);
+        $dont_touch = ['gamer.jpg', 'gamer-app.jpg', 'girl-1.jpg', 'girl-2.jpg'];
 
         $uploadedFile = $request->files->get('file');
 
@@ -67,7 +69,6 @@ class EditAvatarController
 
         $media = new MediaObject();
         $media->file = $uploadedFile;
-
         $media->setUser($file->getUser());
 
         return $media;

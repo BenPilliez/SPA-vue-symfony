@@ -27,18 +27,22 @@
     border: none;
   }
 
-  input[type=checkbox] + label::before, input[type=checkbox] + label::after {
+  input[type=checkbox], input[type=radio] {
+    cursor: pointer;
+  }
+
+  input[type=checkbox] + label::before, input[type=checkbox] + label::after, input[type=radio] + label::before, input[type=radio] + label::after {
     display: none !important;
   }
 
-  input[type=checkbox]:checked + label {
+  input[type=radio]:checked + label, input[type=checkbox]:checked + label {
     opacity: 1;
   }
 
-  input[type=checkbox]:not(:checked) + label {
+
+  input[type=checkbox]:not(:checked) + label, input[type=radio]:not(:checked) + label {
     opacity: 0.2;
   }
-
 
 }
 
