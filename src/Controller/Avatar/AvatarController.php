@@ -7,10 +7,12 @@ use App\Repository\MediaObjectRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\MediaObject;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserController
@@ -30,6 +32,10 @@ class AvatarController extends AbstractController
      * @var MediaObjectRepository|UserRepository
      */
     private $userRepository;
+    /**
+     * @var ParameterBag
+     */
+    private $parameterBag;
 
     /**
      * UserController constructor.
@@ -37,11 +43,13 @@ class AvatarController extends AbstractController
      * @param EntityManagerInterface $entityManager
      */
 
-    public function __construct(UserRepository $userRepository,MediaObjectRepository $mediaObjectRepository, EntityManagerInterface $entityManager)
+    public function __construct(ParameterBagInterface $parameterBag, UserRepository $userRepository, MediaObjectRepository $mediaObjectRepository, EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
         $this->repository = $mediaObjectRepository;
         $this->userRepository = $userRepository;
+        $this->parameterBag = $parameterBag;
+
 
     }
 
@@ -60,6 +68,13 @@ class AvatarController extends AbstractController
     public function update(Request $request, MediaObject $mediaObject)
     {
         $body = json_decode($request->getContent(), true);
+        $webPath = $this->parameterBag->get('kernel.project_dir') . '/public/media/avatars/' . $mediaObject->getFilePath();
+        $dont_touch = ['gamer.jpg', 'gamer-app.jpg', 'girl-1.jpg', 'girl-2.jpg'];
+
+        if (!in_array($mediaObject->getFilePath(), $dont_touch)) {
+            unlink($webPath);
+        }
+
         $mediaObject->setFilePath($body['imagePath']);
         $this->em->persist($mediaObject);
         $this->em->flush();

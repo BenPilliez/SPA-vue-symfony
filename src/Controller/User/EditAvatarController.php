@@ -58,6 +58,10 @@ class EditAvatarController
         $webPath = $this->parameterBag->get('kernel.project_dir') . '/public/media/avatars/' . $file->getFilePath();
         $dont_touch = ['gamer.jpg', 'gamer-app.jpg', 'girl-1.jpg', 'girl-2.jpg'];
 
+        if(!in_array($file->getFilePath(), $dont_touch)){
+            unlink($webPath);
+        }
+
         $uploadedFile = $request->files->get('file');
 
         if (!$uploadedFile) {

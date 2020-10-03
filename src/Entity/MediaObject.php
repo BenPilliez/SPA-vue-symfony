@@ -21,6 +21,7 @@ use App\Controller\User\EditAvatarController;
  *         "groups"={"media_object_read", "user:read"}
  *     },
  *     collectionOperations={
+ *          "post_avatar"={"route_name"="avatar_create", "method"="POST"},
  *         "post"={
  *             "controller"=CreateMediaObjectAction::class,
  *             "deserialize"=false,
@@ -52,6 +53,7 @@ use App\Controller\User\EditAvatarController;
  *     },
  *     itemOperations={
  *         "get",
+ *          "update_avatar"={"route_name"="avatar_update", "method"="PUT"},
  *          "post"={
  *          "controller"=EditAvatarController::class,
  *          "deserialize"=false,
