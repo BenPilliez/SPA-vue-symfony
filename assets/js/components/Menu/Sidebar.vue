@@ -32,7 +32,7 @@
                     @click="hide"
                 >
                   <b-avatar
-                      :src="authUser.mediaObjects[0] ? authUser.mediaObjects[0].contentUrl : '/images/gamer.jpg' "
+                      :src="authUser.mediaObjects[0] ? `/media/avatars/${authUser.mediaObjects[0].filePath}` : '/images/gamer.jpg' "
                       alt="user-avatar" size="6rem"
                   />
                 </router-link>
