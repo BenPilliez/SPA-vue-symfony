@@ -16,6 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"dispo:read"}},
  *     denormalizationContext={"groups"={"dispo:write"}},
  *     collectionOperations={
+ *     "get",
  *       "post" ={
  *         "controller"=CreateAvailibilitesController::class
  *     }

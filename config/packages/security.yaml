@@ -49,8 +49,8 @@ security:
       stateless: true
       methods: [ 'POST', 'GET','PUT','PATCH','DELETE' ]
       guard:
-        authenticators:
-          - lexik_jwt_authentication.jwt_token_authenticator
+         authenticators:
+           - lexik_jwt_authentication.jwt_token_authenticator
     main:
       anonymous: ~
 

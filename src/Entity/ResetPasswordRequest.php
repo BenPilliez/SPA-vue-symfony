@@ -11,7 +11,8 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface as to
 
 /**
  * @ApiResource(
- *     collectionOperations={"post"}
+ *     collectionOperations={"get","post"},
+ *     itemOperations={"get"}
  * )
  * @ORM\Entity(repositoryClass=ResetPasswordRequestRepository::class)
  */

@@ -31,7 +31,7 @@ class Game
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $media_url;
 
@@ -44,6 +44,11 @@ class Game
      * @ORM\Column(type="text", nullable=true)
      */
     private $text;
+
+    /**
+     * @ORM\OneToOne(targetEntity=GameImage::class, mappedBy="game", cascade={"persist", "remove"})
+     */
+    private $gameImage;
 
     public function getId(): ?int
     {
@@ -94,6 +99,24 @@ class Game
     public function setText(?string $text): self
     {
         $this->text = $text;
+
+        return $this;
+    }
+
+    public function getGameImage(): ?GameImage
+    {
+        return $this->gameImage;
+    }
+
+    public function setGameImage(?GameImage $gameImage): self
+    {
+        $this->gameImage = $gameImage;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newGame = null === $gameImage ? null : $this;
+        if ($gameImage->getGame() !== $newGame) {
+            $gameImage->setGame($newGame);
+        }
 
         return $this;
     }
