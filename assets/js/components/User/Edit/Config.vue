@@ -280,7 +280,7 @@ export default {
         keyboard: this.config ? this.config.keyboard : '',
         mouse: this.config ? this.config.mouse : '',
         controller: this.config ? this.config.controller : '',
-        consoles: this.config ? this.config.consoles : ''
+        consoles: this.config ? this.config.consoles : []
       },
       consoleType: [
         {value: 'PS4', label: 'PS4'},
