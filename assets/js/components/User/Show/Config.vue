@@ -31,8 +31,8 @@
           <Table
               :items="[
                   {
-                console: config.consoles ?  config.consoles.join(', ') : '',
-                screen: config.screen
+                Consoles: config.consoles ?  config.consoles.join(', ') : '',
+                Ecran: config.screen
               }]"
               :options="{
                     striped:true,

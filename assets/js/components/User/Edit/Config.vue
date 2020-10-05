@@ -5,7 +5,7 @@
         <b-row>
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3">
             <validation-provider
-                name="Processor"
+                name="Processeur"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
@@ -28,7 +28,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3">
             <validation-provider
-                name="MotherBoard"
+                name="Carte mère"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
@@ -51,7 +51,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3">
             <validation-provider
-                name="Graphic Card"
+                name="Carte graphique"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
@@ -74,7 +74,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3">
             <validation-provider
-                name="Power"
+                name="Alimentation"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
@@ -121,7 +121,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3">
             <validation-provider
-                name="Cooler"
+                name="Ventirad"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
@@ -145,7 +145,7 @@
 
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3">
             <validation-provider
-                name="Screen"
+                name="Ecran"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
@@ -168,7 +168,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3">
             <validation-provider
-                name="Keyboard"
+                name="Clavier"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
@@ -191,7 +191,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3">
             <validation-provider
-                name="Mousepad"
+                name="Souris"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
@@ -214,7 +214,7 @@
           </b-col>
           <b-col cols="12" lg="6" md="6" sm="6" class="mt-3 mb-3">
             <validation-provider
-                name="Controller"
+                name="Manettes"
                 rules="regex:^^[a-zA-Z0-9\s]+$"
                 v-slot="validationContext"
             >
