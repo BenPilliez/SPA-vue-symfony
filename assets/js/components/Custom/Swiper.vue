@@ -79,7 +79,7 @@ export default {
     >
 
       <div v-if="banner" class="swiper-slide " :key="item.id" v-for="item in items">
-        <b-img width="300" height="450" :src="item.mediaUrl"></b-img>
+        <b-img width="300" height="450" :src="item.gameImage ? `/games/${item.gameImage.filePath}` : '' "></b-img>
       </div>
 
       <swiper-slide v-if="!banner" v-for="item in items" :key="item.id">{{ item.text }}</swiper-slide>

@@ -7,10 +7,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GameRepository;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     attributes={"pagination_client_items_per_page"=true}
+ *     attributes={"pagination_client_items_per_page"=true},
+ *     normalizationContext={"groups"={"game:read"}},
+ *     denormalizationContext={"groups"={"game:write"}},
  * )
  * @ApiFilter(RangeFilter::class, properties={"rate"})
  *
@@ -22,31 +25,31 @@ class Game
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"game:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"game:read","game:read"})
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $media_url;
-
-    /**
      * @ORM\Column(type="float", nullable=true)
+     * @Groups({"game:read","game:write"})
      */
     private $rate;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"game:read","game:write"})
      */
     private $text;
 
     /**
      * @ORM\OneToOne(targetEntity=GameImage::class, mappedBy="game", cascade={"persist", "remove"})
+     * @Groups({"game:read","game:write", "media_object_read"})
      */
     private $gameImage;
 
@@ -63,18 +66,6 @@ class Game
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getMediaUrl(): ?string
-    {
-        return $this->media_url;
-    }
-
-    public function setMediaUrl(string $media_url): self
-    {
-        $this->media_url = $media_url;
 
         return $this;
     }
