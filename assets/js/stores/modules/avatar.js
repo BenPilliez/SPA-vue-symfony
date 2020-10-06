@@ -26,7 +26,6 @@ const actions = {
                 'Content-Type': 'multipart/form-data'
             }
 
-
             axios({
                 url: url, data: form.formData, method: form.method,
 
@@ -44,7 +43,7 @@ const actions = {
                 rootState.loading = false;
                 rootState.message = {
                     type: 'error',
-                    text: err.response.data
+                    text: 'Oops on a un problème'
                 }
                 reject(err);
             })
