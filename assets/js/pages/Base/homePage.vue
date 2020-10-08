@@ -13,12 +13,12 @@
     </jumbotron>
     <b-container>
       <b-row class="rounded mt-5" id="registrations">
-        <b-col cols="12" lg="6" md="6" sm="6" class="text-center pt-3 pt-lg-5">
+        <b-col cols="12" lg="12" md="12" sm="12" class="text-center pt-3 pt-lg-5">
           <h3>Pour le moment gamer-app c'est </h3>
           <p class="mt-lg-5 mt-md-5 mt-sm-5 "><strong class="pt-3">{{ registrations }}</strong> <br>joueurs d'inscrit
           </p>
         </b-col>
-        <b-col cols="12" lg="6" md="6" sm="6" class="text-center pt-3 pt-lg-5">
+        <b-col cols="12" lg="12" md="12" sm="12" class="text-center pt-3 pt-lg-5 pb-3">
 
           <logo :options="optionsConsole"></logo>
 

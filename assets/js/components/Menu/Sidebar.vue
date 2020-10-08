@@ -53,14 +53,14 @@
                 <b-icon-house></b-icon-house>
                 Accueil
               </router-link>
-<!--              <router-link
-                  :to="{name:'home'}"
+              <router-link
+                  :to="{name:'members'}"
                   class="nav-item"
                   @click="hide"
               >
                 <b-icon-house></b-icon-house>
-                Accueil
-              </router-link>-->
+                Membres
+              </router-link>
               <div class="mb-3">
                 <a v-b-toggle href="#games-collapse" @click.prevent>
                   <b-icon-controller></b-icon-controller>
