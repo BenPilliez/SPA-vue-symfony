@@ -28,7 +28,7 @@
           </b-col>
         </b-row>
         <b-row class="flex-column justify-content-end">
-          <b-col cols="12" class="mt-5">
+          <b-col cols="12" class="mt-8">
             <b-row class="justify-content-between ">
               <b-col cols="12" lg="8" md="8" sm="8" class=" d-flex flex-row">
                 <b-avatar badge badge-variant="success" class="d-none d-lg-block d-md-block d-sm-block"
