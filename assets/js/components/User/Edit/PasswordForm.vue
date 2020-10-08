@@ -33,12 +33,12 @@
                          aria-describedby="new-password-feedback"
                          name="new-password"
                          v-model="form.password"
-                         placeholder="New password"
+                         placeholder="Nouveau password"
                 >
                 </b-input>
                 <small class="form-text text-muted" id="new-password-feedback">
-                  Your password must be 8-20 characters long, contain letters, numbers, special characters, and
-                  must not contain spaces,or emoji.
+                  Ton mot de passe doit comprendre 4 caractères minimum et 2O max, il doit contenir
+                  des lettres, au moins un chiffre et un caractère spécial, mais ni d'espace ou d'émojies
                 </small>
 
                 <b-form-invalid-feedback id="new-password-feedback">{{
@@ -57,7 +57,7 @@
                          aria-describedby="confirmation-password-feedback"
                          name="confirmation password"
                          v-model="form.confirmation"
-                         placeholder="Password confirmation"
+                         placeholder="Confirme ton mot de passe"
                 >
                 </b-input>
                 <b-form-invalid-feedback id="confirmation-password-feedback">{{

@@ -1,20 +1,17 @@
 <template>
-  <b-container :fluid=true>
+  <b-container :fluid=true class="mb-3">
     <loader v-if="loading === true" object="#ff9633" color1="#ffffff" color2="#17fd3d" size="5" speed="2" bg="#343a40"
             objectbg="#999793" opacity="80" name="circular"></loader>
     <notifications class="mt-4" :message="message" group="app"/>
-    <router-view v-if="!authUser" ></router-view>
+    <router-view v-if="!authUser"></router-view>
     <sidebar v-if="authUser" :authUser="authUser"></sidebar>
     <cookie></cookie>
-    <Footer v-if="authUser"></Footer>
-
   </b-container>
 </template>
 <script>
 
 import Sidebar from "../components/Menu/Sidebar"
 import Message from "../components/Custom/Message";
-import Footer from "../components/Footer/Footer";
 import {EventBus} from "../helpers/event-bus";
 import Cookie from "../components/Cookies/Cookie";
 
@@ -47,7 +44,7 @@ export default {
 
     })
   },
-  components: {Footer, Sidebar, Message,Cookie}
+  components: {Sidebar, Message, Cookie}
 }
 
 </script>

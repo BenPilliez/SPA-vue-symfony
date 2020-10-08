@@ -54,12 +54,12 @@
                 Accueil
               </router-link>
               <router-link
-                  :to="{name: 'about'}"
+                  :to="{name:'home'}"
                   class="nav-item"
                   @click="hide"
               >
-                <b-icon-card-heading></b-icon-card-heading>
-                A propos
+                <b-icon-house></b-icon-house>
+                Accueil
               </router-link>
               <div class="mb-3">
                 <a v-b-toggle href="#games-collapse" @click.prevent>
@@ -76,7 +76,25 @@
                   </router-link>
                 </b-card>
               </b-collapse>
+              <router-link
+                  :to="{name: 'about'}"
+                  class="nav-item"
+                  @click="hide"
+              >
+                <b-icon-card-heading></b-icon-card-heading>
+                A propos
+              </router-link>
             </b-nav>
+            <b-list-group class="list-unstyled text-center">
+              <b-list-group-item href="mailto:admin@benpilliez.fr">Me contacter</b-list-group-item>
+              <b-list-group-item :to="{name:'mentions'}">Mentions légales</b-list-group-item>
+            </b-list-group>
+
+            <p class="d-inline mt-5 d-flex flex-row justify-content-around">
+              <a href="https://www.linkedin.com/in/benjamin-pilliez-bb0624175/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
+              <a href="https://www.facebook.com/benjamin.pilliez/" target="_blank"><i class="fab fa-facebook-f fa-2x"></i></a>
+              <a href="https://github.com/BenPilliez?tab=repositories" target="_blank"> <i class="fab fa-github fa-2x"></i></a>
+            </p>
           </nav>
         </div>
       </template>
