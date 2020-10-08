@@ -21,6 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}},
+ *    attributes={"pagination_client_enabled"=true,
+ *     "pagination_client_items_per_page"=true},
  *     collectionOperations={
  *     "post"={
  *     "security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')",
@@ -233,6 +235,7 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity=Registration::class, mappedBy="user", cascade={"persist", "remove"})
      */
     private $userRegistration;
+
     /**
      * @return mixed
      */

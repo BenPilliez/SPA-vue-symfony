@@ -2,7 +2,6 @@
   <b-row>
     <b-col cols="12" lg="6" md="6" sm="6">
       <h6>Platformes de jeux</h6>
-
       <span v-for="(game, propertyName) in gamePlatforms" v-if="game.length > 0" :key="propertyName" class="pl-2">
         <social-item  :value="game" :icon-name="propertyName" :url="regex(game)"></social-item>
       </span>

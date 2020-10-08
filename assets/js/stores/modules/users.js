@@ -2,6 +2,7 @@ import axios from "axios";
 
 const state = () => ({
     users: {},
+    allUsers: {},
 })
 
 const mutations = {
@@ -10,22 +11,25 @@ const mutations = {
     },
     users_delete(state, user) {
         delete state.users[user];
+    },
+    allUsers(state,page,users){
+        state.allUsers[page] = users;
     }
 }
 
 const getters = {
-    users: state => state.users
+    users: state => state.users,
+    allUsers: state => state.allUsers
 }
 
 const actions = {
-    findAll({commit, rootState}) {
+    findAll({commit,state, rootState}, page) {
         rootState.loading = true;
         return new Promise((resolve, reject) => {
-            axios({url: '/api/users', method: "GET"})
+            axios({url: '/api/users', method: "GET",
+            params:{pagination: true,page:page.page, itemsPerPage: page.perPage}})
                 .then((resp) => {
-                    resp.data['hydra:member'].map((user) => {
-                        commit('users', user)
-                    })
+                    state.allUsers[page.page] = resp.data['hydra:member']
                     rootState.loading = false;
                     resolve(resp)
                 })

@@ -12,6 +12,7 @@ import User from "../pages/User/User";
 import Profile from "../pages/User/Profile";
 import ProfileEdit from "../pages/User/ProfileEdit"
 import Mentions from "../pages/Base/Mentions";
+import Users from "../pages/Base/UsersList";
 
 
 Vue.use(Router)
@@ -34,6 +35,11 @@ const router = new Router({
                 {path: 'edit', name: "edit", component: ProfileEdit},
             ],
             meta: {requiresAuth: true}
+        },
+        {
+            path: '/users', component: Users,
+            name:"users",
+            meta:{requiresAuth: true}
         },
         {
             path: '/about',
