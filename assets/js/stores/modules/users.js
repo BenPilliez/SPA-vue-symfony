@@ -3,6 +3,7 @@ import axios from "axios";
 const state = () => ({
     users: {},
     allUsers: {},
+    usersSearch:{},
 })
 
 const mutations = {
@@ -19,7 +20,8 @@ const mutations = {
 
 const getters = {
     users: state => state.users,
-    allUsers: state => state.allUsers
+    allUsers: state => state.allUsers,
+    usersSearch: state => state.usersSearch
 }
 
 const actions = {
@@ -29,7 +31,26 @@ const actions = {
             axios({url: '/api/users', method: "GET",
             params:{pagination: true,page:page.page, itemsPerPage: page.perPage}})
                 .then((resp) => {
-                    state.allUsers[page.page] = resp.data['hydra:member']
+                    state.allUsers[page.page] = resp.data['hydra:member'];
+                    state.allUsers[page.page]['rows'] = resp.data['hydra:totalItems'];
+                    rootState.loading = false;
+                    resolve(resp)
+                })
+                .catch((err) => {
+                    rootState.loading = false;
+                    console.log(err);
+                    reject(err)
+                })
+        })
+    },
+    findAllWithSearch({commit,state, rootState}, page) {
+        rootState.loading = true;
+        return new Promise((resolve, reject) => {
+            axios({url: '/api/users', method: "GET",
+                params:{pagination: true,page:page.page, itemsPerPage: page.perPage, username:page.value}})
+                .then((resp) => {
+                    state.usersSearch[`${page.value}-${page.page}`] = resp.data['hydra:member']
+                    state.usersSearch[`${page.value}-${page.page}`]['rows'] = resp.data['hydra:totalItems']
                     rootState.loading = false;
                     resolve(resp)
                 })
