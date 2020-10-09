@@ -111,6 +111,7 @@ export default {
     loadUsers: function (page) {
       this.currentPage = page === "" ? 1 : page
       if (this.username !== "") {
+        this.currentPage = this.currentPage !== 1 ? 1 : page
         this.onChange(this.username, this.currentPage);
       } else {
         if (this.$store.getters.allUsers[this.currentPage] === undefined) {
