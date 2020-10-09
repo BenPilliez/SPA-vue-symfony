@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     "security"="is_granted('IS_AUTHENTICATED_ANONYMOUSLY')",
  *      "groups"={"Default","create"}
  *          },
- *         "get"
+ *         "get"= {"security"="is_granted('ROLE_USER')"}
  *     },
  *      itemOperations={"get","put" ={
  *     "security"="is_granted('ROLE_USER') and object == user",

@@ -6,16 +6,19 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GameRepository;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     attributes={"pagination_client_items_per_page"=true},
+ *     attributes={"pagination_client_items_per_page"=true,
+ *     "pagination_client_enabled"=true},
  *     normalizationContext={"groups"={"game:read"}},
  *     denormalizationContext={"groups"={"game:write"}},
  * )
  * @ApiFilter(RangeFilter::class, properties={"rate"})
+ * @ApiFilter(SearchFilter::class, properties={"name":"partial"})
  *
  * @ORM\Entity(repositoryClass=GameRepository::class)
  */

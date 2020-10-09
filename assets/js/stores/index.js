@@ -8,6 +8,7 @@ import Ajax from "./modules/ajaxLoad"
 import Form from "./modules/form";
 import Avatar from "./modules/avatar";
 import Game from "./modules/games";
+import List from "./modules/list";
 
 Vue.use(Vuex)
 
@@ -24,7 +25,8 @@ export const store = new Vuex.Store({
         ajax: Ajax,
         form: Form,
         avatar: Avatar,
-        game: Game
+        game: Game,
+        list:List
     },
     mutations: {
         message(state, message) {

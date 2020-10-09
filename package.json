@@ -13,7 +13,6 @@
     "scripts": {
         "dev-server": "encore dev-server",
         "dev": "encore dev --watch",
-        "watch": "encore dev --watch",
         "build": "encore production --progress",
         "deploy-dev": "encore production --progress && ./deploy-dev",
         "deploy": "encore production --progress && ./deploy"

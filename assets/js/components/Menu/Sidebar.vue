@@ -69,7 +69,7 @@
               <b-collapse id="games-collapse">
                 <b-card>
                   <router-link
-                      :to="{name:'seek_games'}"
+                      :to="{name:'games'}"
                       class="nav-item"
                       @click="hide"
                   >Rechercher un jeu
