@@ -58,24 +58,16 @@
                   class="nav-item"
                   @click="hide"
               >
-                <b-icon-house></b-icon-house>
+                <b-icon-person></b-icon-person>
                 Membres
               </router-link>
-              <div class="mb-3">
-                <a v-b-toggle href="#games-collapse" @click.prevent>
-                  <b-icon-controller></b-icon-controller>
-                  Jeux</a>
-              </div>
-              <b-collapse id="games-collapse">
-                <b-card>
-                  <router-link
-                      :to="{name:'games'}"
-                      class="nav-item"
-                      @click="hide"
-                  >Rechercher un jeu
-                  </router-link>
-                </b-card>
-              </b-collapse>
+              <router-link
+                  :to="{name:'games'}"
+                  class="nav-item"
+                  @click="hide"
+              ><b-icon-controller></b-icon-controller>
+                Jeux
+              </router-link>
               <router-link
                   :to="{name: 'about'}"
                   class="nav-item"
@@ -91,9 +83,12 @@
             </b-list-group>
 
             <p class="d-inline mt-5 d-flex flex-row justify-content-around">
-              <a href="https://www.linkedin.com/in/benjamin-pilliez-bb0624175/" target="_blank"><i class="fab fa-linkedin-in fa-2x"></i></a>
-              <a href="https://www.facebook.com/benjamin.pilliez/" target="_blank"><i class="fab fa-facebook-f fa-2x"></i></a>
-              <a href="https://github.com/BenPilliez?tab=repositories" target="_blank"> <i class="fab fa-github fa-2x"></i></a>
+              <a href="https://www.linkedin.com/in/benjamin-pilliez-bb0624175/" target="_blank"><i
+                  class="fab fa-linkedin-in fa-2x"></i></a>
+              <a href="https://www.facebook.com/benjamin.pilliez/" target="_blank"><i
+                  class="fab fa-facebook-f fa-2x"></i></a>
+              <a href="https://github.com/BenPilliez?tab=repositories" target="_blank"> <i
+                  class="fab fa-github fa-2x"></i></a>
             </p>
           </nav>
         </div>
