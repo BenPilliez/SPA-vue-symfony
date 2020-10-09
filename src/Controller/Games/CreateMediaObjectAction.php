@@ -17,6 +17,7 @@ final class CreateMediaObjectAction
         }
 
         $mediaObject = new GameImage();
+        $mediaObject->setName(explode('.', $uploadedFile->getClientOriginalName())[0]);
         $mediaObject->file = $uploadedFile;
 
         return $mediaObject;
