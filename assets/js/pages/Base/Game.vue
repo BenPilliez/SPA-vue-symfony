@@ -28,7 +28,7 @@
         <b-col cols="12">
           <article>
             <h2>{{game.name}} c'est quoi ça ? </h2>
-            {{game.text}}
+           <span v-html="game.text"></span>
           </article>
         </b-col>
       </b-row>

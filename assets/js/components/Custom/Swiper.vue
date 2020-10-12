@@ -79,7 +79,9 @@ export default {
     >
 
       <div v-if="banner" class="swiper-slide " :key="item.id" v-for="item in items">
-        <b-img width="300" height="450" :src="item.gameImage ? `/games/${item.gameImage.filePath}` : '' "></b-img>
+        <router-link :to="{name:'game', params:{id: item.id}}">
+          <b-img width="300" height="450" :src="item.gameImage ? `/games/${item.gameImage.filePath}` : '' "></b-img>
+        </router-link>
       </div>
 
       <swiper-slide v-if="!banner" v-for="item in items" :key="item.id">{{ item.text }}</swiper-slide>
@@ -120,6 +122,7 @@ export default {
   .swiper-pagination {
     position: relative;
     margin-top: 10px;
+
     /deep/ .swiper-pagination-bullet.swiper-pagination-bullet-active {
       background: white;
     }
