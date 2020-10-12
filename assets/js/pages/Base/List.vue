@@ -25,9 +25,9 @@
 
       <b-row>
 
-        <b-col cols="6" lg="4" md="6" sm="6" v-for="item in items" :key="item.id">
+        <b-col cols="12" lg="4" md="6" sm="12" v-for="item in items" :key="item.id">
           <cardList v-if="type === 'users'"  :title="item.username"
-                    :src="item.mediaObjects[0] ? `/media/avatars/${item.mediaObjects[0].filePath}` : '/images/gamer.jpg'">
+                    :src=" item.mediaObjects && item.mediaObjects[0] ? `/media/avatars/${item.mediaObjects[0].filePath}` : '/images/gamer.jpg'">
             <template v-slot:content>
               <div>
                 <span>{{ item.country }} {{ item.age ? item.age + ' ans' : '' }} </span>
