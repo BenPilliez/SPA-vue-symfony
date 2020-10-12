@@ -2,14 +2,14 @@ import axios from "axios";
 
 
 const state = () => ({
-    games: null,
+    games: {},
     favorite: null
 })
 
 const mutations = {
 
-    games(state, games) {
-        state.games = games;
+    games(state, game) {
+        state.games[game.id] = game;
     },
     favorite(state, favorite) {
         state.favorite = favorite
@@ -36,6 +36,28 @@ const actions = {
                     reject(err);
                 })
         })
+    },
+    gameById({commit, state, rootState}, data){
+        let exist = state.games[data.id];
+        rootState.loading = true;
+        if(exist !== undefined){
+            rootState.loading = false
+            return exist;
+        }else{
+            return new Promise((resolve,reject) => {
+                axios({url: `/api/games/${data.id}`, method:'GET'})
+                    .then((res) => {
+                        commit('games', res.data)
+                        rootState.loading = false;
+                        resolve(res.data)
+                    })
+                    .catch((err) => {
+                        rootState.loading = false;
+                        reject(err);
+                    })
+            })
+        }
+
     }
 
 }

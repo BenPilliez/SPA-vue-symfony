@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     loadUser: (vm, id) => {
-      vm.$store.dispatch('findBy', {id: id, edit: vm.$route.name === "edit", user: vm.$store.getters.users[id] || null})
+      vm.$store.dispatch('findBy', {id: id})
           .then((resp) => {
             vm.user = vm.$store.getters.users[id];
           })

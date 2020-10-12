@@ -2,12 +2,10 @@ import axios from "axios";
 
 const state = () => ({
     all: {},
-    search:{},
+    search: {},
 })
 
-const mutations = {
-
-}
+const mutations = {}
 
 const getters = {
     all: state => state.all,
@@ -15,13 +13,22 @@ const getters = {
 }
 
 const actions = {
-    findAll({commit,state, rootState}, options) {
+    findAll({commit, state, rootState}, options) {
         rootState.loading = true;
         return new Promise((resolve, reject) => {
-            axios({url: options.url, method: "GET",
-                params:{pagination: true,page:options.page, itemsPerPage: options.perPage}})
+            axios({
+                url: options.url, method: "GET",
+                params: {pagination: true, page: options.page, itemsPerPage: options.perPage}
+            })
                 .then((resp) => {
-                    state.all[options.type ] ={};
+                    state.all[options.type] = {};
+                    for (let item of resp.data['hydra:member']) {
+                        if (options.type === "users") {
+                            rootState.users.users[item.id] = item;
+                        } else if (options.type === "games") {
+                            rootState.games.games[item.id] = item
+                        }
+                    }
                     state.all[options.type][options.page] = resp.data['hydra:member'];
                     state.all[options.type][options.page]['rows'] = resp.data['hydra:totalItems'];
                     rootState.loading = false;
@@ -34,24 +41,26 @@ const actions = {
                 })
         })
     },
-    findAllWithSearch({commit,state, rootState}, options) {
+    findAllWithSearch({commit, state, rootState}, options) {
         rootState.loading = true;
         let params = {
             pagination: true,
             page: options.page,
             itemsPerPage: options.perPage
         }
-        if(options.type === "users") {
+        if (options.type === "users") {
             params.username = options.value
-        }else{
+        } else {
             params.name = options.value
         }
 
         return new Promise((resolve, reject) => {
-            axios({url: options.url , method: "GET",
-                params:params})
+            axios({
+                url: options.url, method: "GET",
+                params: params
+            })
                 .then((resp) => {
-                    state.search[options.type ] ={};
+                    state.search[options.type] = {};
 
                     state.search[options.type][`${options.value}-${options.page}`] = resp.data['hydra:member']
                     state.search[options.type][`${options.value}-${options.page}`]['rows'] = resp.data['hydra:totalItems']

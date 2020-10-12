@@ -10,10 +10,10 @@
               </template>
               <div v-if="user.isOwner">
                 <b-dropdown-item
-                    :to=" user.edit === false ? {name:'edit', id:user.id} : {name:'profile', id:user.id}"
+                    :to=" $route.name === 'profile' ? {name:'edit', id:user.id} : {name:'profile', id:user.id}"
                     class="font-weight-bold text-uppercase "
                 >
-                  {{ user.edit === false ? 'Editer' : 'Profil' }}
+                  {{ $route.name === 'profile' ? 'Editer' : 'Profil' }}
                 </b-dropdown-item>
                 <b-dropdown-item-btn variant="danger" @click="$bvModal.show('delete-modal')">Supprimer
                 </b-dropdown-item-btn>
@@ -45,9 +45,9 @@
                     <span v-if="user.languages">{{ user.languages.join(', ') }}</span></p>
                   <b-button variant="warning" v-if="user.isOwner === false">Ajouter en ami</b-button>
                   <b-button variant="warning"
-                            :to=" user.edit === false ? {name:'edit', id:user.id} : {name:'profile', id:user.id}"
+                            :to=" $route.name ==='profile' ? {name:'edit', id:user.id} : {name:'profile', id:user.id}"
                             v-if="user.isOwner">
-                    {{ user.edit === false ? 'Editer' : 'Profil' }}
+                    {{ $route.name=== 'profile' ? 'Editer' : 'Profil' }}
                   </b-button>
                 </div>
               </b-col>

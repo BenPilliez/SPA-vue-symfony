@@ -20,19 +20,18 @@ const getters = {
 const actions = {
     findBy({commit, state, rootState}, data) {
         rootState.loading = true;
-        return new Promise((resolve, reject) => {
-            if (data.user !== null) {
-                data.user.isOwner = data.id == rootState.auth.auth_user.id;
-                data.user.edit = data.edit;
-                commit('users', data.user)
-                rootState.loading = false;
-                resolve(data.user);
-            } else {
+        let exist = state.users[data.id];
+        if (exist !== undefined) {
+            exist.isOwner = data.id == rootState.auth.auth_user.id;
+            commit('users', exist)
+            rootState.loading = false;
+            return exist;
+        } else {
+            return new Promise((resolve, reject) => {
                 axios({url: `/api/users/${data.id}`, method: 'GET'})
                     .then((resp) => {
                         rootState.loading = false;
                         resp.data.isOwner = resp.data.id === rootState.auth.auth_user.id;
-                        resp.data.edit = data.edit;
                         commit('users', resp.data)
                         resolve(resp);
                     })
@@ -41,8 +40,8 @@ const actions = {
                         console.log(err);
                         reject(err)
                     })
-            }
-        })
+            })
+        }
     },
     delete({commit, rootState}, user) {
         return new Promise((resolve, reject) => {

@@ -269,6 +269,11 @@ class User implements UserInterface
      */
     private $mediaObjects;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Games::class, mappedBy="users")
+     */
+    private $games;
+
 
     public function __construct()
     {
@@ -278,6 +283,7 @@ class User implements UserInterface
         $this->userPlatforms = new ArrayCollection();
         $this->userAvailibilities = new ArrayCollection();
         $this->mediaObjects = new ArrayCollection();
+        $this->games = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -636,6 +642,34 @@ class User implements UserInterface
             if ($mediaObject->getUser() === $this) {
                 $mediaObject->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Games[]
+     */
+    public function getGames(): Collection
+    {
+        return $this->games;
+    }
+
+    public function addGame(Games $game): self
+    {
+        if (!$this->games->contains($game)) {
+            $this->games[] = $game;
+            $game->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Games $game): self
+    {
+        if ($this->games->contains($game)) {
+            $this->games->removeElement($game);
+            $game->removeUser($this);
         }
 
         return $this;

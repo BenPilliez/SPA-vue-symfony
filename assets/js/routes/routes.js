@@ -13,6 +13,7 @@ import Profile from "../pages/User/Profile";
 import ProfileEdit from "../pages/User/ProfileEdit"
 import Mentions from "../pages/Base/Mentions";
 import List from "../pages/Base/List";
+import Game from "../pages/Base/Game";
 
 
 Vue.use(Router)
@@ -29,6 +30,13 @@ const router = new Router({
             }
         },
         {
+          path:'/list',component: List,
+            children: [
+                {path:'/users', name: "users" },
+                {path:'/games', name:"games" }
+            ]
+        },
+        {
             path: '/user/:id', component: User,
             children: [
                 {path: '', name: "profile", component: Profile},
@@ -37,14 +45,7 @@ const router = new Router({
             meta: {requiresAuth: true}
         },
         {
-            path: '/users', component: List,
-            name:"users",
-            meta:{requiresAuth: true}
-        },
-        {
-          path:'/games', component: List,
-          name:"games",
-          meta: {requiresAuth: true}
+            path:'/game/:id',name:"game", component:Game,
         },
         {
             path: '/about',

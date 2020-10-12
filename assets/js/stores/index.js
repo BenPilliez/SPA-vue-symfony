@@ -25,8 +25,8 @@ export const store = new Vuex.Store({
         ajax: Ajax,
         form: Form,
         avatar: Avatar,
-        game: Game,
-        list:List
+        games: Game,
+        list: List
     },
     mutations: {
         message(state, message) {

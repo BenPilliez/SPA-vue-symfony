@@ -3,17 +3,14 @@
     <jumbotron>
       <template v-slot:header>
         <div>
-          <h1 class="h1 text-center text-white pt-5">
-            Allez c'est ici qu'on recherche les membres les plus
-            <del class="text-uppercase">toxic</del>
-          </h1>
+          <h1 class="h1 text-center text-white pt-5" v-html="title"></h1>
         </div>
       </template>
     </jumbotron>
 
     <b-container>
       <b-row class="mb-5 justify-content-center">
-        <b-col cols="6">
+        <b-col cols="12" lg="6" md="6" sm="6">
           <form>
             <b-input @input="loadData(currentPage)"
                      v-model="search"
@@ -24,9 +21,8 @@
       </b-row>
 
       <b-row>
-
         <b-col cols="12" lg="4" md="6" sm="12" v-for="item in items" :key="item.id">
-          <cardList v-if="type === 'users'"  :title="item.username"
+          <cardList v-if="type === 'users'" :title="item.username"
                     :src=" item.mediaObjects && item.mediaObjects[0] ? `/media/avatars/${item.mediaObjects[0].filePath}` : '/images/gamer.jpg'">
             <template v-slot:content>
               <div>
@@ -41,13 +37,14 @@
               </b-button>
             </template>
           </cardList>
-           <cardList v-if="type === 'games'" :title="item.name"  :src="item.gameImage ? `/games/${item.gameImage.filePath}` : '' " >
-             <template v-slot:button>
-               <b-button class="d-flex justify-content-center" :to="{name: 'games', params:{id: item.id}}"
-                         variant="primary">Voir
-               </b-button>
-             </template>
-           </cardList>
+          <cardList v-if="type === 'games'" :title="item.name"
+                    :src="item.gameImage ? `/games/${item.gameImage.filePath}` : '' ">
+            <template v-slot:button>
+              <b-button class="d-flex justify-content-center" :to="{name: 'game', params:{id: item.id}}"
+                        variant="primary">Voir
+              </b-button>
+            </template>
+          </cardList>
         </b-col>
       </b-row>
 
@@ -67,12 +64,8 @@
           ></b-pagination>
         </b-col>
       </b-row>
-
     </b-container>
-
-
   </div>
-
 </template>
 
 <script>
@@ -91,23 +84,35 @@ export default {
       currentPage: 1,
       search: '',
       placeholder: '',
-      type: ''
+      type: '',
+      title: '',
     }
   },
   watch: {
     $route() {
-      this.type = this.$route.name === "users" ? "users" : "games"
-      this.placeholder =  this.$route.name === "users" ? "Pseudo" : "Nom du Jeu"
+      this.checkType(this.$route.name)
       this.loadData(this.currentPage)
     }
   },
   beforeMount() {
-    this.type = this.$route.name === "users" ? "users" : "games"
-    this.placeholder =  this.$route.name === "users" ? "Pseudo" : "Nom du Jeu"
+    this.checkType(this.$route.name)
 
     this.loadData(this.currentPage)
   },
   methods: {
+    checkType: function (route) {
+      if (route === "users") {
+        this.type = "users";
+        this.placeholder = "Pseudo";
+        this.title = "Allez c'est ici qu'on recherche les membres les plus <del class='text-uppercase'>toxic</del>"
+      }
+      if (route === "games") {
+        this.type = "games";
+        this.placeholder = "Nom du jeu";
+        this.title = "Tu recherches un jeu ?"
+
+      }
+    },
     onChange: function (value, page, type, url) {
       if (this.$store.getters.search[type] !== undefined && this.$store.getters.search[type][`${value}-${page}`] !== undefined) {
         this.items = this.$store.getters.search[type][`${value}-${page}`];
@@ -130,8 +135,8 @@ export default {
     },
     loadData: function (page) {
       this.currentPage = page === "" ? 1 : page
-      let type = this.type;
-      let url = type === "users" ? "/api/users" : "/api/games"
+
+      let url = this.type === "users" ? "/api/users" : "/api/games"
       if (this.search !== "") {
         this.currentPage = this.currentPage !== 1 ? 1 : page
         this.onChange(this.search, this.currentPage, this.type, url);
@@ -140,7 +145,7 @@ export default {
           this.$store.dispatch('findAll', {
             page: page || this.currentPage,
             perPage: this.perPage,
-            type: type,
+            type: this.type,
             url: url
           })
               .then((result) => {
