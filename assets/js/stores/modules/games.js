@@ -25,8 +25,8 @@ const getters = {
 const actions = {
     favorite({commit, rootState}) {
         return new Promise((resolve, reject) => {
-            axios({url: `api/games/`, method: 'GET',
-                params: {"rate[gte]": 4, itemsPerPage: 10}})
+            axios({url: `api/games/favorite`, method: 'GET',
+                params: {"cal": 4}})
                 .then((resp) => {
                     commit('favorite', resp.data['hydra:member']);
                     resolve(resp)

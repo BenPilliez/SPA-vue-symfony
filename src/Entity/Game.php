@@ -5,7 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GameRepository;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
+use App\Filter\calFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -16,9 +16,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     "pagination_client_enabled"=true},
  *     normalizationContext={"groups"={"game:read"}},
  *     denormalizationContext={"groups"={"game:write"}},
+ *      collectionOperations={
+"favorite" ={"method":"GET", "path"="/games/favorite", "filters"={calFilter::class}},
+ *     "get"
+ *     }
  * )
- * @ApiFilter(RangeFilter::class, properties={"rate"})
- * @ApiFilter(SearchFilter::class, properties={"name":"partial"})
+ * @ApiFilter(calFilter::class)
  *
  * @ORM\Entity(repositoryClass=GameRepository::class)
  */
@@ -39,12 +42,6 @@ class Game
     private $name;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     * @Groups({"game:read","game:write"})
-     */
-    private $rate;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
      * @Groups({"game:read","game:write"})
      */
@@ -55,6 +52,12 @@ class Game
      * @Groups({"game:read","game:write", "media_object_read"})
      */
     private $gameImage;
+
+    /**
+     * @ORM\OneToOne(targetEntity=RateGame::class, cascade={"persist", "remove"})
+     * @Groups({"game:read","game:write"})
+     */
+    private $rates;
 
     public function getId(): ?int
     {
@@ -69,18 +72,6 @@ class Game
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getRate(): ?float
-    {
-        return $this->rate;
-    }
-
-    public function setRate(?float $rate): self
-    {
-        $this->rate = $rate;
 
         return $this;
     }
@@ -111,6 +102,18 @@ class Game
         if ($gameImage->getGame() !== $newGame) {
             $gameImage->setGame($newGame);
         }
+
+        return $this;
+    }
+
+    public function getRates(): ?RateGame
+    {
+        return $this->rates;
+    }
+
+    public function setRates(?RateGame $rates): self
+    {
+        $this->rates = $rates;
 
         return $this;
     }
