@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"game:read"}},
  *     denormalizationContext={"groups"={"game:write"}},
  *      collectionOperations={
-"favorite" ={"method":"GET", "path"="/games/favorite", "filters"={calFilter::class}},
+"favorite" ={"method":"GET", "path"="/games/favorite"},
  *     "get"
  *     }
  * )
