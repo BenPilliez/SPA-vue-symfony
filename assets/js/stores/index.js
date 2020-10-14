@@ -9,6 +9,7 @@ import Form from "./modules/form";
 import Avatar from "./modules/avatar";
 import Game from "./modules/games";
 import List from "./modules/list";
+import Rate from "./modules/rate";
 
 Vue.use(Vuex)
 
@@ -26,7 +27,8 @@ export const store = new Vuex.Store({
         form: Form,
         avatar: Avatar,
         games: Game,
-        list: List
+        list: List,
+        rate: Rate
     },
     mutations: {
         message(state, message) {

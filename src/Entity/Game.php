@@ -51,10 +51,12 @@ class Game
     private $gameImage;
 
     /**
-     * @ORM\OneToOne(targetEntity=RateGame::class, cascade={"persist", "remove"})
-     * @Groups({"game:read","game:write"})
+     * @ORM\OneToOne(targetEntity=RateGame::class, mappedBy="game", cascade={"persist", "remove"})
+     * @Groups({"game:read"})
      */
     private $rates;
+
+
 
     public function getId(): ?int
     {
@@ -108,10 +110,17 @@ class Game
         return $this->rates;
     }
 
-    public function setRates(?RateGame $rates): self
+    public function setRates(RateGame $rates): self
     {
         $this->rates = $rates;
 
+        // set the owning side of the relation if necessary
+        if ($rates->getGame() !== $this) {
+            $rates->setGame($this);
+        }
+
         return $this;
     }
+
+
 }

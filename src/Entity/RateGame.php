@@ -25,14 +25,23 @@ class RateGame
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"game:read","rate:read","rate:write"})
      */
-    private $nb_rate;
+    private $nbRate;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
-     * @Groups({"game:read","rate:read"})
+     * @ORM\Column(type="integer")
+     * @Groups({"game:read","rate:read","rate:write"})
      */
     private $rate;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Game::class, inversedBy="rates", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"rate:read", "rate:write"})
+     */
+    private $game;
+
 
     /**
      * @param $rate
@@ -42,7 +51,7 @@ class RateGame
      */
     public function getCalculatedRate() : float
     {
-        return $this->rate / $this->nb_rate;
+        return $this->rate / $this->nbRate;
     }
 
     public function getId(): ?int
@@ -52,12 +61,12 @@ class RateGame
 
     public function getNbRate(): ?int
     {
-        return $this->nb_rate;
+        return $this->nbRate;
     }
 
-    public function setNbRate(int $nb_rate): self
+    public function setNbRate(int $nbRate): self
     {
-        $this->nb_rate = $nb_rate;
+        $this->nbRate = $nbRate;
 
         return $this;
     }
@@ -70,6 +79,24 @@ class RateGame
     public function setRate(string $rate): self
     {
         $this->rate = $rate;
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newRates = null === $game ? null : $this;
+        if ($game->getRates() !== $newRates) {
+            $game->setRates($newRates);
+        }
 
         return $this;
     }

@@ -46,6 +46,7 @@ const router = new Router({
         },
         {
             path:'/game/:id',name:"game", component:Game,
+            meta: {requiresAuth: true}
         },
         {
             path: '/about',
