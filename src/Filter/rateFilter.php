@@ -34,7 +34,7 @@ class rateFilter extends AbstractContextAwareFilter
         }
         $queryBuilder
             ->join('o.rates', 'r')
-            ->andWhere($queryBuilder->expr()->gte($queryBuilder->expr()->quot('r.rate', 'r.nb_rate'), $rate))
+            ->andWhere($queryBuilder->expr()->gte($queryBuilder->expr()->quot('r.rate', 'r.nbRate'), $rate))
             ->setMaxResults(10);
     }
     public function getDescription(string $resourceClass): array {

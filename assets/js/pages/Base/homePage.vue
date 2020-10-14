@@ -101,6 +101,9 @@ export default {
     this.loadRegistrations();
     this.loadFavoriteGames();
   },
+  created() {
+
+  },
   methods: {
     loadRegistrations: function () {
       if (this.$store.getters.registrations !== null) {
@@ -113,7 +116,7 @@ export default {
       }
     },
     loadFavoriteGames() {
-      if (this.$store.getters.registrations !== null) {
+      if (this.$store.getters.favorite !== null) {
         this.favoriteGames = this.$store.getters.favorite
       } else {
         this.$store.dispatch('favorite')

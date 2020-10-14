@@ -157,6 +157,7 @@ export default {
           this.$store.commit('games', this.game)
           this.value = null;
           this.$bvModal.hide('rate-modal');
+          this.$store.commit('favorite', null);
         })
         .catch((err) => {
 
