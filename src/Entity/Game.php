@@ -5,7 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\GameRepository;
-use App\Filter\calFilter;
+use App\Filter\rateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -15,13 +15,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     attributes={"pagination_client_items_per_page"=true,
  *     "pagination_client_enabled"=true},
  *     normalizationContext={"groups"={"game:read"}},
- *     denormalizationContext={"groups"={"game:write"}},
- *      collectionOperations={
-"favorite" ={"method":"GET", "path"="/games/favorite"},
- *     "get"
- *     }
+ *     denormalizationContext={"groups"={"game:write"}}
  * )
- * @ApiFilter(calFilter::class)
+ * @ApiFilter(rateFilter::class)
+ * @ApiFilter(SearchFilter::class, properties={"name":"partial"})
  *
  * @ORM\Entity(repositoryClass=GameRepository::class)
  */

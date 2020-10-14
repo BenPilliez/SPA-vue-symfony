@@ -125,7 +125,7 @@ class MediaObject
     public $filePath;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="mediaObject")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="mediaObjects")
      * @ORM\JoinColumn(nullable=false)
      */
     public $user;

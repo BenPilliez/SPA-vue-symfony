@@ -25,8 +25,7 @@
          <logo :options="optionsLogo"></logo>
         </b-col>
       </b-row>
-
-      <b-row class="mt-8 rounded text-center " id="favorite-games" v-if="favoriteGames">
+      <b-row class="mt-8 rounded text-center " id="favorite-games" v-if="favoriteGames && favoriteGames.length > 0">
         <b-col cols="12">
           <h3>Les jeux les plus appréciés en ce moment </h3>
           <c-swiper :options="optionsSlider" :items="favoriteGames" :banner="true"></c-swiper>
