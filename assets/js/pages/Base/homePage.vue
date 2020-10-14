@@ -119,6 +119,7 @@ export default {
         this.$store.dispatch('favorite')
             .then((resp) => {
               this.favoriteGames = this.$store.getters.favorite
+              this.optionsSlider.loop = this.$store.getters.favorite.length > 1
             })
       }
     }
