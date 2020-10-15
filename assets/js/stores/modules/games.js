@@ -16,7 +16,7 @@ const mutations = {
         state.favorite = favorite
     },
 
-    gameUsers(state, users){
+    gameUsers(state, users) {
         state.gamesUsers[users.gameId] = users
     }
 
@@ -74,6 +74,54 @@ const actions = {
                 .then((res) => {
                     res.data['hydra:member'].gameId = game;
                     commit('gameUsers', res.data['hydra:member']);
+                    resolve(res);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    reject(error);
+                })
+        })
+    },
+    addToLibrary({commit, state, rootState}, data) {
+        return new Promise((resolve, reject) => {
+            axios({
+                url: `/api/games/${data.game}/add/${rootState.auth.auth_user.id}`,
+                data: {},
+                method: 'POST',
+            })
+                .then((res) => {
+                    state.gamesUsers[data.game].push(rootState.auth.auth_user);
+                    if (rootState.users.userGames[rootState.auth.auth_user.id] !== undefined) {
+                        rootState.users.userGames[rootState.auth.auth_user.id].push(res.data)
+                    }
+                    rootState.message = {
+                        type: "success",
+                        text: "Le jeu est maintenant dans ta bibliothèque"
+                    }
+                    resolve(res);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    rootState.message = {
+                        type: "error",
+                        text: "Oops, contact l'admin il y a un problème"
+                    }
+                    reject(error);
+                })
+        })
+    },
+    deleteFromLibrary({commit, state}, data) {
+        return new Promise((resolve, reject) => {
+            axios({
+                url: `/api/games/${data.game}/delete/${data.user}`, data: {user: data.user}, method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/merge-patch+json'
+                }
+            })
+                .then((res) => {
+                    console.log(state.gamesUsers[data.game].find(element => element.id === data.user))
+                    delete state.gamesUsers[data.game].find(element => element.id === data.user);
+
                     resolve(res);
                 })
                 .catch((error) => {

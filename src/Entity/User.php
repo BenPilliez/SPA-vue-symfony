@@ -521,37 +521,6 @@ class User implements UserInterface
         return $this->age;
     }
 
-    /**
-     * @return Collection|UserPlatform[]
-     */
-    public function getUserPlatforms(): Collection
-    {
-        return $this->userPlatforms;
-    }
-
-    public function addUserPlatform(UserPlatform $userPlatform): self
-    {
-        if (!$this->userPlatforms->contains($userPlatform)) {
-            $this->userPlatforms[] = $userPlatform;
-            $userPlatform->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserPlatform(UserPlatform $userPlatform): self
-    {
-        if ($this->userPlatforms->contains($userPlatform)) {
-            $this->userPlatforms->removeElement($userPlatform);
-            // set the owning side to null (unless already changed)
-            if ($userPlatform->getUser() === $this) {
-                $userPlatform->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUserConfig(): ?UserConfig
     {
         return $this->userConfig;
@@ -564,23 +533,6 @@ class User implements UserInterface
         // set the owning side of the relation if necessary
         if ($userConfig->getUser() !== $this) {
             $userConfig->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function getUserAvailibility(): ?UserAvailibility
-    {
-        return $this->userAvailibility;
-    }
-
-    public function setUserAvailibility(UserAvailibility $userAvailibility): self
-    {
-        $this->userAvailibility = $userAvailibility;
-
-        // set the owning side of the relation if necessary
-        if ($userAvailibility->getUser() !== $this) {
-            $userAvailibility->setUser($this);
         }
 
         return $this;
@@ -649,14 +601,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Games[]
+     * @return Collection|Game[]
      */
     public function getGames(): Collection
     {
         return $this->games;
     }
 
-    public function addGame(Games $game): self
+    public function addGame(Game $game): self
     {
         if (!$this->games->contains($game)) {
             $this->games[] = $game;
@@ -666,7 +618,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeGame(Games $game): self
+    public function removeGame(Game $game): self
     {
         if ($this->games->contains($game)) {
             $this->games->removeElement($game);
@@ -675,4 +627,5 @@ class User implements UserInterface
 
         return $this;
     }
+
 }

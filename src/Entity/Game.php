@@ -18,7 +18,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     attributes={"pagination_client_items_per_page"=true,
  *     "pagination_client_enabled"=true},
  *     normalizationContext={"groups"={"game:read"}},
- *     denormalizationContext={"groups"={"game:write"}}
+ *     denormalizationContext={"groups"={"game:write"}},
+ *     collectionOperations={
+"get","post"
+ *     },
+ *     itemOperations={
+"removeFromLibrary"={
+ *      "route_name"="delete_from_library",
+ *     "method"="PATCH",
+ *     },
+ *     "addToLibrary"={
+ *      "route_name"="add_to_library",
+ *     "method"="POST"
+ *     },
+ *     "get","put","delete"
+ *     }
  * )
  * @ApiFilter(rateFilter::class)
  * @ApiFilter(SearchFilter::class, properties={"name":"partial"})
@@ -37,7 +51,7 @@ class Game
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"user:read","game:read","game:read"})
+     * @Groups({"user:read","game:read","game:write"})
      */
     private $name;
 
@@ -62,7 +76,6 @@ class Game
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="games")
      * @ApiSubresource
-     *
      */
     private $users;
 
@@ -70,7 +83,6 @@ class Game
     {
         $this->users = new ArrayCollection();
     }
-
 
 
     public function getId(): ?int
