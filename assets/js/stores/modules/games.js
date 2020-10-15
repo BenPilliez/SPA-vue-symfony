@@ -3,7 +3,8 @@ import axios from "axios";
 
 const state = () => ({
     games: {},
-    favorite: null
+    favorite: null,
+    gamesUsers: {}
 })
 
 const mutations = {
@@ -13,20 +14,28 @@ const mutations = {
     },
     favorite(state, favorite) {
         state.favorite = favorite
+    },
+
+    gameUsers(state, users){
+        state.gamesUsers[users.gameId] = users
     }
+
 
 }
 
 const getters = {
     games: state => state.games,
-    favorite: state => state.favorite
+    favorite: state => state.favorite,
+    gamesUsers: state => state.gamesUsers
 }
 
 const actions = {
     favorite({commit, rootState}) {
         return new Promise((resolve, reject) => {
-            axios({url: `api/games`, method: 'GET',
-                params: {"rate": 4}})
+            axios({
+                url: `api/games`, method: 'GET',
+                params: {"rate": 4}
+            })
                 .then((resp) => {
                     commit('favorite', resp.data['hydra:member']);
                     resolve(resp)
@@ -37,15 +46,15 @@ const actions = {
                 })
         })
     },
-    gameById({commit, state, rootState}, data){
+    gameById({commit, state, rootState}, data) {
         let exist = state.games[data.id];
         rootState.loading = true;
-        if(exist !== undefined){
+        if (exist !== undefined) {
             rootState.loading = false
             return exist;
-        }else{
-            return new Promise((resolve,reject) => {
-                axios({url: `/api/games/${data.id}`, method:'GET'})
+        } else {
+            return new Promise((resolve, reject) => {
+                axios({url: `/api/games/${data.id}`, method: 'GET'})
                     .then((res) => {
                         commit('games', res.data)
                         rootState.loading = false;
@@ -58,8 +67,21 @@ const actions = {
             })
         }
 
+    },
+    gamesUser({commit, rootState}, game) {
+        return new Promise((resolve, reject) => {
+            axios({url: `/api/games/${game}/users`, method: 'GET'})
+                .then((res) => {
+                    res.data['hydra:member'].gameId = game;
+                    commit('gameUsers', res.data['hydra:member']);
+                    resolve(res);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    reject(error);
+                })
+        })
     }
-
 }
 
 export default {

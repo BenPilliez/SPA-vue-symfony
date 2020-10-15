@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -56,7 +57,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("user:read")
+     * @Groups({"user:read", "game:read"})
      * @ApiProperty(identifier=true)
      */
     private $id;
@@ -270,10 +271,10 @@ class User implements UserInterface
     private $mediaObjects;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Games::class, mappedBy="users")
+     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="users")
+     * @ApiSubresource
      */
     private $games;
-
 
     public function __construct()
     {

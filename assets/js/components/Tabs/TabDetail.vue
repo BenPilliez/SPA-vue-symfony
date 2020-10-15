@@ -12,6 +12,7 @@
         <b-icon-joystick></b-icon-joystick>
         Jeux
       </template>
+      <u-game></u-game>
     </b-tab>
     <b-tab >
       <template v-slot:title>
@@ -25,10 +26,11 @@
 <script>
 
 import Detail from "../User/Show/Detail"
+import UGame from "../User/Show/Game"
 
 export default{
   name:"tabDetail",
-  components:{uDetail: Detail},
+  components:{uDetail: Detail, uGame: UGame},
   props:{
     user:Object
   }

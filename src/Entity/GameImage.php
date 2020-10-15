@@ -66,7 +66,7 @@ class GameImage
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"game:read", "game:write"})
+     * @Groups({"user:read","game:read", "game:write"})
      */
     private $filePath;
 

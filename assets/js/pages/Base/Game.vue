@@ -94,6 +94,27 @@
           </article>
         </b-col>
       </b-row>
+
+      <b-row class="mt-4">
+        <b-col cols="12" lg="4" md="6" sm="12" v-if="users" v-for="item in users" :key="item.id">
+          <cardList  :title="item.username"
+                    :src=" item.mediaObjects && item.mediaObjects[0] ? `/media/avatars/${item.mediaObjects[0].filePath}` : '/images/gamer.jpg'">
+            <template v-slot:content>
+              <div>
+                <span>{{ item.country }} {{ item.age ? item.age + ' ans' : '' }} </span>
+                <span v-html="item.slogan"> {{ item.slogan }}</span>
+              </div>
+            </template>
+
+            <template v-slot:button>
+              <b-button class="d-flex justify-content-center" :to="{name: 'profile', params:{id: item.id}}"
+                        variant="primary">Profil
+              </b-button>
+            </template>
+          </cardList>
+
+        </b-col>
+      </b-row>
     </b-container>
 
   </div>
@@ -101,20 +122,23 @@
 
 <script>
 import Jumbotron from "../../components/Custom/Jumbotron"
+import cardList from "../../components/Custom/cardList";
 
 export default {
   name: "Game",
-  components: {Jumbotron},
+  components: {Jumbotron,cardList},
   data() {
     return {
       game: null,
       value: null,
       rateState: null,
       nbRate: null,
-      rate: null
+      rate: null,
+      users:null,
     }
   },
   beforeMount() {
+    this.loadUserGames();
     this.$store.dispatch('gameById', {id: this.$route.params.id})
         .then((res) => {
           this.game = res;
@@ -163,6 +187,16 @@ export default {
 
         })
 
+    },
+    loadUserGames(){
+      if(this.$store.getters.gamesUsers[this.$route.params.id]){
+        this.users = this.$store.getters.gamesUsers[this.$route.params.id];
+      }else{
+        this.$store.dispatch('gamesUser', this.$route.params.id)
+        .then((res) => {
+          this.users = this.$store.getters.gamesUsers[this.$route.params.id];
+        })
+      }
     }
   }
 }

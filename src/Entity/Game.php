@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use App\Repository\GameRepository;
 use App\Filter\rateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -28,25 +31,25 @@ class Game
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"game:read"})
+     * @Groups({"user:read","game:read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"game:read","game:read"})
+     * @Groups({"user:read","game:read","game:read"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"game:read","game:write"})
+     * @Groups({"user:read","game:read","game:write"})
      */
     private $text;
 
     /**
      * @ORM\OneToOne(targetEntity=GameImage::class, mappedBy="game", cascade={"persist", "remove"})
-     * @Groups({"game:read","game:write", "media_object_read"})
+     * @Groups({"user:read","game:read","game:write", "media_object_read"})
      */
     private $gameImage;
 
@@ -55,6 +58,18 @@ class Game
      * @Groups({"game:read"})
      */
     private $rates;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="games")
+     * @ApiSubresource
+     *
+     */
+    private $users;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
 
 
@@ -117,6 +132,32 @@ class Game
         // set the owning side of the relation if necessary
         if ($rates->getGame() !== $this) {
             $rates->setGame($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
         }
 
         return $this;

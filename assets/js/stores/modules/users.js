@@ -2,6 +2,7 @@ import axios from "axios";
 
 const state = () => ({
     users: {},
+    userGames: {}
 })
 
 const mutations = {
@@ -11,10 +12,14 @@ const mutations = {
     users_delete(state, user) {
         delete state.users[user];
     },
+    userGames(state, games) {
+        state.userGames[games.userId] = games
+    }
 }
 
 const getters = {
     users: state => state.users,
+    userGames: state => state.userGames
 }
 
 const actions = {
@@ -104,6 +109,20 @@ const actions = {
 
                 reject(err);
             })
+        })
+    },
+    userGames({commit, rootState}, user) {
+        return new Promise((resolve, reject) => {
+            axios({url: `/api/users/${user}/games`, method: 'GET'})
+                .then((res) => {
+                    res.data['hydra:member'].userId = user;
+                    commit('userGames', res.data['hydra:member']);
+                    resolve(res);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    reject(error);
+                })
         })
     }
 
