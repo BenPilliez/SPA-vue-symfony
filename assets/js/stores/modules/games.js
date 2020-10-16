@@ -18,9 +18,7 @@ const mutations = {
 
     gameUsers(state, users) {
         state.gamesUsers[users.gameId] = users
-    }
-
-
+    },
 }
 
 const getters = {
@@ -110,7 +108,7 @@ const actions = {
                 })
         })
     },
-    deleteFromLibrary({commit, state}, data) {
+    deleteFromLibrary({commit, state, rootState}, data) {
         return new Promise((resolve, reject) => {
             axios({
                 url: `/api/games/${data.game}/delete/${data.user}`, data: {user: data.user}, method: "PATCH",
@@ -119,13 +117,27 @@ const actions = {
                 }
             })
                 .then((res) => {
-                    console.log(state.gamesUsers[data.game].find(element => element.id === data.user))
-                    delete state.gamesUsers[data.game].find(element => element.id === data.user);
+
+                    state.gamesUsers[data.game] = state.gamesUsers[data.game].filter((element, index, value) => {
+                        if (element.id !== data.user) {
+                            return element
+                        }
+                    });
+
+                    rootState.message = {
+                        type: "success",
+                        text: "Le jeu est retiré de ta bibliothèque"
+                    }
 
                     resolve(res);
                 })
                 .catch((error) => {
                     console.error(error);
+                    rootState.message = {
+                        type: "error",
+                        text: "Oops, contact un admin "
+                    }
+
                     reject(error);
                 })
         })

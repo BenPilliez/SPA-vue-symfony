@@ -10,9 +10,10 @@
               </template>
               <b-dropdown-item-btn @click="$bvModal.show('rate-modal')">Noter
               </b-dropdown-item-btn>
-              <b-dropdown-item-btn v-if="checkIfHaveGame === undefined" @click="addToLibrary" >Ajouter à ma bibliothèque
+              <b-dropdown-item-btn v-if="checkIfHaveGame === undefined" @click="addToLibrary">Ajouter à ma bibliothèque
               </b-dropdown-item-btn>
-              <b-dropdown-item-btn v-if="checkIfHaveGame" variant="danger" @click="deleteFromLibrary">Supprimer de ma bibliothèque
+              <b-dropdown-item-btn v-if="checkIfHaveGame" variant="danger" @click="deleteFromLibrary">Supprimer de ma
+                bibliothèque
               </b-dropdown-item-btn>
 
               <b-modal id="rate-modal" hide-footer>
@@ -169,7 +170,7 @@ export default {
         return this.users.slice((this.currentPage - 1) * this.perPage, (this.currentPage - 1) * this.perPage + this.perPage)
       }
     },
-    checkIfHaveGame(){
+    checkIfHaveGame() {
       return this.users.find(element => element.id === this.$store.getters.auth_user['id']);
     },
   },
@@ -231,16 +232,24 @@ export default {
             })
       }
     },
-    addToLibrary(){
+    addToLibrary() {
       let auth_user = this.$store.getters.auth_user;
-      this.$store.dispatch('addToLibrary',{game: this.$route.params.id, users:auth_user['@id'], user: auth_user['id']} )
+      this.$store.dispatch('addToLibrary', {
+        game: this.$route.params.id,
+        users: auth_user['@id'],
+        user: auth_user['id']
+      })
           .then((res) => {
           })
     },
-    deleteFromLibrary(){
-      this.$store.dispatch('deleteFromLibrary',{game: this.$route.params.id, user: this.$store.getters.auth_user['id']} )
-      .then((res) => {
+    deleteFromLibrary() {
+      this.$store.dispatch('deleteFromLibrary', {
+        game: this.$route.params.id,
+        user: this.$store.getters.auth_user['id']
       })
+          .then((res) => {
+            this.users = this.$store.getters.gamesUsers[this.$route.params.id];
+          })
     }
   }
 }
