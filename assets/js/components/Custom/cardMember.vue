@@ -22,7 +22,7 @@
         <b-row>
           <b-col>
             <div class="card-profile-info d-flex justify-content-between">
-                <div v-if="item.gamerType">
+                <div v-if="item.gamerType" class="pr-1">
                   <span class="heading">{{ item.gamerType }}</span>
                 </div>
                 <div v-if="item.country">
