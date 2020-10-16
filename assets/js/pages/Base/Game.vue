@@ -79,7 +79,6 @@
                         color="#ff8800"
                         precision="1"
                         :state="rateState"
-                        required
                         no-border
                         size="md"
                     />
@@ -106,21 +105,10 @@
           <h4 class="text-center">Trouve toi des potes sur ce jeu</h4>
         </b-col>
         <b-col cols="12" lg="4" md="6" sm="12" v-for="item in currentItemsPerPage" :key="item.id">
-          <cardList :title="item.username"
-                    :src=" item.mediaObjects && item.mediaObjects[0] ? `/media/avatars/${item.mediaObjects[0].filePath}` : '/images/gamer.jpg'">
-            <template v-slot:content>
-              <div>
-                <span>{{ item.country }} {{ item.age ? item.age + ' ans' : '' }} </span>
-                <p> {{ item.gamerType }} </p>
-              </div>
-            </template>
-
-            <template v-slot:button>
-              <b-button class="d-flex justify-content-center" :to="{name: 'profile', params:{id: item.id}}"
-                        variant="primary">Profil
-              </b-button>
-            </template>
-          </cardList>
+          <card-member class="mb-2"  :item="item"
+                       :link="{name: 'profile', params:{id: item.id}}"
+                       :src=" item.mediaObjects && item.mediaObjects[0] ? `/media/avatars/${item.mediaObjects[0].filePath}` : '/images/gamer.jpg'">
+          </card-member>
         </b-col>
       </b-row>
 
@@ -147,11 +135,11 @@
 
 <script>
 import Jumbotron from "../../components/Custom/Jumbotron"
-import cardList from "../../components/Custom/cardList";
+import CardMember from "../../components/Custom/cardMember";
 
 export default {
   name: "Game",
-  components: {Jumbotron, cardList},
+  components: {CardMember, Jumbotron},
   data() {
     return {
       game: null,

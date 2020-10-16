@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-8">
+  <div >
     <b-container class="rounded p-5 " id="detail-container">
       <social class="mb-5" v-if="user.userPlatform !== null"
               :game-platforms="{

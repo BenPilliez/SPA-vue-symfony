@@ -124,6 +124,12 @@ const actions = {
                         }
                     });
 
+                    rootState.users.userGames[rootState.auth.auth_user.id] = rootState.users.userGames[rootState.auth.auth_user.id].filter((element) => {
+                        if (element.id !== data.game) {
+                            return element
+                        }
+                    })
+
                     rootState.message = {
                         type: "success",
                         text: "Le jeu est retiré de ta bibliothèque"

@@ -22,29 +22,13 @@
 
       <b-row>
         <b-col cols="12" lg="4" md="6" sm="12" v-for="item in items" :key="item.id">
-          <cardList v-if="type === 'users'" :title="item.username"
+          <card-member class="mb-2" v-if="type === 'users'" :item="item"
+                    :link="{name: 'profile', params:{id: item.id}}"
                     :src=" item.mediaObjects && item.mediaObjects[0] ? `/media/avatars/${item.mediaObjects[0].filePath}` : '/images/gamer.jpg'">
-            <template v-slot:content>
-              <div>
-                <span>{{ item.country }} {{ item.age ? item.age + ' ans' : '' }} </span>
-                <span v-html="item.slogan"> {{ item.slogan }}</span>
-              </div>
-            </template>
-
-            <template v-slot:button>
-              <b-button class="d-flex justify-content-center" :to="{name: 'profile', params:{id: item.id}}"
-                        variant="primary">Profil
-              </b-button>
-            </template>
-          </cardList>
-          <cardList v-if="type === 'games'" :title="item.name"
+          </card-member>
+          <card-game v-if="type === 'games'" :item="item" :link="{name: 'game', params:{id: item.id}}"
                     :src="item.gameImage ? `/games/${item.gameImage.filePath}` : '' ">
-            <template v-slot:button>
-              <b-button class="d-flex justify-content-center" :to="{name: 'game', params:{id: item.id}}"
-                        variant="primary">Voir
-              </b-button>
-            </template>
-          </cardList>
+          </card-game>
         </b-col>
       </b-row>
 
@@ -71,11 +55,12 @@
 <script>
 
 import Jumbotron from "../../components/Custom/Jumbotron"
-import CardList from "../../components/Custom/cardList";
+import CardMember from "../../components/Custom/cardMember";
+import CardGame from "../../components/Custom/cardGame"
 
 export default {
   name: "List",
-  components: {Jumbotron, CardList},
+  components: {CardMember, Jumbotron, CardGame},
   data() {
     return {
       items: null,

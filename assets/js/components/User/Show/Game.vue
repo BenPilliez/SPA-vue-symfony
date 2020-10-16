@@ -1,16 +1,18 @@
 <template>
-  <div class="mt-8">
+  <div >
     <b-container>
+      <b-row class="mb-2" >
+        <b-col cols="12 d-flex justify-content-center ">
+          <b-button variant="primary" :to="{name:'games'}">
+            Ajouter des jeux
+          </b-button>
+        </b-col>
+      </b-row>
       <b-row>
         <b-col cols="12" md="6" sm="12" lg="4" v-for="item in currentItemsPerPage" :key="item.id">
-          <cardList :title="item.name"
-                    :src="item.gameImage ? `/games/${item.gameImage.filePath}` : '' ">
-            <template v-slot:button>
-              <b-button class="d-flex justify-content-center" :to="{name: 'game', params:{id: item.id}}"
-                        variant="primary">Voir
-              </b-button>
-            </template>
-          </cardList>
+          <card-game :item="item" :link="{name: 'game', params:{id: item.id}}"
+                     :src="item.gameImage ? `/games/${item.gameImage.filePath}` : '' ">
+          </card-game>
         </b-col>
       </b-row>
 
@@ -37,11 +39,11 @@
 </template>
 
 <script>
-import cardList from "../../Custom/cardList";
+import cardGame from "../../Custom/cardGame";
 
 export default {
   name: "UGame",
-  components: {cardList},
+  components: {cardGame},
   data() {
     return {
       userGames: [],
