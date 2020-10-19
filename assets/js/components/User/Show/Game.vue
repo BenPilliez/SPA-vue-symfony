@@ -1,7 +1,7 @@
 <template>
   <div >
     <b-container>
-      <b-row class="mb-2" >
+      <b-row class="mb-2" v-if="checkOwner() === true" >
         <b-col cols="12 d-flex justify-content-center ">
           <b-button variant="primary" :to="{name:'games'}">
             Ajouter des jeux
@@ -61,7 +61,18 @@ export default {
   beforeMount() {
     this.loadUserGame();
   },
+  watch:{
+    $route(){
+      this.loadUserGame();
+    }
+  },
   methods: {
+    checkOwner(){
+      let auth_user = JSON.parse(localStorage.getItem('auth_user'));
+
+      return auth_user.id == this.$route.params.id;
+
+    },
     loadUserGame() {
       if (this.$store.getters.userGames[this.$route.params.id] !== undefined) {
         this.userGames = this.$store.getters.userGames[this.$route.params.id];

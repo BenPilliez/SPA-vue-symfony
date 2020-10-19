@@ -57,7 +57,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user:read", "game:read"})
+     * @Groups({"user:read", "game:read", "friend:read"})
      * @ApiProperty(identifier=true)
      */
     private $id;
@@ -276,6 +276,19 @@ class User implements UserInterface
      */
     private $games;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Friendship::class, mappedBy="user",cascade={"remove"})
+     * @Groups("user:read")
+     */
+    private $friends;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Friendship::class, mappedBy="friend",cascade={"remove"})
+     *
+     */
+    private $friendsWithMe;
+
+
     public function __construct()
     {
         $this->updatedAt = new DateTime();
@@ -285,6 +298,8 @@ class User implements UserInterface
         $this->userAvailibilities = new ArrayCollection();
         $this->mediaObjects = new ArrayCollection();
         $this->games = new ArrayCollection();
+        $this->friends = new ArrayCollection();
+        $this->friendsWithMe = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -628,4 +643,83 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getUserRegistration(): ?Registration
+    {
+        return $this->userRegistration;
+    }
+
+    public function setUserRegistration(?Registration $userRegistration): self
+    {
+        $this->userRegistration = $userRegistration;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $userRegistration ? null : $this;
+        if ($userRegistration->getUser() !== $newUser) {
+            $userRegistration->setUser($newUser);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Friendship[]
+     */
+    public function getFriends(): Collection
+    {
+        return $this->friends;
+    }
+
+    public function addFriend(Friendship $friend): self
+    {
+        if (!$this->friends->contains($friend)) {
+            $this->friends[] = $friend;
+            $friend->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFriend(Friendship $friend): self
+    {
+        if ($this->friends->contains($friend)) {
+            $this->friends->removeElement($friend);
+            // set the owning side to null (unless already changed)
+            if ($friend->getUser() === $this) {
+                $friend->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Friendship[]
+     */
+    public function getFriendsWithMe(): Collection
+    {
+        return $this->friendsWithMe;
+    }
+
+    public function addFriendsWithMe(Friendship $friendsWithMe): self
+    {
+        if (!$this->friendsWithMe->contains($friendsWithMe)) {
+            $this->friendsWithMe[] = $friendsWithMe;
+            $friendsWithMe->setFriend($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFriendsWithMe(Friendship $friendsWithMe): self
+    {
+        if ($this->friendsWithMe->contains($friendsWithMe)) {
+            $this->friendsWithMe->removeElement($friendsWithMe);
+            // set the owning side to null (unless already changed)
+            if ($friendsWithMe->getFriend() === $this) {
+                $friendsWithMe->setFriend(null);
+            }
+        }
+
+        return $this;
+    }
 }

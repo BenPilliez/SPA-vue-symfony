@@ -32,6 +32,7 @@ export default class VueClass {
         } else {
             if (now - setupTime > hours * 60 * 60 * 1000) {
                 localStorage.clear();
+                store.getters.auth_user = null;
                 localStorage.setItem('setupTime', now);
             }
         }

@@ -10,6 +10,7 @@ import Avatar from "./modules/avatar";
 import Game from "./modules/games";
 import List from "./modules/list";
 import Rate from "./modules/rate";
+import Friendship from "./modules/Friendship";
 
 Vue.use(Vuex)
 
@@ -28,7 +29,8 @@ export const store = new Vuex.Store({
         avatar: Avatar,
         games: Game,
         list: List,
-        rate: Rate
+        rate: Rate,
+        friendShip: Friendship
     },
     mutations: {
         message(state, message) {
